@@ -1,0 +1,440 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @vite('resources/css/app.css')
+    <title>SIMAG-homepage</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="bg-[#f1f4f5] font-['Poppins']">
+    <nav class="flex flex-row max-w-6xl mx-auto justify-between items-center mt-10 pb-12">
+        <div class="flex gap-x-1 items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a" class="size-8 flex-initial ">
+                <path
+                    d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
+                <path
+                    d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
+                <path
+                    d="M4.462 19.462c.42-.419.753-.89 1-1.395.453.214.902.435 1.347.662a6.742 6.742 0 0 1-1.286 1.794.75.75 0 0 1-1.06-1.06Z" />
+            </svg>
+            <span class="flex-initial font-bold text-2xl ">SIMAG</span>
+        </div>
+
+        <ul class="flex flex-row gap-x-7">
+            <li><a href="#" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a>
+            </li>
+            <li><a href="#"
+                    class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Internships</a></li>
+            <li><a href="#"
+                    class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
+            <li><a href="#" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a>
+            </li>
+            <li><a href="#" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Contact</a>
+            </li>
+        </ul>
+        <div class="flex flex-row">
+            <a href="/login1"
+                class="bg-green-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-600">Sign in</a>
+        </div>
+    </nav>
+
+    <section class="hero max-w-6xl mx-auto  py-12 px-5">
+        <div class="flex flex-col gap-y-10 md:flex-row items-center justify-between">
+            <div class="flex flex-col gap-y-10 md:basis-2/4 lg:basis-3/6">
+                <div class="flex gap-y-2 flex-col">
+                    <h1 class="text-slate-950 font-['Manrope] font-bold text-4xl lg:text-[60px] leading-none">
+                        Find Your Perfect <br>
+                        Internship <br>
+                        Opportunity <br>
+                    </h1>
+                    <p class="text-base leading-loose text-gray-500">
+                        Connect with top companies offering internships tailored to <br class=" md:block hidden">
+                        your major and career goals. Start your professional journey today.
+                    </p>
+                </div>
+                <div class="flex justify-center md:justify-start ">
+                    <a href="#"
+                        class="w-full text-center md:w-fit text-lg hover:bg-green-600  bg-green-700 text-white py-4 px-10 rounded-full font-semibold">Browse
+                        Internship
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-row items-center ">
+                <img src="imgFE/interns-wanted.jpg" alt="Internship" class="h-[397px] lg:h-[550px] rounded-4xl md:basis-2/4">
+            </div>
+        </div>
+    </section>
+
+    <section class="partners max-w-6xl mx-auto py-12">
+        <div class="flex flex-row gap-x-15 justify-center items-center">
+            <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40">
+            <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40">
+            <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40">
+            <img src="imgFE/toyota.png" alt="toyota logo" class="w-20">
+        </div>
+    </section>
+
+    <section class="features max-w-6xl mx-auto py-12 text-center ">
+        <div class="flex flex-col mb-8">
+            <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
+                Why Choose SIMAG?
+            </h3>
+            <p class="text-base leading-loose text-gray-500">
+                We connect students with the best internship opportunities
+            </p>
+        </div>
+        <div class="grid grid-cols-3 gap-x-4">
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center">
+                <svg class="w-11 h-11 fill-none stroke-green-600 bg-green-100 rounded-2xl p-2" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M22 10V16M21.42 10.922C21.599 10.843 21.7509 10.7133 21.8569 10.5488C21.9629 10.3843 22.0183 10.1924 22.0163 9.99674C22.0143 9.80108 21.9549 9.61032 21.8455 9.44808C21.7362 9.28584 21.5816 9.15925 21.401 9.084L12.83 5.18C12.5694 5.06115 12.2864 4.99964 12 4.99964C11.7136 4.99964 11.4306 5.06115 11.17 5.18L2.6 9.08C2.42196 9.15797 2.27051 9.28613 2.16416 9.44881C2.05781 9.61149 2.00117 9.80164 2.00117 9.996C2.00117 10.1904 2.05781 10.3805 2.16416 10.5432C2.27051 10.7059 2.42196 10.834 2.6 10.912L11.17 14.82C11.4306 14.9388 11.7136 15.0004 12 15.0004C12.2864 15.0004 12.5694 14.9388 12.83 14.82L21.42 10.922Z"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path
+                        d="M6 12.5V16C6 16.7956 6.63214 17.5587 7.75736 18.1213C8.88258 18.6839 10.4087 19 12 19C13.5913 19 15.1174 18.6839 16.2426 18.1213C17.3679 17.5587 18 16.7956 18 16V12.5"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h3 class="font-bold text-2xl ">
+                    Major-Specific Opportunities
+                </h3>
+                <p class="text-base leading-loose text-gray-500">
+                    Find internships tailored to your field of <br>
+                    study and career goals.
+                </p>
+            </div>
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center">
+                <svg class="w-11 h-11 fill-none stroke-green-600 bg-green-100 rounded-2xl p-2"viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M3 21H21M9 8H10M9 12H10M9 16H10M14 8H15M14 12H15M14 16H15M5 21V5C5 4.46957 5.21071 3.96086 5.58579 3.58579C5.96086 3.21071 6.46957 3 7 3H17C17.5304 3 18.0391 3.21071 18.4142 3.58579C18.7893 3.96086 19 4.46957 19 5V21"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <h3 class="font-bold text-2xl ">
+                    Top Companies
+                </h3>
+                <p class="text-base leading-loose text-gray-500">
+                    Connect with leading companies looking for talented students like you.
+                </p>
+            </div>
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center">
+                <svg class="w-11 h-11 fill-green-600 stroke-green-600 bg-green-100 rounded-2xl p-2" viewBox="0 0 28 28"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19.223 14.616C21.616 14.616 23.566 12.4845 23.566 9.89101C23.566 7.32701 21.626 5.29601 19.223 5.29601C16.84 5.29601 14.8795 7.35701 14.8795 9.91101C14.8895 12.4945 16.84 14.616 19.223 14.616ZM7.641 14.837C9.712 14.837 11.411 12.977 11.411 10.695C11.411 8.463 9.732 6.66351 7.641 6.66351C5.57 6.66351 3.861 8.49351 3.871 10.715C3.881 12.9875 5.57 14.837 7.641 14.837ZM19.223 13.098C17.755 13.098 16.498 11.6905 16.498 9.91101C16.498 8.16101 17.735 6.81451 19.223 6.81451C20.721 6.81451 21.9475 8.14151 21.9475 9.89051C21.9475 11.6705 20.711 13.098 19.223 13.098ZM7.641 13.339C6.4145 13.339 5.369 12.163 5.369 10.715C5.369 9.29751 6.404 8.16151 7.641 8.16151C8.9075 8.16151 9.923 9.2775 9.923 10.695C9.923 12.163 8.8775 13.339 7.641 13.339ZM2.051 24.0565H9.9435C9.4605 23.785 9.0885 23.1815 9.159 22.5685H1.8C1.599 22.5685 1.4985 22.4885 1.4985 22.297C1.4985 19.804 4.3435 17.4715 7.6315 17.4715C8.898 17.4715 10.034 17.773 11.0095 18.346C11.3331 17.9363 11.716 17.5772 12.1455 17.2805C10.8485 16.4255 9.2905 15.9835 7.6315 15.9835C3.4185 15.9835 0 19.0395 0 22.3875C0 23.5035 0.6835 24.0565 2.051 24.0565ZM12.909 24.0565H25.537C27.2055 24.0565 28 23.554 28 22.448C28 19.814 24.672 16.003 19.223 16.003C13.7635 16.003 10.436 19.814 10.436 22.448C10.436 23.554 11.23 24.0565 12.909 24.0565ZM12.4265 22.5385C12.165 22.5385 12.0545 22.4685 12.0545 22.257C12.0545 20.608 14.608 17.522 19.223 17.522C23.828 17.522 26.381 20.608 26.381 22.257C26.381 22.468 26.281 22.5385 26.019 22.5385H12.4265Z" />
+                </svg>
+
+                <h3 class="font-bold text-2xl ">
+                    Career Support
+                </h3>
+                <p class="text-base leading-loose text-gray-500">
+                    Get guidance and resources to help you succeed in your internship.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="internships max-w-6xl mx-auto py-12 ">
+        <div class="flex flex-col justify-center items-center text-center">
+            <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
+                Browse Internships by Major
+            </h3>
+            <p class="text-base leading-loose text-gray-500">
+                Find opportunities specifically tailored to your field of study
+            </p>
+        </div>
+        <div class="mt-6">
+            <ul class="flex flex-row bg-white justify-between p-4 rounded-2xl">
+                <li><a href="#"
+                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknologi
+                        Informasi</a></li>
+                <li><a href="#"
+                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknik
+                        Elektro</a></li>
+                <li><a href="#"
+                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknik
+                        Mesin</a></li>
+                <li><a href="#"
+                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknik
+                        Sipil</a></li>
+                <li><a href="#"
+                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-2xl">Administrasi
+                        Niaga</a></li>
+            </ul>
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-4">
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+                <div class="flex flex-col items-center pb-4">
+                    <h3 class="font-bold text-2xl ">
+                        Frontend Developer
+                    </h3>
+                    <p class="text-base leading-loose text-gray-500">
+                        PT.Nusantara
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        Jakarta
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-6">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
+                            fill="black" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        6-Juni-2025 | 12-December-2025
+                    </p>
+                </div>
+                <div
+                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
+                    <a href="#">View Detail</a>
+                </div>
+            </div>
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+                <div class="flex flex-col items-center pb-4">
+                    <h3 class="font-bold text-2xl ">
+                        Backend Developer
+                    </h3>
+                    <p class="text-base leading-loose text-gray-500">
+                        PT.TECH Indonesia
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        Batam
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-6">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
+                            fill="black" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        10-Januari-2026 | 12-Juni-2026
+                    </p>
+                </div>
+                <div
+                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
+                    <a href="#">View Detail</a>
+                </div>
+            </div>
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+                <div class="flex flex-col items-center pb-4">
+                    <h3 class="font-bold text-2xl ">
+                        Fullstack Developer
+                    </h3>
+                    <p class="text-base leading-loose text-gray-500">
+                        PT.Info Log Solutions Indonesia
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        Jakarta
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-6">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
+                            fill="black" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        6-Juli-2025 | 29-November-2025
+                    </p>
+                </div>
+                <div
+                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
+                    <a href="#">View Detail</a>
+                </div>
+            </div>
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+                <div class="flex flex-col items-center pb-4">
+                    <h3 class="font-bold text-2xl ">
+                        IT Software Tester
+                    </h3>
+                    <p class="text-base leading-loose text-gray-500">
+                        PT.Knitto Tekstill Indonesia
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
+                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        Bandung, Jawa Barat
+                    </p>
+                </div>
+                <div class="flex flex-row gap-x-2 items-center pb-6">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
+                            fill="black" />
+                    </svg>
+                    <p class="text-base leading-loose text-gray-950">
+                        29-Juni-2025 | 19-December-2025
+                    </p>
+                </div>
+                <div
+                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
+                    <a href="#">View Detail</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="items-center justify-center flex">
+            <div
+                class="flex flex-row gap-x-1 bg-white mt-4 p-2 justify-center rounded-2xl w-35 items-center  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
+                <a href="" class="">View All</a>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6 ">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer w-screen bg-green-950">
+        <div class="max-w-6xl mx-auto pt-10 grid grid-cols-3 justify-items-strech">
+            <div class="identity flex flex-col gap-y-7 justify-self-start">
+                <div class="flex flex-row  gap-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a"
+                        class="size-8 flex-initial ">
+                        <path
+                            d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
+                        <path
+                            d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
+                        <path
+                            d="M4.462 19.462c.42-.419.753-.89 1-1.395.453.214.902.435 1.347.662a6.742 6.742 0 0 1-1.286 1.794.75.75 0 0 1-1.06-1.06Z" />
+                    </svg>
+                    <span class="flex-initial font-bold text-white text-2xl">SIMAG</span>
+                </div>
+                <p class="text-base leading-loose text-gray-500">
+                    Polystate Negeri Padang <br>
+                    Teknologi Informasi <br>
+                    D4 Teknologi Rekayasa Perangkat Lunak <br>
+                </p>
+                <div class="flex flex-row gap-x-2 items-center ">
+                    <a href="">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#16a34a"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16.484 11.976L22.635 6.632V17.259L16.484 11.976ZM8.558 12.881L10.718 14.756C11.057 15.044 11.499 15.218 11.982 15.218H11.999H12.012C12.496 15.218 12.938 15.043 13.281 14.753L13.278 14.755L15.438 12.88L22.004 18.519H1.995L8.558 12.881ZM1.986 5.365H22.016L12.395 13.721C12.2873 13.8074 12.1531 13.854 12.015 13.853H12.001H11.988C11.8495 13.854 11.7148 13.807 11.607 13.72L11.608 13.721L1.986 5.365ZM1.365 6.631L7.515 11.975L1.365 17.255V6.631ZM22.965 4.19C22.725 4.07 22.443 4 22.144 4H1.859C1.56929 4.00115 1.28367 4.06853 1.024 4.197L1.035 4.192C0.724866 4.34548 0.463696 4.58244 0.280854 4.87622C0.0980128 5.17 0.00074936 5.50897 0 5.855L0 18.027C0.000529404 18.5196 0.196452 18.9919 0.54478 19.3402C0.893108 19.6885 1.36539 19.8845 1.858 19.885H22.141C22.6336 19.8845 23.1059 19.6885 23.4542 19.3402C23.8025 18.9919 23.9985 18.5196 23.999 18.027V5.855C23.999 5.128 23.58 4.498 22.97 4.195L22.959 4.19H22.965Z"
+                                fill="#16a34a" />
+                        </svg>
+                    </a>
+                    <a href="">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#16a34a"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M3.752 6.925C3.74668 6.82664 3.72204 6.73029 3.67949 6.64145C3.63693 6.55261 3.5773 6.47303 3.50399 6.40724C3.43067 6.34145 3.34512 6.29074 3.25221 6.25801C3.15931 6.22529 3.06086 6.21118 2.9625 6.2165C2.86414 6.22182 2.76779 6.24646 2.67895 6.28901C2.59012 6.33156 2.51053 6.3912 2.44474 6.46451C2.37895 6.53782 2.32824 6.62338 2.29552 6.71628C2.26279 6.80919 2.24868 6.90764 2.254 7.006L3.752 6.925ZM4.718 3.092C4.58667 3.23714 4.51728 3.42787 4.52465 3.62347C4.53202 3.81907 4.61558 4.00404 4.75746 4.13888C4.89935 4.27372 5.08834 4.34775 5.28406 4.34515C5.47978 4.34256 5.66674 4.26355 5.805 4.125L4.718 3.092ZM10.664 19.812C10.7474 19.8657 10.8406 19.9024 10.9383 19.9199C11.036 19.9373 11.1361 19.9352 11.233 19.9137C11.3298 19.8922 11.4214 19.8517 11.5025 19.7945C11.5836 19.7373 11.6525 19.6646 11.7053 19.5806C11.7581 19.4966 11.7937 19.4029 11.81 19.3051C11.8264 19.2072 11.8231 19.1071 11.8005 19.0105C11.7779 18.9139 11.7363 18.8227 11.6782 18.7423C11.6201 18.6619 11.5466 18.5938 11.462 18.542L10.664 19.812ZM15.113 20.058C14.9182 20.0173 14.7152 20.0556 14.5487 20.1646C14.3821 20.2735 14.2657 20.4442 14.225 20.639C14.1843 20.8338 14.2226 21.0368 14.3316 21.2033C14.4405 21.3699 14.6112 21.4863 14.806 21.527L15.113 20.058ZM15.645 15.544L16.1 15.064L15.012 14.031L14.557 14.511L15.645 15.544ZM17.599 14.862L19.509 15.962L20.258 14.662L18.347 13.562L17.599 14.862ZM19.878 18.242L18.457 19.737L19.545 20.771L20.965 19.275L19.878 18.242ZM8.359 15.959C4.483 11.878 3.833 8.435 3.752 6.925L2.254 7.006C2.354 8.856 3.138 12.64 7.272 16.992L8.359 15.959ZM9.735 9.322L10.021 9.02L8.934 7.987L8.647 8.289L9.735 9.322ZM10.247 5.26L8.986 3.477L7.761 4.343L9.021 6.126L10.247 5.26ZM9.19 8.805C9.01003 8.63154 8.82836 8.45987 8.645 8.29L8.643 8.292L8.64 8.295L8.59 8.353C8.49208 8.48282 8.41452 8.6268 8.36 8.78C8.262 9.055 8.21 9.419 8.276 9.873C8.406 10.765 8.991 11.964 10.518 13.573L11.606 12.539C10.178 11.036 9.826 10.111 9.76 9.655C9.728 9.435 9.76 9.32 9.773 9.283L9.781 9.264L9.753 9.301L9.735 9.322L9.19 8.805ZM10.518 13.572C12.041 15.176 13.191 15.806 14.068 15.949C14.519 16.022 14.884 15.963 15.16 15.854C15.3134 15.7944 15.456 15.7099 15.582 15.604L15.617 15.57L15.631 15.556L15.638 15.55L15.641 15.547L15.642 15.545C15.642 15.545 15.644 15.544 15.1 15.027C14.556 14.511 14.557 14.51 14.557 14.509L14.559 14.508L14.561 14.505L14.567 14.5L14.614 14.458C14.6233 14.4527 14.6217 14.453 14.609 14.459C14.589 14.467 14.499 14.499 14.309 14.468C13.907 14.402 13.039 14.048 11.606 12.539L10.518 13.572ZM8.986 3.477C7.972 2.043 5.944 1.8 4.718 3.092L5.805 4.125C6.328 3.575 7.249 3.618 7.761 4.343L8.986 3.477ZM18.457 19.737C18.178 20.031 17.887 20.189 17.603 20.217L17.75 21.709C18.497 21.636 19.102 21.238 19.545 20.771L18.457 19.737ZM10.021 9.02C10.989 8.001 11.057 6.407 10.247 5.26L9.022 6.126C9.444 6.723 9.379 7.519 8.934 7.987L10.021 9.02ZM19.509 15.962C20.33 16.435 20.491 17.597 19.878 18.242L20.965 19.275C22.27 17.901 21.89 15.602 20.258 14.662L19.509 15.962ZM16.1 15.064C16.485 14.658 17.086 14.567 17.599 14.862L18.347 13.562C17.248 12.93 15.887 13.111 15.012 14.031L16.1 15.064ZM11.462 18.542C10.479 17.924 9.432 17.088 8.359 15.959L7.272 16.992C8.426 18.207 9.569 19.124 10.664 19.812L11.462 18.542ZM17.602 20.217C16.7691 20.2897 15.9299 20.2361 15.113 20.058L14.806 21.527C15.7725 21.7358 16.7651 21.7972 17.75 21.709L17.602 20.217Z"
+                                fill="#16a34a" />
+                        </svg>
+                    </a>
+                    <a href="#">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M2.5 12C2.5 7.522 2.5 5.282 3.891 3.891C5.282 2.5 7.521 2.5 12 2.5C16.478 2.5 18.718 2.5 20.109 3.891C21.5 5.282 21.5 7.521 21.5 12C21.5 16.478 21.5 18.718 20.109 20.109C18.718 21.5 16.479 21.5 12 21.5C7.522 21.5 5.282 21.5 3.891 20.109C2.5 18.718 2.5 16.479 2.5 12Z"
+                                stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M17.508 6.5H17.498M16.5 12C16.5 13.1935 16.0259 14.3381 15.182 15.182C14.3381 16.0259 13.1935 16.5 12 16.5C10.8065 16.5 9.66193 16.0259 8.81802 15.182C7.97411 14.3381 7.5 13.1935 7.5 12C7.5 10.8065 7.97411 9.66193 8.81802 8.81802C9.66193 7.97411 10.8065 7.5 12 7.5C13.1935 7.5 14.3381 7.97411 15.182 8.81802C16.0259 9.66193 16.5 10.8065 16.5 12Z"
+                                stroke="#16a34a" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="resource flex flex-col gap-7 justify-self-center">
+                <h1 class="text-white font-['Manrope] font-bold text-2xl ">
+                    Resource<br>
+                </h1>
+                <p class="text-base leading-loose text-gray-500">
+                    <a href="#">
+                        Help Center <br>
+                    </a>
+                    <a href="#">
+                        About us <br>
+                    </a>
+                </p>
+            </div>
+
+            <div class="company flex flex-col gap-7 justify-self-end">
+                <h1 class="text-white font-['Manrope] font-bold text-2xl ">
+                    Company <br>
+                </h1>
+                <p class="text-base leading-loose text-gray-500">
+                    <a href="#">
+                        Privacy and Policy <br>
+                    </a>
+                    <a href="#">
+                        Terms and Condition <br>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p class="text-base leading-loose text-gray-500 py-10 flex justify-center">
+                All Right Reserved.Copyright SIMAG by Kelompok 3 PBL 2B TRPL 2025 in Padang
+            </p>
+        </div>
+    </section>
+
+</body>
+
+</html>
