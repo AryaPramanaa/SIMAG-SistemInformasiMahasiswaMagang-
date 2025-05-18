@@ -1,20 +1,30 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\penganjuanPKLController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('frontend.homepage');
 });
-Route::get('/login1', function () {
-    return view('auth.index');
+Route::get('/entry', function () {
+    return view('auth.entry');
 });
 
-Route::get('/dashboard', function () {
+
+// Login
+Route::get('/dashboard/{username}', [LoginController::class, 'redirect'])->name('dashboard')->middleware();
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+//pengajuanPKL
+Route::resource('/pengajuanPKL', penganjuanPKLController::class);
+
+
+
+
+Route::get('/dash', function(){
     return view('backend.dashboard.admin');
 });
 
-Route::get('/read', function () {
-    return view('backend.mahasiswa.pendaftaranPKL.index');
-});
 

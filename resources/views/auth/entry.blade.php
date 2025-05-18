@@ -54,7 +54,12 @@
 </head>
 
 <body class="bg-[#f1f4f5] font-['Poppins']">
-    <div class="flex min-h-screen items-center justify-center p-4">
+    <div class="flex min-h-screen relative items-center justify-center p-4">
+        @if(session('error'))
+            <div class="px-5 py-3 rounded-lg absolute top-5 right-5 bg-red-500 font-semibold text-xl">
+                <p class="">{{ session('error') }}</p>
+            </div>
+        @endif
         <div class="w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 shadow-md ">
             <div class="flex flex-col items-center text-2xl pb-5">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a"
@@ -97,43 +102,18 @@
             @endif
 
             <div class="mt-6">
-                <div class="flex w-full rounded-md border border-gray-200 ">
-                    <button
-                        id="tab-student"class="flex-1 rounded-l-md px-3 py-2 text-center text-sm font-medium transition-colors text-green-600">
-                        <div class="flex items-center justify-center gap-2">
-                            <i data-lucide="graduation-cap" class="h-4 w-4"></i>
-                            <span class="hidden sm:inline">Mahasiswa</span>
-                        </div>
-                    </button>
-                    <button id="tab-company"
-                        class="flex-1 px-3 py-2 text-center text-sm font-medium transition-colors text-green-600"">
-                        <div class="flex items-center justify-center gap-2">
-                            <i data-lucide="building-2" class="h-4 w-4"></i>
-                            <span class="hidden sm:inline">Perusahaan</span>
-                        </div>
-                    </button>
-                    <button id="tab-staff"
-                        class="flex-1 rounded-r-md px-3 py-2 text-center text-sm font-medium transition-colors text-green-600">
-                        <div class="flex items-center justify-center gap-2">
-                            <i data-lucide="users" class="h-4 w-4"></i>
-                            <span class="hidden sm:inline">Staf</span>
-                        </div>
-                    </button>
-                </div>
-
                 <div class="mt-6">
                     <!-- Unified Login Form (works for all roles) -->
-                    <form id="form-student" method="GET" action="/dashboard" class="space-y-4">
+                    <form id="form-student" method="post" action="{{ route('login') }}" class="space-y-4">
                         @csrf
                         <div class="space-y-2">
                             <label for="input_type" id="label_input"
-                                class="text-sm font-medium text-gray-700">Email</label>
-                            <input id="input_type" name="input_type" type="text"
-                                placeholder="Masukkan Email atau NIM Anda" required
+                                class="text-sm font-medium text-gray-700">Username</label>
+                            <input id="input_type" name="username" type="text"
+                                placeholder="Masukkan Username atau NIM Anda" required
                                 class="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 hover:shadow-lg text-slate-900  "
                                 value="" autofocus>
                         </div>
-
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
                                 <label for="password"
@@ -155,8 +135,8 @@
                         </div>
 
                         <button type="submit" id="login-button"
-                            class="inline-flex w-full items-center justify-center rounded-md bg-green-500 hover:bg-green-600  px-4 py-2 text-sm font-medium hover:shadow-xl">
-                            Login sebagai Mahasiswa
+                            class="inline-flex w-full items-center justify-center rounded-md bg-green-500 hover:bg-green-600  px-4 py-2 text-sm font-medium hover:shadow-xl text-white">
+                            Login
                         </button>
                     </form>
                 </div>
@@ -166,7 +146,7 @@
                 <div class="text-center text-sm text-gray-500 dark:text-gray-400">
                     Tidak memiliki akun? Hubungi administrator Anda
                 </div>
-                <a href="#"
+                <a href="/"
                     class="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-green-600 hover:bg-green-100">
                     Kembali ke Beranda
                 </a>
@@ -174,62 +154,7 @@
         </div>
     </div>
 
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-
-        // Tab switching functionality
-        const tabs = {
-            student: {
-                tab: document.getElementById('tab-student'),
-                buttonText: 'Login sebagai Mahasiswa',
-                placeholder: 'Masukkan NIM'
-            },
-            company: {
-                tab: document.getElementById('tab-company'),
-                buttonText: 'Login sebagai Perusahaan',
-                placeholder: 'Masukkan Username Perusahaan'
-            },
-            staff: {
-                tab: document.getElementById('tab-staff'),
-                buttonText: 'Login sebagai Staf',
-                placeholder: 'Masukkan Username Staf'
-            }
-        };
-
-        const loginButton = document.getElementById('login-button');
-        const inputField = document.getElementById('input_type');
-        const labelInput = document.getElementById('label_input');
-
-        function activateTab(tabName) {
-            if (tabName == 'student') {
-                inputField.type = 'text'
-                labelInput.textContent = 'nim'
-            } else if (tabName == 'company' || tabName == 'staff') {
-                inputField.type = 'text'
-                labelInput.textContent = 'username'
-            }
-            // Reset all tabs
-            Object.keys(tabs).forEach(key => {
-                tabs[key].tab.classList.remove('bg-green-100');
-            });
-
-            // Activate selected tab
-            tabs[tabName].tab.classList.add('bg-green-100');
-
-            // Update button text and placeholder
-            loginButton.textContent = tabs[tabName].buttonText;
-            inputField.placeholder = tabs[tabName].placeholder;
-        }
-
-        // Add click event listeners
-        tabs.student.tab.addEventListener('click', () => activateTab('student'));
-        tabs.company.tab.addEventListener('click', () => activateTab('company'));
-        tabs.staff.tab.addEventListener('click', () => activateTab('staff'));
-
-        // Initialize with student tab active
-        activateTab('student');
-    </script>
+    
 </body>
 
 </html>

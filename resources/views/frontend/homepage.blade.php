@@ -35,24 +35,19 @@
         </div>
 
         <ul class="flex flex-row gap-x-7">
-            <li><a href="#" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a>
-            </li>
-            <li><a href="#"
-                    class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Internships</a></li>
-            <li><a href="#"
-                    class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
-            <li><a href="#" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a>
-            </li>
-            <li><a href="#" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Contact</a>
-            </li>
+            <li><a href="#hero" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a></li>
+            <li><a href="#partners"class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
+            <li><a href="#internships"class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Internships</a></li>
+            <li><a href="#footer" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a></li>
+
         </ul>
         <div class="flex flex-row">
-            <a href="/login1"
+            <a href="/entry"
                 class="bg-green-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-600">Sign in</a>
         </div>
     </nav>
 
-    <section class="hero max-w-6xl mx-auto  py-12 px-5">
+    <section id="hero" class="hero max-w-6xl mx-auto  py-12 px-5">
         <div class="flex flex-col gap-y-10 md:flex-row items-center justify-between">
             <div class="flex flex-col gap-y-10 md:basis-2/4 lg:basis-3/6">
                 <div class="flex gap-y-2 flex-col">
@@ -74,12 +69,13 @@
                 </div>
             </div>
             <div class="flex flex-row items-center ">
-                <img src="imgFE/interns-wanted.jpg" alt="Internship" class="h-[397px] lg:h-[550px] rounded-4xl md:basis-2/4">
+                <img src="imgFE/interns-wanted.jpg" alt="Internship"
+                    class="h-[397px] lg:h-[550px] rounded-4xl md:basis-2/4">
             </div>
         </div>
     </section>
 
-    <section class="partners max-w-6xl mx-auto py-12">
+    <section id="partners" class="partners max-w-6xl mx-auto py-12">
         <div class="flex flex-row gap-x-15 justify-center items-center">
             <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40">
             <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40">
@@ -88,7 +84,7 @@
         </div>
     </section>
 
-    <section class="features max-w-6xl mx-auto py-12 text-center ">
+    <section id="features" class="features max-w-6xl mx-auto py-12 text-center ">
         <div class="flex flex-col mb-8">
             <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
                 Why Choose SIMAG?
@@ -148,7 +144,7 @@
         </div>
     </section>
 
-    <section class="internships max-w-6xl mx-auto py-12 ">
+    <section id="internships" class="internships max-w-6xl mx-auto py-12 ">
         <div class="flex flex-col justify-center items-center text-center">
             <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
                 Browse Internships by Major
@@ -347,7 +343,7 @@
         </div>
     </section>
 
-    <section class="footer w-screen bg-green-950">
+    <section id="footer" class="footer w-screen bg-green-950">
         <div class="max-w-6xl mx-auto pt-10 grid grid-cols-3 justify-items-strech">
             <div class="identity flex flex-col gap-y-7 justify-self-start">
                 <div class="flex flex-row  gap-x-2">
