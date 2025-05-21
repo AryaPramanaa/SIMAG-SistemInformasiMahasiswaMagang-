@@ -18,69 +18,143 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
+        
+    <style>
+        @keyframes slide {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
+        .animate-slide {
+            animation: slide 20s linear infinite;
+        }
+
+        .partners-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .partners-container:hover .animate-slide {
+            animation-play-state: paused;
+        }
+
+        .partners-container::before,
+        .partners-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .partners-container::before {
+            left: 0;
+            background: linear-gradient(to right, #f1f4f5 0%, transparent 100%);
+        }
+
+        .partners-container::after {
+            right: 0;
+            background: linear-gradient(to left, #f1f4f5 0%, transparent 100%);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 1rem;
+                box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-[#f1f4f5] font-['Poppins']">
-    <nav class="flex flex-row max-w-6xl mx-auto justify-between items-center mt-10 pb-12">
+    <!-- Mobile menu button -->
+    <nav class="flex flex-row max-w-6xl mx-auto justify-between items-center mt-10 pb-12 px-4 relative">
         <div class="flex gap-x-1 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a" class="size-8 flex-initial ">
-                <path
-                    d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
-                <path
-                    d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
-                <path
-                    d="M4.462 19.462c.42-.419.753-.89 1-1.395.453.214.902.435 1.347.662a6.742 6.742 0 0 1-1.286 1.794.75.75 0 0 1-1.06-1.06Z" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a" class="size-8 flex-initial">
+                <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
+                <path d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
+                <path d="M4.462 19.462c.42-.419.753-.89 1-1.395.453.214.902.435 1.347.662a6.742 6.742 0 0 1-1.286 1.794.75.75 0 0 1-1.06-1.06Z" />
             </svg>
-            <span class="flex-initial font-bold text-2xl ">SIMAG</span>
+            <span class="flex-initial font-bold text-2xl">SIMAG</span>
         </div>
 
-        <ul class="flex flex-row gap-x-7">
-            <li><a href="#hero" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a></li>
-            <li><a href="#partners"class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
-            <li><a href="#internships"class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Internships</a></li>
-            <li><a href="#footer" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a></li>
+        <button class="md:hidden" onclick="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" />
+            </svg>
+        </button>
 
+        <ul class="hidden md:flex flex-row gap-x-7 mobile-menu">
+            <li><a href="#hero" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a></li>
+            <li><a href="#partners" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
+            <li><a href="#internships" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Internships</a></li>
+            <li><a href="#footer" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a></li>
         </ul>
-        <div class="flex flex-row">
-            <a href="/entry"
-                class="bg-green-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-600">Sign in</a>
+
+        <div class="hidden md:flex">
+            <a href="/entry" class="bg-green-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-600 transition-colors duration-300">Sign in</a>
         </div>
     </nav>
 
-    <section id="hero" class="hero max-w-6xl mx-auto  py-12 px-5">
-        <div class="flex flex-col gap-y-10 md:flex-row items-center justify-between">
-            <div class="flex flex-col gap-y-10 md:basis-2/4 lg:basis-3/6">
-                <div class="flex gap-y-2 flex-col">
-                    <h1 class="text-slate-950 font-['Manrope] font-bold text-4xl lg:text-[60px] leading-none">
-                        Find Your Perfect <br>
-                        Internship <br>
-                        Opportunity <br>
+    <section id="hero" class="hero max-w-6xl mx-auto py-12 px-5">
+        <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-8">
+            <div class="flex flex-col gap-y-10 w-full md:w-1/2">
+                <div class="flex gap-y-2 flex-col text-center md:text-left">
+                    <h1 class="text-slate-950 font-['Manrope] font-bold text-4xl lg:text-[60px] leading-tight">
+                        Find Your Perfect <br class="hidden md:block">
+                        Internship <br class="hidden md:block">
+                        Opportunity
                     </h1>
                     <p class="text-base leading-loose text-gray-500">
-                        Connect with top companies offering internships tailored to <br class=" md:block hidden">
+                        Connect with top companies offering internships tailored to <br class="hidden md:block">
                         your major and career goals. Start your professional journey today.
                     </p>
                 </div>
-                <div class="flex justify-center md:justify-start ">
+                <div class="flex justify-center md:justify-start">
                     <a href="#"
-                        class="w-full text-center md:w-fit text-lg hover:bg-green-600  bg-green-700 text-white py-4 px-10 rounded-full font-semibold">Browse
+                        class="w-full md:w-fit text-lg hover:bg-green-600 bg-green-700 text-white py-4 px-10 rounded-full font-semibold transition-colors duration-300">Browse
                         Internship
                     </a>
                 </div>
             </div>
-            <div class="flex flex-row items-center ">
+            <div class="w-full md:w-1/2">
                 <img src="imgFE/interns-wanted.jpg" alt="Internship"
-                    class="h-[397px] lg:h-[550px] rounded-4xl md:basis-2/4">
+                    class="w-full h-auto max-h-[550px] rounded-3xl object-cover">
             </div>
         </div>
     </section>
 
-    <section id="partners" class="partners max-w-6xl mx-auto py-12">
-        <div class="flex flex-row gap-x-15 justify-center items-center">
-            <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40">
-            <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40">
-            <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40">
-            <img src="imgFE/toyota.png" alt="toyota logo" class="w-20">
+    <section id="partners" class="partners max-w-6xl mx-auto py-12 overflow-hidden">
+        <div class="partners-container">
+            <div class="flex gap-x-16 animate-slide">
+                <!-- Original set of logos -->
+                <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40">
+                <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40">
+                <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40">
+                <img src="imgFE/toyota.png" alt="toyota logo" class="w-20">
+                <!-- Duplicated set for seamless scrolling -->
+                <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40">
+                <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40">
+                <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40">
+                <img src="imgFE/toyota.png" alt="toyota logo" class="w-20">
+            </div>
         </div>
     </section>
 
@@ -431,6 +505,21 @@
         </div>
     </section>
 
+    <script>
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Optional: Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.querySelector('.mobile-menu');
+            const button = document.querySelector('button');
+            if (!menu.contains(event.target) && !button.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 
 </html>

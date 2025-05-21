@@ -1,0 +1,26 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+class Mahasiswa extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DB::table('mahasiswas')->insert([
+            'nim' => '234567890',
+            'nama' => 'John Doe',
+            'no_hp' => '081234567890',
+            'status_aktif' => 'Aktif',
+            'alamat' => 'Jl. Contoh No. 123',
+            'semester' => '5',
+            'prodi_id' => 1, 
+        ]);
+    }
+}

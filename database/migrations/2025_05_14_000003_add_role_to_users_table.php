@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->default('mahasiswa')->after('password');
+            $table->enum('status', ['Aktif', 'Non-Aktif', 'Tertunda'])
+                ->default('Aktif')
+                ->after('role');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,10 +15,13 @@ class pengajuanPKLSeeder extends Seeder
     public function run(): void
     {
         DB::table('pengajuanPKLs')->insert([
-            'nama' => 'John lenon2',
-            'perusahaan' => 'PT.Suka suka',
-            'status' => 'success',
-           
+            'mahasiswa_id' => 1, // Make sure this ID exists in mahasiswas table
+            'perusahaan_id' => 1, // Make sure this ID exists in perusahaans table
+            'tanggal_pengajuan' => Carbon::now(),
+            'status' => 'Pending',
+            'divisi_pilihan' => 'IT',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]); 
     }
 }

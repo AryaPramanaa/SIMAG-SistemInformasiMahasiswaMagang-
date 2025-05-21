@@ -1,61 +1,121 @@
 @extends('backend.dashboard.admin')
 @section('content')
-    <h1 class="text-center font-semibold text-2xl py-10">PENGAJUAN PKL</h1>
-    <a href="pengajuanPKL/create"
-        class="border-2 hover:border-green-200 py-2 px-4 rounded-lg bg-green-700 text-slate-50 hover:bg-green-600 ">Daftar</a>
-    <div class="overflow-auto rounded-xl shadow-lg mt-5">
-        <table class="w-full ">
-            <!-- head -->
-            <thead class="bg-gray-200 border-b-2 border-gray-200">
-                <tr>
-                    <th
-                        class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap ">
-                        NO</th>
-                    <th
-                        class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                        NAMA</th>
-                    <th
-                        class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                        PERUSAHAAN PKL</th>
-                    <th
-                        class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                        STATUS</th>
-                    <th
-                        class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                        AKSI</th>
-                </tr>
-            </thead>
-            <tbody class=" divide-y divide-gray-200">
-                @foreach ($mahasiswas as $student)
-                    <tr>
-                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                            {{ $loop->index + 1 }}</td>
-                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                            {{ $student->nama }}</td>
-                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                            {{ $student->perusahaan }}</td>
-                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                            <span
-                                @if ($student->status == 'pending') class="p-2 text-xs font-medium uppercase tracking-wider text-gray-800 bg-gray-200 rounded-lg bg-opacity-50"
-                            @else
-                            class="p-2 text-xs font-medium uppercase tracking-wider text-green-800 bg-green-200 rounded-lg bg-opacity-50" @endif>
-                                {{ $student->status }}
-                            </span>
-                        </td>
-                        <td
-                            class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center flex justify-center items-center">
-                            <a
-                                href="pengajuanPKL/{{ $student->id }}/edit"class="border-2 border-yellow-300 py-2 px-4 rounded-lg bg-yellow-300 text-slate-950 hover:bg-yellow-400 hover:border-yellow-400">Update</a>
-                            <form action="/pengajuanPKL/{{ $student->id }}" method="post">
-                                @method('delete')
-                                @csrf
-                                <a class="border-2 border-red-600 py-2 px-4 ml-1 rounded-lg bg-red-600 text-slate-950 hover:bg-red-700 hover:border-red-700"
-                                    onclick="return confirm('yakin akan menghapus data ?')">Delete</a>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <div class="min-h-screen py-8 px-4 md:px-8">
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-800 mb-3">Pengajuan PKL</h1>
+            <div class="w-40 h-1 bg-green-500 mx-auto"></div>
+        </div>
+
+        <div class="mb-6">
+            <a href="{{ route('pengajuanPKL.create') }}"
+                class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Daftar PKL
+            </a>
+        </div>
+
+        @if(session('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
+
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b">
+                        <tr>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                NO</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                NAMA</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                PERUSAHAAN PKL</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                TANGGAL PENGAJUAN</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                STATUS</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                DIVISI</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                SURAT PENGANTAR</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach ($pengajuans as $pengajuan)
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
+                                    {{ $loop->index + 1 }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
+                                    {{ $pengajuan->mahasiswa->nama }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
+                                    {{ $pengajuan->perusahaan->nama_perusahaan }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
+                                    {{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
+                                    <span class="px-3 py-1 rounded-full text-xs
+                                        @if($pengajuan->status == 'Pending') bg-yellow-100 text-yellow-800
+                                        @elseif($pengajuan->status == 'Diterima') bg-green-100 text-green-800
+                                        @else bg-red-100 text-red-800 @endif">
+                                        {{ $pengajuan->status }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
+                                    {{ $pengajuan->divisi_pilihan }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">
+                                    <a href="{{ Storage::url($pengajuan->surat_pengantar_path) }}" 
+                                       class="text-green-600 hover:text-green-700" target="_blank">
+                                        <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                    </a>
+                                </td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">
+                                    <div class="flex items-center justify-center space-x-2">
+                                        <a href="{{ route('pengajuanPKL.show', $pengajuan->id) }}"
+                                            class="text-blue-600 hover:text-blue-900">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                        <a href="{{ route('pengajuanPKL.edit', $pengajuan->id) }}"
+                                            class="text-yellow-600 hover:text-yellow-900">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                        <form action="{{ route('pengajuanPKL.destroy', $pengajuan->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus pengajuan ini?')">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            {{ $pengajuans->links() }}
+        </div>
     </div>
 @endsection
