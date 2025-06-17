@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserSedder::class);
         // $this->call(Prodi::class);
         // $this->call(Perusahaan::class);
-        $this->call(PembimbingIndustri::class);
-        // $this->call(Mahasiswa::class);
+        // $this->call(PembimbingIndustri::class);
+        $this->call(Mahasiswa::class);
        
         
         // $this->call(pengajuanPKLSeeder::class);

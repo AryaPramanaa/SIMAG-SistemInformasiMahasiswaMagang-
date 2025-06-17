@@ -15,12 +15,46 @@ class UserSedder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'username' => 'John Smith',
-            'email' => 'johnsmith123@gmail.com',
-            'password' => Hash::make('123456789'),
-            'role' => 'mahasiswa',
-            'status' => 'Aktif',
+            [
+                'username' => 'John mahasiswa',
+                'email' => 'johnmahasiswa@gmail.com',
+                'password' => Hash::make('123456789'),
+                'nomor_unik' => '123456789',
+                'role' => 'mahasiswa',
+                'status' => 'Aktif',
+            ],
+            [
+                'username' => 'John perusahaan',
+                'email' => 'johnperusahaan@gmail.com',
+                'password' => Hash::make('123456789'),
+                'nomor_unik' => '11111111',
+                'role' => 'perusahaan',
+                'status' => 'Aktif',
+            ],
+            [
+                'username' => 'John kaprodi',
+                'email' => 'johnkaprodi@gmail.com',
+                'password' => Hash::make('123456789'),
+                'nomor_unik' => '22222222',
+                'role' => 'kaprodi',
+                'status' => 'Aktif',
+            ],
+            [
+                'username' => 'John pimpinan',
+                'email' => 'johnpimpinan@gmail.com',
+                'password' => Hash::make('123456789'),
+                'nomor_unik' => '33333333',
+                'role' => 'pimpinan',
+                'status' => 'Aktif',
+            ],
+            [
+                'username' => 'John operator',
+                'email' => 'johnoperator@gmail.com',
+                'password' => Hash::make('123456789'),
+                'nomor_unik' => '44444444',
+                'role' => 'operator',
+                'status' => 'Aktif',
+            ]
         ]);
-
     }
 }

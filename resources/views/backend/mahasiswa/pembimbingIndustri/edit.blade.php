@@ -1,4 +1,4 @@
-@extends('backend.dashboard.admin')
+@extends('backend.dashboard.mahasiswa')
 
 @section('title', 'Edit Pembimbing Industri')
 

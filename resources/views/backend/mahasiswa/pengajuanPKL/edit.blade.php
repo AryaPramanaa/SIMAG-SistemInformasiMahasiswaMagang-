@@ -1,9 +1,9 @@
-@extends('backend.dashboard.admin')
+@extends('backend.dashboard.mahasiswa')
 @section('content')
     <div class="min-h-screen py-8 px-4 md:px-8">
         <!-- Back Button -->
         <div class="mb-6">
-            <a href="{{ route('pengajuanPKL.show', $pengajuan->id) }}" class="inline-flex items-center text-gray-700 hover:text-green-600 transition-colors">
+            <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}" class="inline-flex items-center text-gray-700 hover:text-green-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                 </svg>
@@ -19,7 +19,7 @@
 
         <!-- Form Card -->
         <div class="bg-white rounded-xl shadow-lg p-8">
-            <form action="{{ route('pengajuanPKL.update', $pengajuan->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+            <form action="{{ route('mahasiswa.pengajuanPKL.update', $pengajuan->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                 @csrf
                 @method('PUT')
                 
@@ -28,7 +28,7 @@
                     <div class="space-y-2">
                         <label for="mahasiswa_id" class="text-base font-semibold text-gray-700">Nama Mahasiswa</label>
                         <select id="mahasiswa_id" name="mahasiswa_id" required
-                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm">
+                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm select2">
                             <option value="">Pilih Mahasiswa</option>
                             @foreach($mahasiswas as $mahasiswa)
                                 <option value="{{ $mahasiswa->id }}" {{ $pengajuan->mahasiswa_id == $mahasiswa->id ? 'selected' : '' }}>
@@ -41,7 +41,7 @@
                     <div class="space-y-2">
                         <label for="perusahaan_id" class="text-base font-semibold text-gray-700">Perusahaan PKL</label>
                         <select id="perusahaan_id" name="perusahaan_id" required
-                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm">
+                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm select2">
                             <option value="">Pilih Perusahaan</option>
                             @foreach($perusahaans as $perusahaan)
                                 <option value="{{ $perusahaan->id }}" {{ $pengajuan->perusahaan_id == $perusahaan->id ? 'selected' : '' }}>
@@ -52,23 +52,13 @@
                     </div>
                 </div>
 
-                <!-- Tanggal dan Status -->
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <label for="tanggal_pengajuan" class="text-base font-semibold text-gray-700">Tanggal Pengajuan</label>
-                        <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan" required
-                            value="{{ $pengajuan->tanggal_pengajuan }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm">
-                    </div>
-                    <div class="space-y-2">
-                        <label for="status" class="text-base font-semibold text-gray-700">Status</label>
-                        <select id="status" name="status" required
-                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm">
-                            <option value="Pending" {{ $pengajuan->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="Diterima" {{ $pengajuan->status == 'Diterima' ? 'selected' : '' }}>Diterima</option>
-                            <option value="Ditolak" {{ $pengajuan->status == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
-                        </select>
-                    </div>
+                <!-- Tanggal Pengajuan -->
+                <div class="space-y-2">
+                    <label for="tanggal_pengajuan" class="text-base font-semibold text-gray-700">Tanggal Pengajuan</label>
+                    <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan" required
+                        value="{{ date('Y-m-d') }}" readonly
+                        class="w-full h-[42px] rounded-lg border-gray-300 bg-gray-50 focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p class="text-sm text-gray-500">Tanggal pengajuan otomatis hari ini</p>
                 </div>
 
                 <!-- Divisi PKL -->
@@ -81,33 +71,11 @@
                             placeholder="Masukkan divisi yang diinginkan">
                         <p class="text-sm text-gray-500">Masukkan divisi yang diinginkan untuk PKL</p>
                     </div>
-
-                    <!-- Current File Info -->
-                    <div class="space-y-2">
-                        <label class="text-base font-semibold text-gray-700">Surat Pengantar</label>
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <p class="text-sm text-gray-600 mb-2">File saat ini:</p>
-                            <a href="{{ Storage::url($pengajuan->surat_pengantar_path) }}" 
-                               class="inline-flex items-center text-green-600 hover:text-green-700 mb-4">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                                Lihat File
-                            </a>
-                            <div class="mt-2">
-                                <label for="surat_pengantar_path" class="block text-sm text-gray-600">Upload file baru (opsional):</label>
-                                <input type="file" id="surat_pengantar_path" name="surat_pengantar_path" accept=".pdf,.doc,.docx"
-                                    class="mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
-                                <p class="text-xs text-gray-500 mt-1">PDF atau DOC hingga 10MB</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Buttons -->
                 <div class="flex justify-end space-x-4 pt-6 border-t">
-                    <a href="{{ route('pengajuanPKL.show', $pengajuan->id) }}" 
+                    <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}" 
                         class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 font-medium">
                         Batal
                     </a>
@@ -119,24 +87,67 @@
             </form>
         </div>
     </div>
+@endsection
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const durasiMulai = document.getElementById('durasi_mulai');
-            const durasiSelesai = document.getElementById('durasi_selesai');
+@push('styles')
+<style>
+    .select2-container--default .select2-selection--single {
+        height: 42px;
+        border-color: #D1D5DB;
+        border-radius: 0.5rem;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 42px;
+        padding-left: 1rem;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 40px;
+    }
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+        border-color: #D1D5DB;
+        border-radius: 0.375rem;
+    }
+    .select2-dropdown {
+        border-color: #D1D5DB;
+        border-radius: 0.5rem;
+    }
+</style>
+@endpush
 
-            durasiMulai.addEventListener('change', function() {
-                // Set minimum end date to 1 month after start date
-                const startDate = new Date(this.value);
-                const minEndDate = new Date(startDate);
-                minEndDate.setMonth(startDate.getMonth() + 1);
-                durasiSelesai.min = minEndDate.toISOString().split('T')[0];
-                
-                // If current end date is before new minimum, update it
-                if (new Date(durasiSelesai.value) < minEndDate) {
-                    durasiSelesai.value = minEndDate.toISOString().split('T')[0];
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 for mahasiswa dropdown
+        $('#mahasiswa_id').select2({
+            placeholder: "Cari nama atau NIM mahasiswa",
+            allowClear: true,
+            matcher: function(params, data) {
+                // If there are no search terms, return all of the data
+                if ($.trim(params.term) === '') {
+                    return data;
                 }
-            });
+
+                // Do not display the item if there is no 'text' property
+                if (typeof data.text === 'undefined') {
+                    return null;
+                }
+
+                // Search in both name and NIM
+                var searchStr = data.text.toLowerCase();
+                if (searchStr.indexOf(params.term.toLowerCase()) > -1) {
+                    return data;
+                }
+
+                // Return `null` if the term should not be displayed
+                return null;
+            }
         });
-    </script>
-@endsection 
+
+        // Initialize Select2 for perusahaan dropdown
+        $('#perusahaan_id').select2({
+            placeholder: "Cari Perusahaan",
+            allowClear: true
+        });
+    });
+</script>
+@endpush 

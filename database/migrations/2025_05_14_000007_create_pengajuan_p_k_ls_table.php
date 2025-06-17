@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('mahasiswa_id')->constrained('mahasiswas')->onDelete('cascade');
             $table->foreignId('perusahaan_id')->constrained('perusahaans')->onDelete('cascade');
             $table->date('tanggal_pengajuan');
-            $table->string('surat_pengantar_path')->nullable();
             $table->date('durasi_pkl')->nullable();
             $table->enum('status', ['Diterima', 'Ditolak', 'Pending'])->default('Pending');
             $table->string('alasan_penolakan')->nullable();

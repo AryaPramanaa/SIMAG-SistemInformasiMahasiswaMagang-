@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama_prodi')->unique();
             $table->string('nama_kaprodi')->unique();
-            $table->integer('kuota_pkl');
-            $table->foreignId('kaprodi_id')->contrained('users')->onDelete('cascade');
             $table->string('jurusan');
             $table->timestamps();
         });

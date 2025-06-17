@@ -17,8 +17,9 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('kontak');
             $table->string('bidang_usaha');
-            $table->enum('status_kerjasama',['Aktif','Non Aktif']);
+            $table->enum('status_kerjasama',['Aktif','Tidak Aktif']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

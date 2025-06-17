@@ -6,6 +6,7 @@ use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class daftarPerusahaanController extends Controller
 {
@@ -14,7 +15,7 @@ class daftarPerusahaanController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Perusahaan::query();
+        $query = Perusahaan::query()->where('status_kerjasama', 'Aktif');
 
         // Search functionality
         if ($request->has('search') && $request->search !== '') {
@@ -27,17 +28,11 @@ class daftarPerusahaanController extends Controller
             });
         }
 
-        // Filter by status
-        if ($request->has('status_kerjasama') && $request->status_kerjasama !== '') {
-            $query->where('status_kerjasama', $request->status_kerjasama);
-        }
-
         $perusahaan = $query->latest()->paginate(10);
         
         if ($request->ajax()) {
             return response()->json($perusahaan);
         }
-
         return view('backend.mahasiswa.daftarPerusahaanPKL.index', compact('perusahaan'));
     }
 
@@ -54,20 +49,37 @@ class daftarPerusahaanController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_perusahaan' => 'required|string|max:255',
-            'alamat' => 'required|string',
-            'kontak' => 'required|string',
-            'status_kerjasama' => 'required|string',
-        ]);
-
         try {
-            Perusahaan::create($validated);
+            $validated = $request->validate([
+                'nama_perusahaan' => 'required|string|max:255|unique:perusahaans,nama_perusahaan',
+                'alamat' => 'required|string',
+                'kontak' => 'required|string',
+                'bidang_usaha' => 'required|string',
+            ], [
+                'nama_perusahaan.unique' => 'Nama perusahaan sudah ada dalam database',
+                'nama_perusahaan.required' => 'Nama perusahaan harus diisi',
+                'alamat.required' => 'Alamat harus diisi',
+                'kontak.required' => 'Kontak harus diisi',
+                'bidang_usaha.required' => 'Bidang usaha harus diisi',
+            ]);
+
+            // Set default status to Tidak Aktif for student submissions
+            $validated['status_kerjasama'] = 'Tidak Aktif';
+            
+            $perusahaan = Perusahaan::create($validated);
 
             return redirect()
                 ->route('mahasiswa.daftarPerusahaanPKL.index')
-                ->with('success', 'Perusahaan berhasil ditambahkan');
+                ->with('success', 'Perusahaan yang anda tambahkan sedang di validasi, mohon untuk menunggu');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()
+                ->back()
+                ->withErrors($e->validator)
+                ->withInput()
+                ->with('error', 'Validasi gagal: ' . $e->getMessage());
         } catch (\Exception $e) {
+            Log::error('Error creating perusahaan: ' . $e->getMessage());
+            Log::error($e->getTraceAsString());
             return redirect()
                 ->back()
                 ->withInput()
@@ -88,7 +100,7 @@ class daftarPerusahaanController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {
+    {    
         $perusahaan = Perusahaan::findOrFail($id);
         return view('backend.mahasiswa.daftarPerusahaanPKL.edit', compact('perusahaan'));
     }
@@ -104,10 +116,14 @@ class daftarPerusahaanController extends Controller
             'nama_perusahaan' => 'required|string|max:255',
             'alamat' => 'required|string',
             'kontak' => 'required|string',
+            'bidang_usaha' => 'required|string',
             'status_kerjasama' => 'required|string',
         ]);
 
         try {
+            // Ensure status_kerjasama remains unchanged
+            $validated['status_kerjasama'] = $perusahaan->status_kerjasama;
+            
             $perusahaan->update($validated);
 
             return redirect()
@@ -128,12 +144,6 @@ class daftarPerusahaanController extends Controller
     {
         try {
             $perusahaan = Perusahaan::findOrFail($id);
-            
-            // Delete logo if exists
-            if ($perusahaan->logo) {
-                Storage::delete('public/' . $perusahaan->logo);
-            }
-
             $perusahaan->delete();
 
             return redirect()

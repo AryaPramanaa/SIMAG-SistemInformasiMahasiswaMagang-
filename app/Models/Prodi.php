@@ -11,8 +11,6 @@ class Prodi extends Model
     protected $table = 'prodis';
     protected $fillable = [
         'nama_prodi',
-        'kuota_pkl',
-        'kaprodi_id',
         'jurusan',
         'nama_kaprodi',
     ];
