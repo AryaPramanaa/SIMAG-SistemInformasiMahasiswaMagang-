@@ -18,49 +18,9 @@ class pengajuanPKLKapordiController extends Controller
         return view('backend.kaprodi.pengajuanPKLkaprodi.index', compact('pengajuans'));
     }
 
-    public function create()
-    {
-        $mahasiswas = Mahasiswa::all();
-        $perusahaans = Perusahaan::where('status_kerjasama', 'Aktif')->get();
-        return view('backend.kaprodi.pengajuanPKLkaprodi.create', compact('mahasiswas', 'perusahaans'));
-    }
-
-    public function store(Request $request)
-    {
-        try {
-            // Check if mahasiswa already has a submission
-            $existingSubmission = pengajuanPKL::where('mahasiswa_id', $request->mahasiswa_id)->first();
-            if ($existingSubmission) {
-                return back()->withErrors(['error' => 'Pengajuan melebihi batas. Setiap mahasiswa hanya diperbolehkan mengajukan 1 kali.'])->withInput();
-            }
-
-            $request->validate([
-                'mahasiswa_id' => 'required|exists:mahasiswas,id',
-                'perusahaan_id' => 'required|exists:perusahaans,id',
-                'tanggal_pengajuan' => 'required|date',
-                'divisi_pilihan' => 'required|string|max:255',
-            ]);
-
-            $data = [
-                'mahasiswa_id' => $request->mahasiswa_id,
-                'perusahaan_id' => $request->perusahaan_id,
-                'tanggal_pengajuan' => $request->tanggal_pengajuan,
-                'divisi_pilihan' => $request->divisi_pilihan,
-                'status' => 'Pending'
-            ];
-
-            pengajuanPKL::create($data);
-
-            return redirect()->route('kaprodi.pengajuanPKL.index')
-                ->with('success', 'Pengajuan PKL berhasil dibuat.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
-        }
-    }
-
     public function show($id)
     {
-        $pengajuan = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])->findOrFail($id);
+        $pengajuan = pengajuanPKL::with(['mahasiswa.prodi', 'mahasiswa.pembimbingAkademik', 'perusahaan'])->findOrFail($id);
         return view('backend.kaprodi.pengajuanPKLkaprodi.show', compact('pengajuan'));
     }
 

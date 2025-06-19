@@ -12,13 +12,10 @@ class akunController extends Controller
     {
         $query = User::query();
 
-        // Search by username or nomor_unik
+        // Search by username
         if ($request->has('search') && $request->search !== '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('username', 'like', "%{$search}%")
-                  ->orWhere('nomor_unik', 'like', "%{$search}%");
-            });
+            $query->where('username', 'like', "%{$search}%");
         }
 
         // Filter by role
@@ -44,7 +41,6 @@ class akunController extends Controller
     {
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
-            'nomor_unik' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|string|in:mahasiswa,perusahaan,kaprodi,pimpinan,operator',
@@ -53,7 +49,6 @@ class akunController extends Controller
 
         User::create([
             'username' => $request->username,
-            'nomor_unik' => $request->nomor_unik,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
@@ -78,7 +73,6 @@ class akunController extends Controller
     {
         $request->validate([
             'username' => 'required|string|max:255|unique:users,username,' . $akun->id,
-            'nomor_unik' => 'required|string|max:255|unique:users,nomor_unik,' . $akun->id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $akun->id,
             'password' => 'nullable|string|min:8',
             'role' => 'required|string|in:mahasiswa,perusahaan,kaprodi,pimpinan,operator',
@@ -87,7 +81,6 @@ class akunController extends Controller
 
         $data = [
             'username' => $request->username,
-            'nomor_unik' => $request->nomor_unik,
             'email' => $request->email,
             'role' => $request->role,
             'status' => $request->status,

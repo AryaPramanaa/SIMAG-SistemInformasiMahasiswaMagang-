@@ -22,8 +22,8 @@
                                 <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nama }}</p>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">NIM</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nim }}</p>
+                                <label class="block text-sm font-medium text-gray-600">Nomor Unik</label>
+                                <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nomor_unik }}</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-600">Program Studi</label>

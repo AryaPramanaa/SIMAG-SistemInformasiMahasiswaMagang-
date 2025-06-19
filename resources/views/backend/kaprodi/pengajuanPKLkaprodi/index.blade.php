@@ -7,16 +7,6 @@
             <div class="w-40 h-1 bg-green-500 mx-auto"></div>
         </div>
 
-        <div class="mb-6">
-            <a href="{{ route('kaprodi.pengajuanPKL.create') }}"
-                class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                </svg>
-                Buat Pengajuan PKL
-            </a>
-        </div>
-
         @if(session('success'))
             <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
                 <p>{{ session('success') }}</p>
@@ -76,13 +66,22 @@
                                                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
                                         </a>
-                                        <a href="{{ route('kaprodi.pengajuanPKL.edit', $pengajuan->id) }}"
-                                            class="text-yellow-600 hover:text-yellow-900">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                            </svg>
-                                        </a>
+                                        @if($pengajuan->status == 'Pending')
+                                            <a href="{{ route('kaprodi.pengajuanPKL.edit', $pengajuan->id) }}"
+                                                class="text-yellow-600 hover:text-yellow-900">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+                                        @endif
+                                        @if($pengajuan->status == 'Diterima' && !$pengajuan->mahasiswa->pembimbingAkademik)
+                                            <a href="{{ route('pembimbing-akademik.index') }}" class="text-green-600 hover:text-green-900" title="Pasangkan Pembimbing Akademik">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </a>
+                                        @endif
                                         <form action="{{ route('kaprodi.pengajuanPKL.destroy', $pengajuan->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')

@@ -12,12 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('mahasiswas', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->after('id')->nullable();
-        });
-
-        // Add foreign key constraint after adding the column
-        Schema::table('mahasiswas', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('email')->after('nama');
+            $table->foreignId('user_id')->after('prodi_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -27,8 +23,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('mahasiswas', function (Blueprint $table) {
+            $table->dropColumn('email');
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
         });
     }
-};
+}; 

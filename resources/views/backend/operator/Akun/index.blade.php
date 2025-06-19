@@ -25,19 +25,19 @@
         @endif
 
         <!-- Search and Filter Form -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <form action="{{ route('operator.akun.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
+            <form action="{{ route('operator.akun.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div>
-                    <label for="search" class="block text-sm font-medium text-gray-700">Cari Username/Nomor Unik</label>
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Cari Username</label>
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
-                        placeholder="Masukkan username atau nomor unik...">
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        placeholder="Masukkan username">
                 </div>
 
                 <div>
-                    <label for="role" class="block text-sm font-medium text-gray-700">Filter Role</label>
+                    <label for="role" class="block text-sm font-medium text-gray-700 mb-2">Filter Role</label>
                     <select name="role" id="role"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                         <option value="">Semua Role</option>
                         <option value="mahasiswa" {{ request('role') == 'mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
                         <option value="perusahaan" {{ request('role') == 'perusahaan' ? 'selected' : '' }}>Perusahaan</option>
@@ -48,9 +48,9 @@
                 </div>
 
                 <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700">Filter Status</label>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Filter Status</label>
                     <select name="status" id="status"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                         <option value="">Semua Status</option>
                         <option value="Aktif" {{ request('status') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
                         <option value="Non-Aktif" {{ request('status') == 'Non-Aktif' ? 'selected' : '' }}>Non-Aktif</option>
@@ -59,7 +59,7 @@
 
                 <div class="flex items-end space-x-2">
                     <button type="submit"
-                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
                         <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -67,7 +67,7 @@
                         Cari
                     </button>
                     <a href="{{ route('operator.akun.index') }}"
-                        class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
                         Reset
                     </a>
                 </div>
@@ -83,8 +83,6 @@
                                 NO</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
                                 NAMA</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                NOMOR UNIK</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
                                 EMAIL</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
@@ -102,8 +100,6 @@
                                     {{ $loop->index + 1 }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
                                     {{ $user->username }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $user->nomor_unik }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
                                     {{ $user->email }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">

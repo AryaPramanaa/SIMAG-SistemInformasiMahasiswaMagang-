@@ -28,8 +28,10 @@ class SuratPernyataanController extends Controller
             'tanggal_upload' => 'required|date',
             'surat_pernyataan' => 'required|file|mimes:pdf|max:10240', // 10MB
             'deskripsi' => 'required|string|max:255',
+            'jenis_surat' => 'required|string|max:100',
         ]);
 
+        $filename = null;
         if ($request->hasFile('surat_pernyataan')) {
             $file = $request->file('surat_pernyataan');
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -41,6 +43,7 @@ class SuratPernyataanController extends Controller
             'tanggal_upload' => $request->tanggal_upload,
             'surat_pernyataan' => $filename,
             'deskripsi' => $request->deskripsi,
+            'jenis_surat' => $request->jenis_surat,
         ]);
 
         return redirect()->route('mahasiswa.suratPernyataan.index')
@@ -65,6 +68,7 @@ class SuratPernyataanController extends Controller
             'tanggal_upload' => 'required|date',
             'surat_pernyataan' => 'nullable|file|mimes:pdf|max:10240', // 10MB
             'deskripsi' => 'required|string|max:255',
+            'jenis_surat' => 'required|string|max:100',
         ]);
 
         if ($request->hasFile('surat_pernyataan')) {
@@ -85,6 +89,7 @@ class SuratPernyataanController extends Controller
             'perusahaan_id' => $request->perusahaan_id,
             'tanggal_upload' => $request->tanggal_upload,
             'deskripsi' => $request->deskripsi,
+            'jenis_surat' => $request->jenis_surat,
         ]);
 
         return redirect()->route('mahasiswa.suratPernyataan.index')

@@ -45,6 +45,11 @@
                     </div>
 
                     <div>
+                        <label for="jenis_surat" class="block text-sm font-medium text-gray-700 mb-2">Jenis Surat</label>
+                        <input type="text" name="jenis_surat" id="jenis_surat" value="{{ old('jenis_surat') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan jenis surat">
+                    </div>
+
+                    <div>
                         <label for="tanggal_upload" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Upload</label>
                         <input type="date" name="tanggal_upload" id="tanggal_upload" value="{{ date('Y-m-d') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" readonly>
                     </div>

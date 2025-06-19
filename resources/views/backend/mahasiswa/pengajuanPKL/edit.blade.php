@@ -1,34 +1,41 @@
 @extends('backend.dashboard.mahasiswa')
 @section('content')
     <div class="min-h-screen py-8 px-4 md:px-8">
-        <!-- Back Button -->
-        <div class="mb-6">
-            <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}" class="inline-flex items-center text-gray-700 hover:text-green-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                </svg>
-                <span class="text-lg font-medium">Kembali</span>
-            </a>
-        </div>
-
         <!-- Header -->
         <div class="text-center mb-10">
             <h1 class="text-4xl font-bold text-gray-800 mb-3">Edit Pengajuan PKL</h1>
             <div class="w-40 h-1 bg-green-500 mx-auto"></div>
         </div>
 
-        <!-- Form Card -->
-        <div class="bg-white rounded-xl shadow-lg p-8">
-            <form action="{{ route('mahasiswa.pengajuanPKL.update', $pengajuan->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+        <div class="mb-6">
+            <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}"
+                class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+                Kembali
+            </a>
+        </div>
+
+        @if($errors->any())
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <form action="{{ route('mahasiswa.pengajuanPKL.update', $pengajuan->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                
-                <!-- Mahasiswa & Perusahaan Selection -->
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <label for="mahasiswa_id" class="text-base font-semibold text-gray-700">Nama Mahasiswa</label>
-                        <select id="mahasiswa_id" name="mahasiswa_id" required
-                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm select2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="mahasiswa_id" class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
+                        <select name="mahasiswa_id" id="mahasiswa_id" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                             <option value="">Pilih Mahasiswa</option>
                             @foreach($mahasiswas as $mahasiswa)
                                 <option value="{{ $mahasiswa->id }}" {{ $pengajuan->mahasiswa_id == $mahasiswa->id ? 'selected' : '' }}>
@@ -38,10 +45,10 @@
                         </select>
                     </div>
 
-                    <div class="space-y-2">
-                        <label for="perusahaan_id" class="text-base font-semibold text-gray-700">Perusahaan PKL</label>
-                        <select id="perusahaan_id" name="perusahaan_id" required
-                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm select2">
+                    <div>
+                        <label for="perusahaan_id" class="block text-sm font-medium text-gray-700 mb-2">Perusahaan PKL</label>
+                        <select name="perusahaan_id" id="perusahaan_id" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                             <option value="">Pilih Perusahaan</option>
                             @foreach($perusahaans as $perusahaan)
                                 <option value="{{ $perusahaan->id }}" {{ $pengajuan->perusahaan_id == $perusahaan->id ? 'selected' : '' }}>
@@ -50,37 +57,28 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
 
-                <!-- Tanggal Pengajuan -->
-                <div class="space-y-2">
-                    <label for="tanggal_pengajuan" class="text-base font-semibold text-gray-700">Tanggal Pengajuan</label>
-                    <input type="date" id="tanggal_pengajuan" name="tanggal_pengajuan" required
-                        value="{{ date('Y-m-d') }}" readonly
-                        class="w-full h-[42px] rounded-lg border-gray-300 bg-gray-50 focus:border-green-500 focus:ring-green-500 shadow-sm">
-                    <p class="text-sm text-gray-500">Tanggal pengajuan otomatis hari ini</p>
-                </div>
+                    <div>
+                        <label for="tanggal_pengajuan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Pengajuan</label>
+                        <input type="date" name="tanggal_pengajuan" id="tanggal_pengajuan" value="{{ date('Y-m-d') }}" readonly
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <p class="mt-1 text-sm text-gray-500">Tanggal pengajuan otomatis hari ini</p>
+                    </div>
 
-                <!-- Divisi PKL -->
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-2">
-                        <label for="divisi_pilihan" class="text-base font-semibold text-gray-700">Divisi Pilihan</label>
-                        <input type="text" id="divisi_pilihan" name="divisi_pilihan" required
-                            value="{{ $pengajuan->divisi_pilihan }}"
-                            class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm"
+                    <div>
+                        <label for="divisi_pilihan" class="block text-sm font-medium text-gray-700 mb-2">Divisi Pilihan</label>
+                        <input type="text" name="divisi_pilihan" id="divisi_pilihan" value="{{ old('divisi_pilihan', $pengajuan->divisi_pilihan) }}" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                             placeholder="Masukkan divisi yang diinginkan">
-                        <p class="text-sm text-gray-500">Masukkan divisi yang diinginkan untuk PKL</p>
                     </div>
                 </div>
 
-                <!-- Buttons -->
-                <div class="flex justify-end space-x-4 pt-6 border-t">
-                    <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}" 
-                        class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 font-medium">
-                        Batal
-                    </a>
+                <div class="flex justify-end mt-6">
                     <button type="submit"
-                        class="px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                        class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
                         Simpan Perubahan
                     </button>
                 </div>

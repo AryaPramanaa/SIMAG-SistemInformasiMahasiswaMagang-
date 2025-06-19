@@ -12,10 +12,10 @@ class PembimbingIndustri extends Model
     protected $table = 'pembimbingIndustris';
     protected $fillable = [
         'perusahaan_id',
-        'nama',
+        'nama_pembimbing',
         'jabatan',
         'email',
-        'no_hp',
+        'kontak',
     ];
     public function perusahaan()
     {

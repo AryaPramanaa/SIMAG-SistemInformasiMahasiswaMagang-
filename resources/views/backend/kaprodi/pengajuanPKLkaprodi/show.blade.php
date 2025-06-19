@@ -18,8 +18,8 @@
                             <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nama }}</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-600">NIM</label>
-                            <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nim }}</p>
+                            <label class="block text-sm font-medium text-gray-600">Nomor Unik</label>
+                            <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nomor_unik }}</p>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-600">Program Studi</label>
@@ -75,6 +75,21 @@
                     @endif
                 </div>
             </div>
+
+            @if($pengajuan->status == 'Diterima')
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Pembimbing Akademik</label>
+                    @if($pengajuan->mahasiswa->pembimbingAkademik && $pengajuan->mahasiswa->pembimbingAkademik->count())
+                        <ul class="list-disc pl-5">
+                            @foreach($pengajuan->mahasiswa->pembimbingAkademik as $pembimbing)
+                                <li class="text-sm text-gray-900">{{ $pembimbing->nama }} (NIP: {{ $pembimbing->nip ?? '-' }})</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-sm text-gray-500">Belum ada pembimbing akademik yang dipasangkan.</p>
+                    @endif
+                </div>
+            @endif
 
             <!-- Action Buttons -->
             <div class="mt-8 flex justify-end space-x-4">

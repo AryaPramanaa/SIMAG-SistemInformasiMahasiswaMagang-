@@ -15,6 +15,7 @@ class SuratPernyataan extends Model
         'nomor_surat',
         'tanggal_surat',
         'file_path',
+        'jenis_surat',
     ];
 
     public function perusahaan()

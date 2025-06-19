@@ -16,8 +16,6 @@ class Prodi extends Seeder
         DB::table('prodis')->insert([
             'nama_prodi' => 'Teknik Informatika',
             'nama_kaprodi' => 'Dr. John Doe',
-            'kuota_pkl' => 50,
-            'kaprodi_id' => 1,
             'jurusan' => 'Teknolofi Informasi',
         ]);
     }

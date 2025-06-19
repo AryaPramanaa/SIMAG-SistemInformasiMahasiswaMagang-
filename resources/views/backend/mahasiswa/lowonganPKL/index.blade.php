@@ -9,37 +9,44 @@
             <div class="w-40 h-1 bg-green-500 mx-auto"></div>
         </div>
 
-        <!-- Search and Filter Section -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <div class="flex flex-wrap justify-between items-end gap-4">
-                <form action="{{ route('mahasiswa.lowonganPKL.index') }}" method="GET" class="flex flex-wrap gap-4 flex-1">
-                    <div class="flex-1 min-w-[200px]">
-                        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Cari</label>
-                        <div class="relative">
-                            <input type="text" id="search" name="search"
-                                class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500"
-                                placeholder="Cari lowongan..." value="{{ request('search') }}">
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-auto flex items-end gap-2">
-                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-150">
-                            Cari
-                        </button>
-                        <a href="{{ route('mahasiswa.lowonganPKL.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-150 inline-flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                            Refresh
-                        </a>
-                    </div>
-                </form>
-            </div>
+        <!-- Search and Filter Form -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
+            <form action="{{ route('mahasiswa.lowonganPKL.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label for="perusahaan" class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
+                    <select name="perusahaan" id="perusahaan"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="">Semua Perusahaan</option>
+                        @foreach($perusahaans as $perusahaan)
+                            <option value="{{ $perusahaan->id }}" {{ request('perusahaan') == $perusahaan->id ? 'selected' : '' }}>
+                                {{ $perusahaan->nama_perusahaan }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label for="divisi" class="block text-sm font-medium text-gray-700 mb-2">Divisi</label>
+                    <input type="text" name="divisi" id="divisi" value="{{ request('divisi') }}"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                        placeholder="Cari berdasarkan divisi">
+                </div>
+
+                <div class="flex items-end space-x-2">
+                    <button type="submit"
+                        class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Cari
+                    </button>
+                    <a href="{{ route('mahasiswa.lowonganPKL.index') }}"
+                        class="inline-flex items-center px-6 py-3 border border-gray-300 rounded-lg shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                        Reset
+                    </a>
+                </div>
+            </form>
         </div>
 
         @if(session('success'))
@@ -48,42 +55,30 @@
             </div>
         @endif
 
-        <!-- Table Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                NO</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                PERUSAHAAN</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                DIVISI</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                DESKRIPSI</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                SYARAT</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                AKSI</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">No</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Perusahaan</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Divisi</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Deskripsi</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Syarat</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse($lowonganPKLs as $index => $item)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $index + 1 }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $item->perusahaan->nama_perusahaan }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $item->divisi }}</td>
-                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center">
-                                    {{ Str::limit($item->deskripsi, 50) }}</td>
-                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center">
-                                    {{ Str::limit($item->syarat, 50) }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
-                                    <div class="flex items-center justify-center space-x-3">
-                                        <a href="{{ route('mahasiswa.lowonganPKL.show', $item->id) }}"
+                    <tbody class="divide-y divide-gray-200">
+                        @forelse($lowonganPKLs as $lowongan)
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $lowongan->perusahaan->nama_perusahaan }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $lowongan->divisi }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center max-w-xs truncate">{{ $lowongan->deskripsi }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center max-w-xs truncate">{{ $lowongan->syarat }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm text-center">
+                                    <div class="flex items-center justify-center space-x-2">
+                                        <a href="{{ route('mahasiswa.lowonganPKL.show', $lowongan->id) }}"
                                             class="text-blue-600 hover:text-blue-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -105,11 +100,10 @@
                     </tbody>
                 </table>
             </div>
-            @if($lowonganPKLs->hasPages())
-                <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-                    {{ $lowonganPKLs->links() }}
-                </div>
-            @endif
+        </div>
+
+        <div class="mt-6">
+            {{ $lowonganPKLs->links() }}
         </div>
     </div>
 @endsection

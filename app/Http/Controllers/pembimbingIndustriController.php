@@ -76,8 +76,8 @@ class pembimbingIndustriController extends Controller
      */
     public function show($id)
     {
-        $pembimbing = PembimbingIndustri::with('perusahaan')->findOrFail($id);
-        return view('backend.mahasiswa.pembimbingIndustri.show', compact('pembimbing'));
+        $pembimbingIndustri = PembimbingIndustri::with('perusahaan')->findOrFail($id);
+        return view('backend.mahasiswa.pembimbingIndustri.show', compact('pembimbingIndustri'));
     }
 
     /**
@@ -85,9 +85,9 @@ class pembimbingIndustriController extends Controller
      */
     public function edit($id)
     {
-        $pembimbing = PembimbingIndustri::findOrFail($id);
+        $pembimbingIndustri = PembimbingIndustri::findOrFail($id);
         $perusahaan = Perusahaan::where('status_kerjasama', 'Aktif')->get();
-        return view('backend.mahasiswa.pembimbingIndustri.edit', compact('pembimbing', 'perusahaan'));
+        return view('backend.mahasiswa.pembimbingIndustri.edit', compact('pembimbingIndustri', 'perusahaan'));
     }
 
     /**

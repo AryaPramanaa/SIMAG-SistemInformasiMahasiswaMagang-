@@ -60,7 +60,7 @@ class pengajuanPKLController extends Controller
 
     public function show($id)
     {
-        $pengajuan = pengajuanPKL::with(['mahasiswa', 'perusahaan'])->findOrFail($id);
+        $pengajuan = pengajuanPKL::with(['mahasiswa.pembimbingAkademik', 'perusahaan'])->findOrFail($id);
         return view('backend.mahasiswa.pengajuanPKL.show', compact('pengajuan'));
     }
 

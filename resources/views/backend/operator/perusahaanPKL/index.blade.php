@@ -10,57 +10,59 @@
             <div class="w-40 h-1 bg-green-500 mx-auto"></div>
         </div>
 
-        <!-- Search and Filter Section -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <div class="flex flex-wrap justify-between items-end gap-4">
-                <form action="{{ route('operator.perusahaanPKL.index') }}" method="GET" class="flex flex-wrap gap-4 flex-1">
-                    <div class="flex-1 min-w-[200px]">
-                        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Cari</label>
-                        <div class="relative">
-                            <input type="text" id="search" name="search"
-                                class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500"
-                                placeholder="Cari perusahaan..." value="{{ request('search') }}">
-                            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full md:w-auto">
-                        <label for="status_kerjasama" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                        <select id="status_kerjasama" name="status_kerjasama"
-                            class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500">
-                            <option value="">Semua Status</option>
-                            <option value="Aktif" {{ request('status_kerjasama') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="Non Aktif" {{ request('status_kerjasama') == 'Non Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
-                        </select>
-                    </div>
-                    <div class="w-full md:w-auto flex items-end gap-2">
-                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-150">
-                            Cari
-                        </button>
-                        <a href="{{ route('operator.perusahaanPKL.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-150 inline-flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                            Refresh
-                        </a>
-                    </div>
-                </form>
-                <div class="w-full md:w-auto">
-                    <a href="{{ route('operator.perusahaanPKL.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-150 inline-flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Tambah Perusahaan
-                    </a>
-                </div>
-            </div>
+        <div class="mb-6">
+            <a href="{{ route('operator.perusahaanPKL.create') }}"
+                class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Tambah Perusahaan
+            </a>
         </div>
 
-        <!-- Table Section -->
+        @if(session('success'))
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
+
+        <!-- Search and Filter Form -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
+            <form action="{{ route('operator.perusahaanPKL.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="search" class="block text-sm font-medium text-gray-700">Cari Perusahaan</label>
+                    <input type="text" name="search" id="search" value="{{ request('search') }}"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2"
+                        placeholder="Masukkan nama perusahaan...">
+                </div>
+
+                <div>
+                    <label for="status_kerjasama" class="block text-sm font-medium text-gray-700">Filter Status</label>
+                    <select name="status_kerjasama" id="status_kerjasama"
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2">
+                        <option value="">Semua Status</option>
+                        <option value="Aktif" {{ request('status_kerjasama') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Non Aktif" {{ request('status_kerjasama') == 'Non Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
+                </div>
+
+                <div class="flex items-end space-x-2">
+                    <button type="submit"
+                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Cari
+                    </button>
+                    <a href="{{ route('operator.perusahaanPKL.index') }}"
+                        class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        Reset
+                    </a>
+                </div>
+            </form>
+        </div>
+
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
@@ -82,9 +84,9 @@
                                 AKSI</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="divide-y divide-gray-200">
                         @forelse($perusahaan as $index => $item)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="bg-white hover:bg-gray-50">
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
                                     {{ $index + 1 }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
@@ -103,7 +105,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
-                                    <div class="flex items-center justify-center space-x-3">
+                                    <div class="flex items-center justify-center space-x-2">
                                         <a href="{{ route('operator.perusahaanPKL.show', $item->id) }}"
                                             class="text-blue-600 hover:text-blue-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,7 +125,8 @@
                                         <form action="{{ route('operator.perusahaanPKL.destroy', $item->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Apakah Anda yakin ingin menghapus perusahaan ini?')">
+                                            <button type="submit" class="text-red-600 hover:text-red-900"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus perusahaan ini?')">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -143,11 +146,10 @@
                     </tbody>
                 </table>
             </div>
-            @if($perusahaan->hasPages())
-                <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-                    {{ $perusahaan->links() }}
-                </div>
-            @endif
+        </div>
+
+        <div class="mt-6">
+            {{ $perusahaan->links() }}
         </div>
     </div>
 @endsection

@@ -10,8 +10,9 @@ class JadwalPendaftaranController extends Controller
 {
     public function index()
     {
-        $jadwals = jadwalPendfatraan::with('prodi')->get();
-        return view('backend.operator.JadwalPendaftaran.index', compact('jadwals'));
+        $jadwals = jadwalPendfatraan::with('prodi')->paginate(10);
+        $prodis = Prodi::select('id', 'jurusan')->distinct()->get();
+        return view('backend.operator.JadwalPendaftaran.index', compact('jadwals', 'prodis'));
     }
 
     public function create()

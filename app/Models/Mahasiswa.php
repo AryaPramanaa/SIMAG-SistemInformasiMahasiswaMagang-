@@ -10,7 +10,7 @@ class Mahasiswa extends Model
     use HasFactory;
     protected $table = 'mahasiswas';
     protected $fillable = [
-        'nim',
+        'nomor_unik',
         'nama',
         'email',
         'no_hp',
@@ -34,5 +34,10 @@ class Mahasiswa extends Model
     public function prodi()
     {
         return $this->belongsTo(Prodi::class);
+    }
+
+    public function pembimbingAkademik()
+    {
+        return $this->belongsToMany(\App\Models\PembimbingAkademik::class, 'mahasiswa_pembimbing_akademik')->withTimestamps();
     }
 }
