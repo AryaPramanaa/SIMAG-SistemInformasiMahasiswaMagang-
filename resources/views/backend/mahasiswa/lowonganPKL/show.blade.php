@@ -31,6 +31,11 @@
                     <p class="text-sm text-gray-900">{{ $lowonganPKL->divisi }}</p>
                 </div>
 
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Kuota</label>
+                    <p class="text-sm text-gray-900">{{ $lowonganPKL->kuota ?? '-' }}</p>
+                </div>
+
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
                     <p class="text-sm text-gray-900 whitespace-pre-line">{{ $lowonganPKL->deskripsi }}</p>
@@ -43,7 +48,7 @@
             </div>
 
             <div class="flex justify-end mt-6">
-                <a href="{{ route('mahasiswa.pengajuanPKL.create') }}"
+                <a href="{{ route('mahasiswa.pengajuanPKL.create', ['lowongan_id' => $lowonganPKL->id]) }}"
                     class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />

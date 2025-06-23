@@ -77,6 +77,11 @@
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <div class="mb-4">
+                        <label for="kuota" class="block text-sm font-medium text-gray-700">Kuota</label>
+                        <input type="number" name="kuota" id="kuota" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2" value="{{ old('kuota', $lowonganPKL->kuota) }}" placeholder="Masukkan kuota peserta">
+                    </div>
                 </div>
 
                 <div class="flex justify-end">

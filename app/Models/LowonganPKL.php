@@ -13,7 +13,8 @@ class LowonganPKL extends Model
         'perusahaan_id',
         'divisi',
         'deskripsi',
-        'syarat'
+        'syarat',
+        'kuota'
     ];
 
     public function perusahaan()

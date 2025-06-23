@@ -76,6 +76,7 @@ Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
     Route::resource('pengajuanPKL', pengajuanPKLController::class);
     Route::resource('lowonganPKL', LowonganPKLController::class);
     Route::resource('suratPKL', SuratPKLController::class);
+    Route::post('/pengajuan-pkl/{pengajuan}/pilih-pembimbing-industri', [App\Http\Controllers\pengajuanPKLController::class, 'pilihPembimbingIndustri'])->name('mahasiswa.pengajuanPKL.pilihPembimbingIndustri');
 });
 
 //PERUSAHAAN ROUTE

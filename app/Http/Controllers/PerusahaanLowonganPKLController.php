@@ -53,6 +53,7 @@ class PerusahaanLowonganPKLController extends Controller
             'divisi' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'syarat' => 'required|string',
+            'kuota' => 'nullable|integer|min:1',
         ]);
 
         $lowonganPKL = new LowonganPKL($request->all());
@@ -84,6 +85,7 @@ class PerusahaanLowonganPKLController extends Controller
             'divisi' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'syarat' => 'required|string',
+            'kuota' => 'nullable|integer|min:1',
         ]);
 
         $lowonganPKL->update($request->all());

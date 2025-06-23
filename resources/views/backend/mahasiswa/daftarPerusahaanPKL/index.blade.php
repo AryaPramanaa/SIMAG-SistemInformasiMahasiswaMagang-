@@ -81,8 +81,7 @@
                                 BIDANG USAHA</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
                                 STATUS KERJASAMA</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                AKSI</th>
+                            
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -106,9 +105,7 @@
                                         {{ $item['status_kerjasama'] }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
-                                    <span class="text-gray-400">-</span>
-                                </td>
+                                
                             </tr>
                         @empty
                             <tr>

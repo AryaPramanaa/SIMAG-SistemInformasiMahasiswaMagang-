@@ -65,6 +65,7 @@
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Divisi</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Deskripsi</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Syarat</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Kuota</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
@@ -76,6 +77,7 @@
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $lowongan->divisi }}</td>
                                 <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center max-w-xs truncate">{{ $lowongan->deskripsi }}</td>
                                 <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center max-w-xs truncate">{{ $lowongan->syarat }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $lowongan->kuota ?? '-' }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm text-center">
                                     <div class="flex items-center justify-center space-x-2">
                                         <a href="{{ route('mahasiswa.lowonganPKL.show', $lowongan->id) }}"

@@ -47,7 +47,10 @@
                             class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm select2">
                             <option value="">Pilih Mahasiswa</option>
                             @foreach($mahasiswas as $mahasiswa)
-                                <option value="{{ $mahasiswa->id }}" data-nim="{{ $mahasiswa->nim }}">{{ $mahasiswa->nama }} - {{ $mahasiswa->nim }}</option>
+                                <option value="{{ $mahasiswa->id }}" data-nim="{{ $mahasiswa->nim }}"
+                                    @if(old('mahasiswa_id') == $mahasiswa->id) selected @endif>
+                                    {{ $mahasiswa->nama }} - {{ $mahasiswa->nim }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -58,7 +61,10 @@
                             class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm select2">
                             <option value="">Pilih Perusahaan</option>
                             @foreach($perusahaans as $perusahaan)
-                                <option value="{{ $perusahaan->id }}">{{ $perusahaan->nama_perusahaan }}</option>
+                                <option value="{{ $perusahaan->id }}"
+                                    @if(old('perusahaan_id', isset($selectedLowongan) ? $selectedLowongan->perusahaan_id : null) == $perusahaan->id) selected @endif>
+                                    {{ $perusahaan->nama_perusahaan }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -77,7 +83,8 @@
                         <label for="divisi_pilihan" class="text-base font-semibold text-gray-700">Divisi Pilihan</label>
                         <input type="text" id="divisi_pilihan" name="divisi_pilihan" required
                             class="w-full h-[42px] rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm"
-                            placeholder="Masukkan divisi yang diinginkan">
+                            placeholder="Masukkan divisi yang diinginkan"
+                            value="{{ old('divisi_pilihan', isset($selectedLowongan) ? $selectedLowongan->divisi : '') }}">
                         <p class="text-sm text-gray-500">Masukkan divisi yang diinginkan untuk PKL</p>
                     </div>
                 </div>

@@ -16,43 +16,25 @@ class daftarPerusahaanController extends Controller
      */
     public function index(Request $request)
     {
-        // Ambil data dari API
-        $response = Http::get(url('/api/perusahaan/json'));
-        $perusahaan = collect();
-        if ($response->ok()) {
-            $perusahaan = collect($response->json('data'));
-        }
-        
+        $query = \App\Models\Perusahaan::where('status_kerjasama', 'Aktif');
 
         // Filter pencarian
         if ($request->has('search') && $request->search !== '') {
             $search = strtolower($request->search);
-            $perusahaan = $perusahaan->filter(function($item) use ($search) {
-                return str_contains(strtolower($item['nama_perusahaan']), $search)
-                    || str_contains(strtolower($item['alamat']), $search)
-                    || str_contains(strtolower($item['bidang_usaha']), $search);
+            $query->where(function($q) use ($search) {
+                $q->whereRaw('LOWER(nama_perusahaan) LIKE ?', ['%' . $search . '%'])
+                  ->orWhereRaw('LOWER(alamat) LIKE ?', ['%' . $search . '%'])
+                  ->orWhereRaw('LOWER(bidang_usaha) LIKE ?', ['%' . $search . '%']);
             });
         }
         if ($request->has('bidang_usaha') && $request->bidang_usaha !== '') {
             $bidang = strtolower($request->bidang_usaha);
-            $perusahaan = $perusahaan->filter(function($item) use ($bidang) {
-                return str_contains(strtolower($item['bidang_usaha']), $bidang);
-            });
+            $query->whereRaw('LOWER(bidang_usaha) LIKE ?', ['%' . $bidang . '%']);
         }
 
-        // Pagination manual
-        $perPage = 10;
-        $currentPage = request('page', 1);
-        $paged = $perusahaan->slice(($currentPage - 1) * $perPage, $perPage)->values();
-        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
-            $paged,
-            $perusahaan->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url(), 'query' => request()->query()]
-        );
+        $perusahaan = $query->latest()->paginate(10);
 
-        return view('backend.mahasiswa.daftarPerusahaanPKL.index', ['perusahaan' => $paginator]);
+        return view('backend.mahasiswa.daftarPerusahaanPKL.index', ['perusahaan' => $perusahaan]);
     }
 
     /**

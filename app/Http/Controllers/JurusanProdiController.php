@@ -7,9 +7,20 @@ use Illuminate\Http\Request;
 
 class JurusanProdiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $prodis = Prodi::latest()->paginate(10);
+        $query = Prodi::query();
+        
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_prodi', 'LIKE', "%{$search}%")
+                  ->orWhere('jurusan', 'LIKE', "%{$search}%")
+                  ->orWhere('nama_kaprodi', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        $prodis = $query->latest()->paginate(10);
         return view('backend.operator.JurusanProdi.index', compact('prodis'));
     }
 

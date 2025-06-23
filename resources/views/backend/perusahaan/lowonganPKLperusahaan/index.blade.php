@@ -37,6 +37,8 @@
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
                                 SYARAT</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                Kuota</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
                                 AKSI</th>
                         </tr>
                     </thead>
@@ -51,6 +53,8 @@
                                     {{ Str::limit($lowongan->deskripsi, 50) }}</td>
                                 <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center">
                                     {{ Str::limit($lowongan->syarat, 50) }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
+                                    {{ $lowongan->kuota ?? '-' }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">
                                     <div class="flex items-center justify-center space-x-2">
                                         <a href="{{ route('perusahaan.lowonganPKL.show', $lowongan->id) }}"

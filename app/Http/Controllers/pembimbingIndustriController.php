@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mahasiswa;
 use App\Models\PembimbingIndustri;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class pembimbingIndustriController extends Controller
 {
@@ -40,7 +42,21 @@ class pembimbingIndustriController extends Controller
      */
     public function create()
     {
-        $perusahaan = Perusahaan::where('status_kerjasama', 'Aktif')->get();
+        $mahasiswa = Mahasiswa::where('email', Auth::user()->email)->first();
+        $perusahaan = collect(); // default kosong
+
+        if ($mahasiswa) {
+            $pengajuanDiterima = $mahasiswa->pengajuanpkl()->where('status', 'Diterima')->first();
+            if ($pengajuanDiterima) {
+                $perusahaan = Perusahaan::where('status_kerjasama', 'Aktif')
+                    ->where('id', $pengajuanDiterima->perusahaan_id)
+                    ->get();
+            } else {
+                // Jika belum ada pengajuan diterima, tampilkan semua perusahaan aktif
+                $perusahaan = Perusahaan::where('status_kerjasama', 'Aktif')->get();
+            }
+        }
+
         return view('backend.mahasiswa.pembimbingIndustri.create', compact('perusahaan'));
     }
 

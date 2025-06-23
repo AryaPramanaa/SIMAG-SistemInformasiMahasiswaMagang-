@@ -70,11 +70,24 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('perusahaan_id') border-red-500 @enderror"
                             required>
                             <option value="">Pilih Perusahaan</option>
-                            @foreach($perusahaan as $item)
-                                <option value="{{ $item->id }}" {{ old('perusahaan_id') == $item->id ? 'selected' : '' }}>
-                                    {{ $item->nama_perusahaan }}
+                            @php
+                                $mahasiswa = Auth::user()->mahasiswa ?? null;
+                                $pengajuanDiterima = null;
+                                if ($mahasiswa) {
+                                    $pengajuanDiterima = $mahasiswa->pengajuanpkl()->where('status', 'Diterima')->first();
+                                }
+                            @endphp
+                            @if($pengajuanDiterima)
+                                <option value="{{ $pengajuanDiterima->perusahaan->id }}" selected>
+                                    {{ $pengajuanDiterima->perusahaan->nama_perusahaan }}
                                 </option>
-                            @endforeach
+                            @else
+                                @foreach($perusahaan as $item)
+                                    <option value="{{ $item->id }}" {{ old('perusahaan_id') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama_perusahaan }}
+                                    </option>
+                                @endforeach
+                            @endif
                         </select>
                         @error('perusahaan_id')
                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>

@@ -40,4 +40,10 @@ class Mahasiswa extends Model
     {
         return $this->belongsToMany(\App\Models\PembimbingAkademik::class, 'mahasiswa_pembimbing_akademik')->withTimestamps();
     }
+
+    public function pembimbingIndustri()
+    {
+        return $this->belongsToMany(\App\Models\PembimbingIndustri::class, 'mahasiswa_pembimbing_industri', 'mahasiswa_id', 'pembimbing_industri_id')
+            ->withTimestamps();
+    }
 }

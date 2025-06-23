@@ -21,4 +21,9 @@ class PembimbingIndustri extends Model
     {
         return $this->belongsTo(Perusahaan::class);
     }
+    public function mahasiswas()
+    {
+        return $this->belongsToMany(\App\Models\Mahasiswa::class, 'mahasiswa_pembimbing_industri', 'pembimbing_industri_id', 'mahasiswa_id')
+            ->withTimestamps();
+    }
 }

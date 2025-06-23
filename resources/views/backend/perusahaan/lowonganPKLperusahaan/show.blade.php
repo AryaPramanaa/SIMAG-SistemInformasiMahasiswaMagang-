@@ -27,6 +27,12 @@
                     <p class="mt-1 text-sm text-gray-500 whitespace-pre-line">{{ $lowonganPKL->syarat }}</p>
                 </div>
 
+                <!-- Kuota -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Kuota</label>
+                    <p class="text-sm text-gray-900">{{ $lowonganPKL->kuota ?? '-' }}</p>
+                </div>
+
                 <!-- Action Buttons -->
                 <div class="flex justify-end space-x-4 pt-4">
                     <a href="{{ route('perusahaan.lowonganPKL.index') }}"

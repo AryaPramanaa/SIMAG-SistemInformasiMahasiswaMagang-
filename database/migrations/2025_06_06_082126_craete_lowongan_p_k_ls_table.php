@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('perusahaan_id')->constrained('perusahaans')->onDelete('cascade');
             $table->string('divisi');
-            $table->string('deskripsi');
-            $table->string('syarat');
+            $table->text('deskripsi');
+            $table->text('syarat');
+            $table->integer('kuota')->nullable();
             $table->timestamps();
         });
     }

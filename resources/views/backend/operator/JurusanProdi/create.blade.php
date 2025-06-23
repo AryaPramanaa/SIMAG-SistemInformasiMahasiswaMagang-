@@ -28,6 +28,12 @@
             </div>
         @endif
 
+        @if(session('error'))
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+                <p>{{ session('error') }}</p>
+            </div>
+        @endif
+
         <div class="bg-white rounded-xl shadow-lg p-6">
             <form action="{{ route('operator.jurusanProdi.store') }}" method="POST" class="space-y-6">
                 @csrf

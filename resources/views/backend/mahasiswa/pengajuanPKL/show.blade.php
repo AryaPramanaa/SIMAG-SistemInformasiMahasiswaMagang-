@@ -82,6 +82,34 @@
                         <p class="text-sm text-gray-500">Belum ada pembimbing akademik yang dipasangkan.</p>
                     @endif
                 </div>
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Pembimbing Industri yang Dipilih</label>
+                    @if(isset($pembimbingIndustriTerpilih) && $pembimbingIndustriTerpilih->count())
+                        <ul class="list-disc pl-5">
+                            @foreach($pembimbingIndustriTerpilih as $pembimbing)
+                                <li class="text-sm text-gray-900">{{ $pembimbing->nama_pembimbing }} ({{ $pembimbing->jabatan }})</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p class="text-sm text-gray-500">Belum ada pembimbing industri yang dipilih.</p>
+                    @endif
+                </div>
+                @if(isset($pembimbingIndustriTersedia) && $pembimbingIndustriTersedia->count())
+                <div class="mt-6">
+                    <form action="{{ route('mahasiswa.pengajuanPKL.pilihPembimbingIndustri', $pengajuan->id) }}" method="POST">
+                        @csrf
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Pembimbing Industri dari Perusahaan</label>
+                        <select name="pembimbing_industri_ids[]" multiple required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                            @foreach($pembimbingIndustriTersedia as $pembimbing)
+                                <option value="{{ $pembimbing->id }}" @if($pembimbingIndustriTerpilih->contains('id', $pembimbing->id)) selected @endif>
+                                    {{ $pembimbing->nama_pembimbing }} ({{ $pembimbing->jabatan }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Simpan Pembimbing Industri</button>
+                    </form>
+                </div>
+                @endif
             @endif
 
             @if($pengajuan->status == 'Pending')
