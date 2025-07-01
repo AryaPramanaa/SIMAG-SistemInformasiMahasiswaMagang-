@@ -74,6 +74,19 @@
                     @enderror
                 </div>
 
+                <div id="perusahaan-select-wrapper" style="display:none;">
+                    <label for="id_perusahaan" class="block text-sm font-medium text-gray-700 mb-2">Pilih Perusahaan</label>
+                    <select name="id_perusahaan" id="id_perusahaan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('id_perusahaan') border-red-500 @enderror">
+                        <option value="">Pilih Perusahaan</option>
+                        @foreach($perusahaans as $perusahaan)
+                            <option value="{{ $perusahaan->id }}" {{ old('id_perusahaan') == $perusahaan->id ? 'selected' : '' }}>{{ $perusahaan->nama_perusahaan }}</option>
+                        @endforeach
+                    </select>
+                    @error('id_perusahaan')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                     <select name="status" id="status" required
@@ -98,4 +111,20 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role');
+            const perusahaanSelectWrapper = document.getElementById('perusahaan-select-wrapper');
+            function togglePerusahaanSelect() {
+                if (roleSelect.value === 'perusahaan') {
+                    perusahaanSelectWrapper.style.display = '';
+                } else {
+                    perusahaanSelectWrapper.style.display = 'none';
+                }
+            }
+            roleSelect.addEventListener('change', togglePerusahaanSelect);
+            togglePerusahaanSelect();
+        });
+    </script>
 @endsection

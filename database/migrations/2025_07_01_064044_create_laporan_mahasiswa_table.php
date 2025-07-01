@@ -20,6 +20,11 @@ return new class extends Migration
             $table->text('isi_laporan');
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_perusahaan')->nullable()->after('status');
+            $table->foreign('id_perusahaan')->references('id')->on('perusahaans')->onDelete('set null');
+        });
     }
 
     /**
@@ -28,5 +33,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('laporanMahasiswas');
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['id_perusahaan']);
+            $table->dropColumn('id_perusahaan');
+        });
     }
 };

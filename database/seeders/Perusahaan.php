@@ -22,6 +22,6 @@ class Perusahaan extends Seeder
         ]);
 
         // Contoh update semua perusahaan agar user_id = 2
-        DB::table('perusahaans')->update(['user_id' => 2]);
+        // DB::table('perusahaans')->update(['user_id' => 2]);
     }
 }

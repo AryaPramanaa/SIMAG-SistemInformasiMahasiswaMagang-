@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,7 +35,8 @@ class akunController extends Controller
 
     public function create()
     {
-        return view('backend.operator.Akun.create');
+        $perusahaans = Perusahaan::all();
+        return view('backend.operator.Akun.create', compact('perusahaans'));
     }
 
     public function store(Request $request)
@@ -45,15 +47,21 @@ class akunController extends Controller
             'password' => 'required|string|min:8',
             'role' => 'required|string|in:mahasiswa,perusahaan,kaprodi,pimpinan,operator',
             'status' => 'required|string|in:Aktif,Non-Aktif',
+            'id_perusahaan' => 'required_if:role,perusahaan|nullable|exists:perusahaans,id',
         ]);
 
-        User::create([
+        $data = [
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'status' => $request->status,
-        ]);
+        ];
+        if ($request->role === 'perusahaan') {
+            $data['id_perusahaan'] = $request->id_perusahaan;
+        }
+
+        User::create($data);
 
         return redirect()->route('operator.akun.index')
             ->with('success', 'Akun berhasil ditambahkan');
