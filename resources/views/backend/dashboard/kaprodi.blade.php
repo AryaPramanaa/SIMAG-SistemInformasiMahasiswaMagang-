@@ -103,8 +103,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href=""
-                        class="flex items-center gap-x-3 px-4 py-3 rounded-lg {{ request()->is('') ? 'bg-green-100 text-green-600' : 'hover:bg-gray-100' }} transition-colors">
+                    <a href="{{ route('kaprodi.profil.edit') }}"
+                        class="flex items-center gap-x-3 px-4 py-3 rounded-lg {{ request()->is('kaprodi/profil/edit') ? 'bg-green-100 text-green-600' : 'hover:bg-gray-100' }} transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

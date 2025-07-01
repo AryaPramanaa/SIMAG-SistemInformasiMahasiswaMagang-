@@ -13,5 +13,6 @@ class Prodi extends Model
         'nama_prodi',
         'jurusan',
         'nama_kaprodi',
+        'user_id',
     ];
 }

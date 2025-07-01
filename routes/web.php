@@ -25,6 +25,10 @@ use App\Http\Controllers\SuratPKLController;
 use App\Http\Controllers\OperatorSuratPKLController;
 use App\Http\Controllers\PembimbingAkademikController;
 use App\Http\Controllers\OperatorPengajuanPKLController;
+use App\Http\Controllers\perusahaanPembimbingIndustriController;
+use App\Http\Controllers\PerusahaanProfilController;
+use App\Http\Controllers\MahasiswaProfilController;
+use App\Http\Controllers\ProdiProfilController;
 
 
 //Frontend
@@ -77,11 +81,20 @@ Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
     Route::resource('lowonganPKL', LowonganPKLController::class);
     Route::resource('suratPKL', SuratPKLController::class);
     Route::post('/pengajuan-pkl/{pengajuan}/pilih-pembimbing-industri', [App\Http\Controllers\pengajuanPKLController::class, 'pilihPembimbingIndustri'])->name('mahasiswa.pengajuanPKL.pilihPembimbingIndustri');
+    // Profil Mahasiswa
+    Route::get('profil/edit', [App\Http\Controllers\MahasiswaProfilController::class, 'edit'])->name('profil.edit');
+    Route::put('profil/update', [App\Http\Controllers\MahasiswaProfilController::class, 'update'])->name('profil.update');
 });
 
 //PERUSAHAAN ROUTE
 Route::prefix('perusahaan')->name('perusahaan.')->group(function () {
     Route::resource('lowonganPKL', PerusahaanLowonganPKLController::class);
+    Route::resource('pembimbingIndustri', perusahaanPembimbingIndustriController::class);
+    Route::post('pembimbingIndustri/{pembimbingIndustri}/assign-mahasiswa', [App\Http\Controllers\perusahaanPembimbingIndustriController::class, 'assignMahasiswa'])->name('pembimbingIndustri.assignMahasiswa');
+    Route::resource('laporanMahasiswa', App\Http\Controllers\laporanMahasiswaController::class);
+    // Profil Perusahaan
+    Route::get('profil/edit', [App\Http\Controllers\PerusahaanProfilController::class, 'edit'])->name('profil.edit');
+    Route::put('profil/update', [App\Http\Controllers\PerusahaanProfilController::class, 'update'])->name('profil.update');
 });
 
 //OPERATOR ROUTE
@@ -98,6 +111,9 @@ Route::prefix('operator')->name('operator.')->group(function () {
 //KAPRODI
 Route::prefix('kaprodi')->name('kaprodi.')->group(function () {
     Route::resource('pengajuanPKL', pengajuanPKLKapordiController::class);
+    // Profil Prodi (Kaprodi)
+    Route::get('profil/edit', [App\Http\Controllers\ProdiProfilController::class, 'edit'])->name('profil.edit');
+    Route::put('profil/update', [App\Http\Controllers\ProdiProfilController::class, 'update'])->name('profil.update');
 });
 // Pembimbing Akademik Routes
 Route::prefix('kaprodi')->group(function () {
@@ -109,6 +125,8 @@ Route::prefix('kaprodi')->group(function () {
 
 //API
 Route::get('/data', [App\Http\Controllers\API\PerusahaanApiController::class, 'importFromJson']); 
+
+
 
 
 

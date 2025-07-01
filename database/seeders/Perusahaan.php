@@ -20,5 +20,8 @@ class Perusahaan extends Seeder
             'bidang_usaha' => 'Teknik Mesin',
             'status_kerjasama' => 'Aktif',
         ]);
+
+        // Contoh update semua perusahaan agar user_id = 2
+        DB::table('perusahaans')->update(['user_id' => 2]);
     }
 }
