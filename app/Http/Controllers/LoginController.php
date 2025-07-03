@@ -10,28 +10,19 @@ class LoginController extends Controller
 {
     public function authenticate(Request $request)
     {
-        $credentials = $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
-
-        // Check if user exists and is not non-active
-        $user = User::where('username', $credentials['username'])->first();
-        
-        if ($user && $user->status === 'Non-Aktif') {
-            return back()->withErrors([
-                'username' => 'Akun Anda telah dinonaktifkan. Silakan hubungi administrator.',
-            ])->onlyInput('username');
-        }
-
-        if (Auth::attempt($credentials)) {
+        $credentials = $request->only('username', 'password');
+        if (\Illuminate\Support\Facades\Auth::attempt($credentials)) {
+            $user = \Illuminate\Support\Facades\Auth::user();
+            if ($user->role === 'mahasiswa' && $user->status !== 'Aktif') {
+                \Illuminate\Support\Facades\Auth::logout();
+                return back()->withErrors(['Akun Anda belum aktif. Silakan hubungi operator.']);
+            }
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard/' . Auth::user()->username);
+            return redirect()->intended('/dashboard/' . $user->username);
         }
-
         return back()->withErrors([
-            'username' => 'Username atau password salah.',
-        ])->onlyInput('username');
+            'username' => 'Username atau password salah',
+        ]);
     }
 
     public function redirect($username)

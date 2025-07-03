@@ -111,4 +111,12 @@ class akunController extends Controller
         return redirect()->route('operator.akun.index')
             ->with('success', 'Akun berhasil dihapus');
     }
+
+    public function activate($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+        $user->status = 'Aktif';
+        $user->save();
+        return back()->with('success', 'Akun berhasil diaktifkan.');
+    }
 }

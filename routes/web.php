@@ -29,6 +29,7 @@ use App\Http\Controllers\perusahaanPembimbingIndustriController;
 use App\Http\Controllers\PerusahaanProfilController;
 use App\Http\Controllers\MahasiswaProfilController;
 use App\Http\Controllers\ProdiProfilController;
+use App\Http\Controllers\RegisterMahasiswaController;
 
 
 //Frontend
@@ -109,6 +110,7 @@ Route::middleware(['auth'])->prefix('operator')->name('operator.')->group(functi
     Route::resource('lowonganPKL', OperatorLowonganPKlController::class);
     Route::resource('suratPKL', OperatorSuratPKLController::class);
     Route::resource('pengajuanPKL', OperatorPengajuanPKLController::class);
+    Route::post('/akun/{id}/activate', [App\Http\Controllers\AkunController::class, 'activate'])->name('operator.akun.activate');
 });
 
 //KAPRODI
@@ -128,6 +130,12 @@ Route::middleware(['auth'])->prefix('kaprodi')->group(function () {
 
 //API
 Route::get('/data', [App\Http\Controllers\API\PerusahaanApiController::class, 'importFromJson']); 
+
+// Register Mahasiswa
+Route::middleware('guest')->group(function () {
+    Route::get('/register/mahasiswa', [App\Http\Controllers\RegisterMahasiswaController::class, 'showRegistrationForm'])->name('register.mahasiswa');
+    Route::post('/register/mahasiswa', [App\Http\Controllers\RegisterMahasiswaController::class, 'register']);
+});
 
 
 

@@ -166,7 +166,7 @@
 
             <div class="mt-8 flex flex-col space-y-4">
                 <div class="text-center text-sm text-gray-500">
-                    Tidak memiliki akun? Hubungi administrator Anda
+                    Tidak memiliki akun? <a href="{{ route('register.mahasiswa') }}" class="text-green-600 hover:underline">Daftar sebagai Mahasiswa</a>
                 </div>
                 <a href="/"
                     class="inline-flex w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-green-600 transition-all duration-300 hover:bg-green-50 hover:shadow-md transform hover:-translate-y-0.5">
@@ -175,6 +175,7 @@
             </div>
         </div>
     </div>
+    @yield('content')
 </body>
 
 </html>
