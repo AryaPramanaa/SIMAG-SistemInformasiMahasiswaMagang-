@@ -33,12 +33,16 @@ class PerusahaanApiController extends Controller
             // Cek jika sudah ada berdasarkan nama_perusahaan
             $exists = Perusahaan::where('nama_perusahaan', $item['nama_perusahaan'])->exists();
             if ($exists) continue;
+            // Cari user dengan username == nama_perusahaan
+            $user = \App\Models\User::where('username', $item['nama_perusahaan'])->first();
+            $user_id = $user ? $user->id : null;
             Perusahaan::create([
                 'nama_perusahaan' => $item['nama_perusahaan'],
                 'alamat' => $item['alamat'] ?? '',
                 'kontak' => $item['kontak'] ?? '',
                 'bidang_usaha' => $item['bidang_usaha'] ?? '',
                 'status_kerjasama' => $item['status_kerjasama'] ?? '',
+                'user_id' => $user_id,
             ]);
             $inserted++;
         }

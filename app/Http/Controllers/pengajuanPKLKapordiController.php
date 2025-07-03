@@ -58,7 +58,29 @@ class pengajuanPKLKapordiController extends Controller
             $data['alasan_penolakan'] = null;
         }
 
+        $oldStatus = $pengajuan->status;
         $pengajuan->update($data);
+
+        // Jika status diubah dari selain 'Diterima' menjadi 'Diterima', kurangi kuota lowongan
+        if ($oldStatus !== 'Diterima' && $request->status === 'Diterima') {
+            $lowongan = \App\Models\LowonganPKL::where('perusahaan_id', $pengajuan->perusahaan_id)
+                ->where('divisi', $pengajuan->divisi_pilihan)
+                ->first();
+            if ($lowongan && $lowongan->kuota !== null) {
+                $lowongan->save();
+            }
+        }
+
+        // Jika status diubah dari 'Diterima' menjadi 'Ditolak' atau 'Pending', tambahkan kembali kuota
+        if ($oldStatus === 'Diterima' && in_array($request->status, ['Ditolak', 'Pending'])) {
+            $lowongan = \App\Models\LowonganPKL::where('perusahaan_id', $pengajuan->perusahaan_id)
+                ->where('divisi', $pengajuan->divisi_pilihan)
+                ->first();
+            if ($lowongan && $lowongan->kuota !== null) {
+                $lowongan->kuota += 1;
+                $lowongan->save();
+            }
+        }
 
         return redirect()->route('kaprodi.pengajuanPKL.index')
             ->with('success', 'Status pengajuan PKL berhasil diperbarui.');

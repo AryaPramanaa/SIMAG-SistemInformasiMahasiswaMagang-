@@ -16,7 +16,7 @@ class Perusahaan extends Model
         'kontak',
         'bidang_usaha',
         'status_kerjasama',
-        
+        'user_id',
     ];
     public function pengajuanpkl()
     {

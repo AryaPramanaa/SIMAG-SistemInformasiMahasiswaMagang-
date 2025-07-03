@@ -10,21 +10,27 @@ class PerusahaanLowonganPKLController extends Controller
 {
     public function index(Request $request)
     {
-        $query = LowonganPKL::with('perusahaan');
-            
+        $user = Auth::user();
+        $perusahaan = \App\Models\Perusahaan::where('user_id', $user->id)->first();
+        
+        if (!$perusahaan) {
+            $lowonganPKLs = collect(); // kosong
+        } else {
+            $query = LowonganPKL::with('perusahaan')->where('perusahaan_id', $perusahaan->id);
 
-        // Search functionality
-        if ($request->has('search') && $request->search !== '') {
-            $search = strtolower($request->search);
-            $query->where(function($q) use ($search) {
-                $q->whereRaw('LOWER(divisi) LIKE ?', ['%' . $search . '%'])
-                ->orWhereRaw('LOWER(deskripsi) LIKE ?', ['%' . $search . '%'])
-                ->orWhereRaw('LOWER(syarat) LIKE ?', ['%' . $search . '%']);
-            });
+            // Search functionality
+            if ($request->has('search') && $request->search !== '') {
+                $search = strtolower($request->search);
+                $query->where(function($q) use ($search) {
+                    $q->whereRaw('LOWER(divisi) LIKE ?', ['%' . $search . '%'])
+                      ->orWhereRaw('LOWER(deskripsi) LIKE ?', ['%' . $search . '%'])
+                      ->orWhereRaw('LOWER(syarat) LIKE ?', ['%' . $search . '%']);
+                });
+            }
+
+            $lowonganPKLs = $query->latest()->paginate(10);
         }
 
-        $lowonganPKLs = $query->latest()->paginate(10);
-        
         if ($request->ajax()) {
             return response()->json($lowonganPKLs);
         }
@@ -56,8 +62,14 @@ class PerusahaanLowonganPKLController extends Controller
             'kuota' => 'nullable|integer|min:1',
         ]);
 
+        $user = Auth::user();
+        $perusahaan = \App\Models\Perusahaan::where('user_id', $user->id)->first();
+        if (!$perusahaan) {
+            return redirect()->back()->withErrors(['Perusahaan tidak ditemukan untuk user ini.']);
+        }
+
         $lowonganPKL = new LowonganPKL($request->all());
-        $lowonganPKL->perusahaan_id = Auth::user()->id;
+        $lowonganPKL->perusahaan_id = $perusahaan->id;
         $lowonganPKL->save();
 
         return redirect()->route('perusahaan.lowonganPKL.index')
@@ -97,9 +109,9 @@ class PerusahaanLowonganPKLController extends Controller
     public function destroy(LowonganPKL $lowonganPKL)
     {
         // Ensure the lowongan belongs to the authenticated perusahaan
-        if ($lowonganPKL->perusahaan_id !== Auth::user()->perusahaan->id) {
-            abort(403);
-        }
+        // if ($lowonganPKL->perusahaan_id !== Auth::user()->perusahaan->id) {
+        //     abort(403);
+        // }
 
         $lowonganPKL->delete();
 

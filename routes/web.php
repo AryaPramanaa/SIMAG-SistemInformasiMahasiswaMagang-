@@ -42,6 +42,9 @@ Route::get('/entry', function () {
 
 // Login
 Route::get('/dashboard/{username}', [LoginController::class, 'redirect'])->name('dashboard')->middleware('auth');
+Route::get('/login', function () {
+    return redirect('/entry');
+});
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -67,13 +70,13 @@ Route::middleware(['auth'])->group(function () {
         return view('backend.dashboard.pimpinan');
     })->name('pimpinan.dashboard');
 
-    
+    Route::get('perusahaan/lowongan-saya', [App\Http\Controllers\LowonganPKlController::class, 'indexPerusahaan'])->name('perusahaan.lowongan.saya');
 });
 
 
 
 //MAHASISWA
-Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+Route::middleware(['auth'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
     Route::resource('daftarPerusahaanPKL', daftarPerusahaanController::class);
     Route::resource('pembimbingIndustri', pembimbingIndustriController::class);
     Route::resource('suratPernyataan', SuratPernyataanController::class);
@@ -87,7 +90,7 @@ Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
 });
 
 //PERUSAHAAN ROUTE
-Route::prefix('perusahaan')->name('perusahaan.')->group(function () {
+Route::middleware(['auth'])->prefix('perusahaan')->name('perusahaan.')->group(function () {
     Route::resource('lowonganPKL', PerusahaanLowonganPKLController::class);
     Route::resource('pembimbingIndustri', perusahaanPembimbingIndustriController::class);
     Route::post('pembimbingIndustri/{pembimbingIndustri}/assign-mahasiswa', [App\Http\Controllers\perusahaanPembimbingIndustriController::class, 'assignMahasiswa'])->name('pembimbingIndustri.assignMahasiswa');
@@ -98,7 +101,7 @@ Route::prefix('perusahaan')->name('perusahaan.')->group(function () {
 });
 
 //OPERATOR ROUTE
-Route::prefix('operator')->name('operator.')->group(function () {
+Route::middleware(['auth'])->prefix('operator')->name('operator.')->group(function () {
     Route::resource('perusahaanPKL', PerusahaanPKLController::class);
     Route::resource('jurusanProdi', JurusanProdiController::class);
     Route::resource('akun', AkunController::class);
@@ -109,14 +112,14 @@ Route::prefix('operator')->name('operator.')->group(function () {
 });
 
 //KAPRODI
-Route::prefix('kaprodi')->name('kaprodi.')->group(function () {
+Route::middleware(['auth'])->prefix('kaprodi')->name('kaprodi.')->group(function () {
     Route::resource('pengajuanPKL', pengajuanPKLKapordiController::class);
     // Profil Prodi (Kaprodi)
     Route::get('profil/edit', [App\Http\Controllers\ProdiProfilController::class, 'edit'])->name('profil.edit');
     Route::put('profil/update', [App\Http\Controllers\ProdiProfilController::class, 'update'])->name('profil.update');
 });
 // Pembimbing Akademik Routes
-Route::prefix('kaprodi')->group(function () {
+Route::middleware(['auth'])->prefix('kaprodi')->group(function () {
     Route::resource('pembimbing-akademik', PembimbingAkademikController::class);
     Route::post('pembimbing-akademik/{pembimbingAkademik}/assign-mahasiswa', [PembimbingAkademikController::class, 'assignMahasiswa'])->name('pembimbing-akademik.assign-mahasiswa');
     Route::delete('pembimbing-akademik/{pembimbingAkademik}/mahasiswa/{mahasiswa}', [PembimbingAkademikController::class, 'removeMahasiswa'])->name('pembimbing-akademik.remove-mahasiswa');

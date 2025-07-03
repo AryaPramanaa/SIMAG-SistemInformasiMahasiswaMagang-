@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Prodi::class, 'nomor_unik', 'nama_kaprodi');
     }
+
+    public function perusahaan()
+    {
+        return $this->hasOne(\App\Models\Perusahaan::class, 'user_id');
+    }
 }
