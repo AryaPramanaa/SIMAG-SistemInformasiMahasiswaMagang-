@@ -30,6 +30,7 @@ use App\Http\Controllers\PerusahaanProfilController;
 use App\Http\Controllers\MahasiswaProfilController;
 use App\Http\Controllers\ProdiProfilController;
 use App\Http\Controllers\RegisterMahasiswaController;
+use App\Http\Controllers\MahasiswaPembimbingAkademikController;
 
 
 //Frontend
@@ -80,11 +81,11 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
     Route::resource('daftarPerusahaanPKL', daftarPerusahaanController::class);
     Route::resource('pembimbingIndustri', pembimbingIndustriController::class);
+    Route::resource('pembimbingAkademik', MahasiswaPembimbingAkademikController::class)->only(['index','show']);
     Route::resource('suratPernyataan', SuratPernyataanController::class);
     Route::resource('pengajuanPKL', pengajuanPKLController::class);
     Route::resource('lowonganPKL', LowonganPKLController::class);
     Route::resource('suratPKL', SuratPKLController::class);
-    Route::post('/pengajuan-pkl/{pengajuan}/pilih-pembimbing-industri', [App\Http\Controllers\pengajuanPKLController::class, 'pilihPembimbingIndustri'])->name('mahasiswa.pengajuanPKL.pilihPembimbingIndustri');
     // Profil Mahasiswa
     Route::get('profil/edit', [App\Http\Controllers\MahasiswaProfilController::class, 'edit'])->name('profil.edit');
     Route::put('profil/update', [App\Http\Controllers\MahasiswaProfilController::class, 'update'])->name('profil.update');
@@ -95,6 +96,7 @@ Route::middleware(['auth'])->prefix('perusahaan')->name('perusahaan.')->group(fu
     Route::resource('lowonganPKL', PerusahaanLowonganPKLController::class);
     Route::resource('pembimbingIndustri', perusahaanPembimbingIndustriController::class);
     Route::post('pembimbingIndustri/{pembimbingIndustri}/assign-mahasiswa', [App\Http\Controllers\perusahaanPembimbingIndustriController::class, 'assignMahasiswa'])->name('pembimbingIndustri.assignMahasiswa');
+    Route::delete('pembimbingIndustri/{pembimbingIndustri}/mahasiswa/{mahasiswa}', [App\Http\Controllers\perusahaanPembimbingIndustriController::class, 'removeMahasiswa'])->name('pembimbingIndustri.removeMahasiswa');
     Route::resource('laporanMahasiswa', App\Http\Controllers\laporanMahasiswaController::class);
     // Profil Perusahaan
     Route::get('profil/edit', [App\Http\Controllers\PerusahaanProfilController::class, 'edit'])->name('profil.edit');
@@ -111,6 +113,8 @@ Route::middleware(['auth'])->prefix('operator')->name('operator.')->group(functi
     Route::resource('suratPKL', OperatorSuratPKLController::class);
     Route::resource('pengajuanPKL', OperatorPengajuanPKLController::class);
     Route::post('/akun/{id}/activate', [App\Http\Controllers\AkunController::class, 'activate'])->name('operator.akun.activate');
+    // AJAX: Mahasiswa diterima di perusahaan tertentu untuk surat PKL operator
+    Route::get('/surat-pkl/mahasiswa-by-perusahaan/{perusahaan_id}', [App\Http\Controllers\OperatorSuratPKLController::class, 'mahasiswaByPerusahaan'])->name('operator.suratPKL.mahasiswaByPerusahaan');
 });
 
 //KAPRODI
@@ -120,6 +124,7 @@ Route::middleware(['auth'])->prefix('kaprodi')->name('kaprodi.')->group(function
     Route::get('profil/edit', [App\Http\Controllers\ProdiProfilController::class, 'edit'])->name('profil.edit');
     Route::put('profil/update', [App\Http\Controllers\ProdiProfilController::class, 'update'])->name('profil.update');
 });
+
 // Pembimbing Akademik Routes
 Route::middleware(['auth'])->prefix('kaprodi')->group(function () {
     Route::resource('pembimbing-akademik', PembimbingAkademikController::class);
@@ -135,6 +140,12 @@ Route::get('/data', [App\Http\Controllers\API\PerusahaanApiController::class, 'i
 Route::middleware('guest')->group(function () {
     Route::get('/register/mahasiswa', [App\Http\Controllers\RegisterMahasiswaController::class, 'showRegistrationForm'])->name('register.mahasiswa');
     Route::post('/register/mahasiswa', [App\Http\Controllers\RegisterMahasiswaController::class, 'register']);
+});
+
+//PIMPINAN
+Route::middleware(['auth'])->prefix('pimpinan')->name('pimpinan.')->group(function () {
+    Route::resource('laporanMahasiswa', App\Http\Controllers\PimpinanLaporanMahasiswaController::class)->only(['index', 'show']);
+    Route::resource('rekapMahasiswaPKL', App\Http\Controllers\RekapMahasiswaPKLController::class)->only(['index', 'show']);
 });
 
 

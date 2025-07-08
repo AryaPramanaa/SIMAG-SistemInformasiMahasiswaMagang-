@@ -14,6 +14,8 @@ return new class extends Migration
             $table->string('nip')->unique();
             $table->foreignId('prodi_id')->constrained('prodis')->onDelete('cascade');
             $table->integer('kapasitas_bimbingan');
+            $table->string('kontak')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
 

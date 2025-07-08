@@ -54,6 +54,11 @@
                         <input type="text" name="jenis_surat" id="jenis_surat" value="{{ old('jenis_surat') }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan jenis surat">
                     </div>
 
+                    <div id="mahasiswa-list-container" class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mahasiswa Diterima di Perusahaan Ini</label>
+                        <ul id="mahasiswa-list" class="list-disc pl-5 text-gray-700"></ul>
+                    </div>
+
                     <div class="md:col-span-2">
                         <label for="file" class="block text-sm font-medium text-gray-700 mb-2">File Surat PKL (PDF)</label>
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
@@ -110,6 +115,27 @@
                     this.value = '';
                     return;
                 }
+            }
+        });
+
+        document.getElementById('perusahaan_id').addEventListener('change', function() {
+            var perusahaanId = this.value;
+            var mahasiswaList = document.getElementById('mahasiswa-list');
+            mahasiswaList.innerHTML = '';
+            if (perusahaanId) {
+                fetch('/operator/surat-pkl/mahasiswa-by-perusahaan/' + perusahaanId)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            data.forEach(function(mhs) {
+                                mahasiswaList.innerHTML += `<li>${mhs.nama} (${mhs.nim})</li>`;
+                            });
+                        } else {
+                            mahasiswaList.innerHTML = '<li class="text-red-500">Tidak ada mahasiswa diterima di perusahaan ini</li>';
+                        }
+                    });
+            } else {
+                mahasiswaList.innerHTML = '';
             }
         });
     </script>

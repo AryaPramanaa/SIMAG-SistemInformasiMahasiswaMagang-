@@ -34,7 +34,7 @@
                 @method('PUT')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="perusahaan_id" class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
+                        <label for="perusahaan_id" class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
                         <select name="perusahaan_id" id="perusahaan_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                             <option value="">Pilih Perusahaan</option>
                             @foreach($perusahaans as $perusahaan)
@@ -45,19 +45,22 @@
                         </select>
                     </div>
                     <div>
-                        <label for="nomor_surat" class="block text-sm font-medium text-gray-700 mb-2">Nomor Surat</label>
+                        <label for="nomor_surat" class="block text-sm font-medium text-gray-700 mb-1">Nomor Surat</label>
                         <input type="text" name="nomor_surat" id="nomor_surat" value="{{ old('nomor_surat', $suratPKL->nomor_surat) }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan nomor surat">
                     </div>
                     <div>
-                        <label for="jenis_surat" class="block text-sm font-medium text-gray-700 mb-2">Jenis Surat</label>
+                        <label for="jenis_surat" class="block text-sm font-medium text-gray-700 mb-1">Jenis Surat</label>
                         <input type="text" name="jenis_surat" id="jenis_surat" value="{{ old('jenis_surat', $suratPKL->jenis_surat) }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan jenis surat">
                     </div>
                     <div class="md:col-span-2">
-                        <label for="file" class="block text-sm font-medium text-gray-700 mb-2">File Surat PKL (PDF)</label>
+                        <label for="file" class="block text-sm font-medium text-gray-700 mb-1">File Surat PKL (PDF)</label>
                         @if($suratPKL->file_path)
                             <div class="mb-2">
-                                <p class="text-sm text-gray-600">File saat ini:</p>
-                                <a href="{{ Storage::url($suratPKL->file_path) }}" target="_blank" class="text-green-600 hover:text-green-700">
+                                <label class="block text-xs font-medium text-gray-500 mb-1">File saat ini:</label>
+                                <a href="{{ Storage::url($suratPKL->file_path) }}" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                    <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
                                     Lihat File
                                 </a>
                             </div>
@@ -66,7 +69,7 @@
                         <p class="mt-1 text-sm text-gray-500">PDF sampai 10MB</p>
                     </div>
                     <div class="md:col-span-2">
-                        <label for="deskripsi" class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
+                        <label for="deskripsi" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
                         <textarea name="deskripsi" id="deskripsi" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan deskripsi surat PKL">{{ old('deskripsi', $suratPKL->deskripsi) }}</textarea>
                     </div>
                 </div>

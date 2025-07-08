@@ -7,18 +7,30 @@ use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class SuratPKLController extends Controller
 {
     public function index()
     {
-        $suratPKL = SuratPKL::with('perusahaan')->latest()->get();
+        $mahasiswa = \App\Models\Mahasiswa::where('email', \Illuminate\Support\Facades\Auth::user()->email)->first();
+        $suratPKL = collect();
+        if ($mahasiswa) {
+            $suratPKL = \App\Models\SuratPKL::with('perusahaan')->where('mahasiswa_id', $mahasiswa->id)->latest()->get();
+        }
         return view('backend.mahasiswa.suratPKL.index', compact('suratPKL'));
     }
 
     public function create()
     {
-        $perusahaans = Perusahaan::where('status_kerjasama', 'aktif')->get();
+        $mahasiswa = \App\Models\Mahasiswa::where('email', Auth::user()->email)->first();
+        $perusahaans = collect();
+        if ($mahasiswa) {
+            $pengajuanDiterima = $mahasiswa->pengajuanpkl()->where('status', 'Diterima')->first();
+            if ($pengajuanDiterima) {
+                $perusahaans = \App\Models\Perusahaan::where('id', $pengajuanDiterima->perusahaan_id)->get();
+            }
+        }
         return view('backend.mahasiswa.suratPKL.create', compact('perusahaans'));
     }
 
@@ -35,11 +47,14 @@ class SuratPKLController extends Controller
         $file = $request->file('file');
         $filePath = $file->store('surat_pkl', 'public');
 
+        $mahasiswa = \App\Models\Mahasiswa::where('email', \Illuminate\Support\Facades\Auth::user()->email)->first();
+
         SuratPKL::create([
+            'mahasiswa_id' => $mahasiswa ? $mahasiswa->id : null,
             'perusahaan_id' => $request->perusahaan_id,
             'nomor_surat' => $request->nomor_surat,
             'jenis_surat' => $request->jenis_surat,
-            'tanggal_upload' => Carbon::now(),
+            'tanggal_upload' => \Carbon\Carbon::now(),
             'deskripsi' => $request->deskripsi,
             'file_path' => $filePath
         ]);

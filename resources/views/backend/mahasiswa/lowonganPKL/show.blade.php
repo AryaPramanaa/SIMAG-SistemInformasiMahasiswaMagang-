@@ -22,29 +22,25 @@
         <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
-                    <p class="text-sm text-gray-900">{{ $lowonganPKL->perusahaan->nama_perusahaan }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $lowonganPKL->perusahaan->nama_perusahaan }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Divisi</label>
-                    <p class="text-sm text-gray-900">{{ $lowonganPKL->divisi }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Divisi</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $lowonganPKL->divisi }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Kuota</label>
-                    <p class="text-sm text-gray-900">{{ $lowonganPKL->kuota ?? '-' }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Kuota</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $lowonganPKL->kuota ?? '-' }}" readonly>
                 </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
-                    <p class="text-sm text-gray-900 whitespace-pre-line">{{ $lowonganPKL->deskripsi }}</p>
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Syarat</label>
-                    <p class="text-sm text-gray-900 whitespace-pre-line">{{ $lowonganPKL->syarat }}</p>
-                </div>
+            </div>
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="3" readonly>{{ $lowonganPKL->deskripsi }}</textarea>
+            </div>
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Syarat</label>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="3" readonly>{{ $lowonganPKL->syarat }}</textarea>
             </div>
 
             <div class="flex justify-end mt-6">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Perusahaan;
+use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,7 +37,8 @@ class akunController extends Controller
     public function create()
     {
         $perusahaans = Perusahaan::all();
-        return view('backend.operator.Akun.create', compact('perusahaans'));
+        $prodis = Prodi::whereNull('user_id')->get();
+        return view('backend.operator.Akun.create', compact('perusahaans', 'prodis'));
     }
 
     public function store(Request $request)
@@ -48,6 +50,7 @@ class akunController extends Controller
             'role' => 'required|string|in:mahasiswa,perusahaan,kaprodi,pimpinan,operator',
             'status' => 'required|string|in:Aktif,Non-Aktif',
             'id_perusahaan' => 'required_if:role,perusahaan|nullable|exists:perusahaans,id',
+            'prodi_id' => 'required_if:role,kaprodi|nullable|exists:prodis,id',
         ]);
 
         $data = [
@@ -61,7 +64,14 @@ class akunController extends Controller
             $data['id_perusahaan'] = $request->id_perusahaan;
         }
 
-        User::create($data);
+        $user = User::create($data);
+
+        // Jika role kaprodi, hubungkan ke prodi
+        if ($request->role === 'kaprodi' && $request->prodi_id) {
+            $prodi = Prodi::find($request->prodi_id);
+            $prodi->user_id = $user->id;
+            $prodi->save();
+        }
 
         return redirect()->route('operator.akun.index')
             ->with('success', 'Akun berhasil ditambahkan');

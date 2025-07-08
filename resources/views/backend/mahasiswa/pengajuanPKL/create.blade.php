@@ -3,11 +3,12 @@
     <div class="min-h-screen py-8 px-4 md:px-8">
         <!-- Back Button -->
         <div class="mb-6">
-            <a href="{{ route('mahasiswa.pengajuanPKL.index') }}" class="inline-flex items-center text-gray-700 hover:text-green-600 transition-colors">
+            <a href="{{ route('mahasiswa.pengajuanPKL.index') }}"
+                class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 font-medium">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
                 </svg>
-                <span class="text-lg font-medium">Kembali</span>
+                Kembali
             </a>
         </div>
 
@@ -90,13 +91,11 @@
                 </div>
 
                 <!-- Buttons -->
-                <div class="flex justify-end space-x-4 pt-6">
-                    <a href="{{ route('mahasiswa.pengajuanPKL.index') }}" 
-                        class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 font-medium">
-                        Batal
-                    </a>
-                    <button type="submit"
-                        class="px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                <div class="flex justify-end mt-6">
+                    <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
                         Ajukan PKL
                     </button>
                 </div>

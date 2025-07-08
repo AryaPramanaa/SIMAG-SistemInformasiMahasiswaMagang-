@@ -41,25 +41,13 @@
                     </div>
                     <div>
                         <label for="pembimbingIndustri_id" class="block text-sm font-medium text-gray-700 mb-2">Pembimbing Industri</label>
-                        <select name="pembimbingIndustri_id" id="pembimbingIndustri_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <option value="">Pilih Pembimbing Industri</option>
-                            @foreach($pembimbingIndustris as $pembimbing)
-                                <option value="{{ $pembimbing->id }}" {{ old('pembimbingIndustri_id') == $pembimbing->id ? 'selected' : '' }}>
-                                    {{ $pembimbing->nama_pembimbing }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <input type="text" id="pembimbingIndustri_nama" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="" readonly>
+                        <input type="hidden" name="pembimbingIndustri_id" id="pembimbingIndustri_id" value="">
                     </div>
                     <div>
                         <label for="pembimbingAkademik_id" class="block text-sm font-medium text-gray-700 mb-2">Pembimbing Akademik</label>
-                        <select name="pembimbingAkademik_id" id="pembimbingAkademik_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <option value="">Pilih Pembimbing Akademik</option>
-                            @foreach($pembimbingAkademiks as $pembimbing)
-                                <option value="{{ $pembimbing->id }}" {{ old('pembimbingAkademik_id') == $pembimbing->id ? 'selected' : '' }}>
-                                    {{ $pembimbing->nama }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <input type="text" id="pembimbingAkademik_nama" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="" readonly>
+                        <input type="hidden" name="pembimbingAkademik_id" id="pembimbingAkademik_id" value="">
                     </div>
                     <div>
                         <label for="tanggal_laporan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Laporan</label>
@@ -81,4 +69,41 @@
             </form>
         </div>
     </div>
-@endsection 
+@endsection
+
+@push('scripts')
+<script>
+    const pengajuanMap = @json($pengajuanMap);
+    const pembimbingIndustriNama = document.getElementById('pembimbingIndustri_nama');
+    const pembimbingIndustriId = document.getElementById('pembimbingIndustri_id');
+    const pembimbingAkademikNama = document.getElementById('pembimbingAkademik_nama');
+    const pembimbingAkademikId = document.getElementById('pembimbingAkademik_id');
+
+    function autofillPembimbing() {
+        const selected = $('#pengajuanPKL_id').val();
+        if (pengajuanMap[selected]) {
+            pembimbingIndustriNama.value = pengajuanMap[selected].pembimbingIndustri_nama || '';
+            pembimbingIndustriId.value = pengajuanMap[selected].pembimbingIndustri_id || '';
+            pembimbingAkademikNama.value = pengajuanMap[selected].pembimbingAkademik_nama || '';
+            pembimbingAkademikId.value = pengajuanMap[selected].pembimbingAkademik_id || '';
+        } else {
+            pembimbingIndustriNama.value = '';
+            pembimbingIndustriId.value = '';
+            pembimbingAkademikNama.value = '';
+            pembimbingAkademikId.value = '';
+        }
+    }
+
+    $(document).ready(function() {
+        $('#pengajuanPKL_id').select2({
+            placeholder: 'Pilih Mahasiswa',
+            allowClear: true,
+            width: '100%',
+        }).on('change', function() {
+            autofillPembimbing();
+        });
+        // Jalankan autofill saat halaman pertama kali dimuat
+        autofillPembimbing();
+    });
+</script>
+@endpush 

@@ -87,6 +87,21 @@
                     @enderror
                 </div>
 
+                <div id="prodi-select-wrapper" style="display:none;">
+                    <label for="prodi_id" class="block text-sm font-medium text-gray-700 mb-2">Pilih Prodi</label>
+                    <select name="prodi_id" id="prodi_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('prodi_id') border-red-500 @enderror">
+                        <option value="">Pilih Prodi</option>
+                        @if(isset($prodis))
+                            @foreach($prodis as $prodi)
+                                <option value="{{ $prodi->id }}" {{ old('prodi_id') == $prodi->id ? 'selected' : '' }}>{{ $prodi->nama_prodi }} ({{ $prodi->nama_kaprodi }})</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    @error('prodi_id')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div>
                     <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                     <select name="status" id="status" required
@@ -116,15 +131,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             const roleSelect = document.getElementById('role');
             const perusahaanSelectWrapper = document.getElementById('perusahaan-select-wrapper');
-            function togglePerusahaanSelect() {
+            const prodiSelectWrapper = document.getElementById('prodi-select-wrapper');
+            function toggleSelects() {
                 if (roleSelect.value === 'perusahaan') {
                     perusahaanSelectWrapper.style.display = '';
                 } else {
                     perusahaanSelectWrapper.style.display = 'none';
                 }
+                if (roleSelect.value === 'kaprodi') {
+                    prodiSelectWrapper.style.display = '';
+                    document.getElementById('prodi_id').setAttribute('required', 'required');
+                } else {
+                    prodiSelectWrapper.style.display = 'none';
+                    document.getElementById('prodi_id').removeAttribute('required');
+                }
             }
-            roleSelect.addEventListener('change', togglePerusahaanSelect);
-            togglePerusahaanSelect();
+            roleSelect.addEventListener('change', toggleSelects);
+            toggleSelects();
         });
     </script>
 @endsection

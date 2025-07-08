@@ -30,41 +30,56 @@
             </div>
         @endif
 
+        <!-- Search and Filter Form -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
+            <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label for="nama" class="block text-sm font-medium text-gray-700">Cari Nama Mahasiswa</label>
+                    <input type="text" name="nama" id="nama" value="{{ request('nama') }}" placeholder="Nama Mahasiswa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2" />
+                </div>
+                <div>
+                    <label for="nim" class="block text-sm font-medium text-gray-700">Cari NIM</label>
+                    <input type="text" name="nim" id="nim" value="{{ request('nim') }}" placeholder="NIM" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2" />
+                </div>
+                <div>
+                    <label for="perusahaan" class="block text-sm font-medium text-gray-700">Cari Perusahaan</label>
+                    <input type="text" name="perusahaan" id="perusahaan" value="{{ request('perusahaan') }}" placeholder="Perusahaan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2" />
+                </div>
+                <div class="flex items-end space-x-2 mt-4 md:mt-0">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Filter
+                    </button>
+                    <a href="{{ route('operator.suratPKL.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Reset</a>
+                </div>
+            </form>
+        </div>
+
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b">
                         <tr>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NOMOR SURAT</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">PERUSAHAAN</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">JENIS SURAT</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">TANGGAL UPLOAD</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">DESKRIPSI</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">FILE</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">AKSI</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Mahasiswa</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Pembimbing Industri</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Pembimbing Akademik</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Tanggal Laporan</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Isi Laporan</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse($suratPKL as $index => $surat)
                             <tr class="bg-white hover:bg-gray-50">
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $index + 1 }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->nomor_surat }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->perusahaan->nama_perusahaan }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->jenis_surat }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ \Carbon\Carbon::parse($surat->tanggal_upload)->format('d/m/Y') }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ Str::limit($surat->deskripsi, 50) }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">
-                                    @if($surat->file_path)
-                                        <a href="{{ Storage::url($surat->file_path) }}" target="_blank" class="text-green-600 hover:text-green-700">
-                                            <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                            </svg>
-                                        </a>
-                                    @else
-                                        <span class="text-gray-400">-</span>
-                                    @endif
-                                </td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->mahasiswa->nama ?? '-' }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->pembimbingIndustri->nama_pembimbing ?? '-' }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->pembimbingAkademik->nama ?? '-' }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ \Carbon\Carbon::parse($surat->tanggal_laporan)->format('d/m/Y') }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ Str::limit($surat->isi_laporan, 50) }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">
                                     <div class="flex items-center justify-center space-x-2">
                                         <a href="{{ route('operator.suratPKL.show', $surat) }}" class="text-blue-600 hover:text-blue-900">
@@ -81,7 +96,7 @@
                                         <form id="deleteFormSuratPKL" action="" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="text-red-600 hover:text-red-900" onclick="openDeleteModalSuratPKL({{ $surat->id }}, '{{ $surat->nomor_surat }}', '{{ $surat->perusahaan->nama_perusahaan }}', '{{ $surat->jenis_surat }}')">
+                                            <button type="button" class="text-red-600 hover:text-red-900" onclick="openDeleteModalSuratPKL({{ $surat->id }}, '{{ $surat->mahasiswa->nama ?? '-' }}')">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                 </svg>
@@ -92,7 +107,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+                                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                     Tidak ada data surat PKL
                                 </td>
                             </tr>
@@ -119,9 +134,7 @@
                     </p>
                     <div class="bg-gray-50 rounded-lg p-4 text-left">
                         <div class="grid grid-cols-1 gap-2 text-sm">
-                            <div><span class="font-medium text-gray-700">Nomor Surat:</span> <span id="deleteNomorSuratPKL" class="text-gray-600"></span></div>
-                            <div><span class="font-medium text-gray-700">Perusahaan:</span> <span id="deletePerusahaanSuratPKL" class="text-gray-600"></span></div>
-                            <div><span class="font-medium text-gray-700">Jenis Surat:</span> <span id="deleteJenisSuratPKL" class="text-gray-600"></span></div>
+                            <div><span class="font-medium text-gray-700">Mahasiswa:</span> <span id="deleteMahasiswaSuratPKL" class="text-gray-600"></span></div>
                         </div>
                     </div>
                     <p class="text-xs text-red-500 mt-3">
@@ -140,11 +153,9 @@
         </div>
     </div>
     <script>
-        function openDeleteModalSuratPKL(id, nomorSurat, perusahaan, jenisSurat) {
+        function openDeleteModalSuratPKL(id, mahasiswa) {
             document.getElementById('deleteModalSuratPKL').classList.remove('hidden');
-            document.getElementById('deleteNomorSuratPKL').textContent = nomorSurat;
-            document.getElementById('deletePerusahaanSuratPKL').textContent = perusahaan;
-            document.getElementById('deleteJenisSuratPKL').textContent = jenisSurat;
+            document.getElementById('deleteMahasiswaSuratPKL').textContent = mahasiswa;
             document.getElementById('deleteFormSuratPKLModal').action = `/operator/suratPKL/${id}`;
         }
         document.getElementById('cancelDeleteSuratPKL').addEventListener('click', function() {

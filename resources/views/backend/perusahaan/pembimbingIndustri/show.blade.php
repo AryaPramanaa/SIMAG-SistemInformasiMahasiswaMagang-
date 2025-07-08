@@ -16,25 +16,25 @@
             </a>
         </div>
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-8">
                 <div>
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Pembimbing</h3>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pembimbing</label>
-                            <p class="text-gray-900">{{ $pembimbingIndustri->nama_pembimbing }}</p>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingIndustri->nama_pembimbing }}" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Jabatan</label>
-                            <p class="text-gray-900">{{ $pembimbingIndustri->jabatan }}</p>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingIndustri->jabatan }}" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Kontak</label>
-                            <p class="text-gray-900">{{ $pembimbingIndustri->kontak }}</p>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingIndustri->kontak }}" readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <p class="text-gray-900">{{ $pembimbingIndustri->email }}</p>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingIndustri->email }}" readonly>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Nama Perusahaan</label>
-                            <p class="text-gray-900">{{ $pembimbingIndustri->perusahaan->nama_perusahaan ?? '-' }}</p>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingIndustri->perusahaan->nama_perusahaan ?? '-' }}" readonly>
                         </div>
                     </div>
                 </div>
@@ -69,16 +69,17 @@
                 @csrf
                 <div id="mahasiswaList" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 max-h-96 overflow-y-auto">
                     @foreach($allMahasiswa as $mahasiswa)
+                        @if(!$pembimbingIndustri->mahasiswas->contains($mahasiswa->id))
                         <div class="mahasiswa-item flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
                             <input type="checkbox" name="mahasiswa_ids[]" value="{{ $mahasiswa->id }}" id="mahasiswa_{{ $mahasiswa->id }}"
-                                {{ $pembimbingIndustri->mahasiswas->contains($mahasiswa->id) ? 'checked' : '' }}
                                 class="mr-3">
                             <label for="mahasiswa_{{ $mahasiswa->id }}" class="text-gray-700 cursor-pointer flex-1">
                                 <div class="font-medium">{{ $mahasiswa->nama }}</div>
-                                <div class="text-sm text-gray-500">NIM: {{ $mahasiswa->nomor_unik }}</div>
+                                <div class="text-sm text-gray-500">NIM: {{ $mahasiswa->nim }}</div>
                                 <div class="text-sm text-gray-500">{{ $mahasiswa->email }}</div>
                             </label>
                         </div>
+                        @endif
                     @endforeach
                 </div>
                 <div class="flex justify-between items-center">
@@ -93,6 +94,46 @@
                     </button>
                 </div>
             </form>
+        </div>
+        <!-- Tabel Mahasiswa yang Sudah Dibimbing -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Daftar Mahasiswa yang Dibimbing</h3>
+            @if($pembimbingIndustri->mahasiswas->count() > 0)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIM</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach($pembimbingIndustri->mahasiswas as $i => $mahasiswa)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $i+1 }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $mahasiswa->nama }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $mahasiswa->nim }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $mahasiswa->email }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <form action="{{ route('perusahaan.pembimbingIndustri.removeMahasiswa', [$pembimbingIndustri->id, $mahasiswa->id]) }}" method="POST" onsubmit="return confirm('Batalkan bimbingan untuk mahasiswa ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 font-medium">
+                                                Batalkan Bimbingan
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <div class="text-gray-500">Belum ada mahasiswa yang dibimbing.</div>
+            @endif
         </div>
     </div>
 

@@ -33,7 +33,20 @@ class laporanMahasiswaController extends Controller
         $pembimbingIndustris = PembimbingIndustri::where('perusahaan_id', $perusahaan->id)->get();
         $pembimbingAkademiks = PembimbingAkademik::all();
         $today = now()->toDateString();
-        return view('backend.perusahaan.laporanMahasiswa.create', compact('pengajuans', 'pembimbingIndustris', 'pembimbingAkademiks', 'today'));
+        // Mapping pengajuan PKL ke pembimbing industri dan akademik
+        $pengajuanMap = [];
+        foreach ($pengajuans as $pengajuan) {
+            $mahasiswa = $pengajuan->mahasiswa;
+            $pembimbingIndustri = $mahasiswa->pembimbingIndustri()->where('perusahaan_id', $perusahaan->id)->first();
+            $pembimbingAkademik = $mahasiswa->pembimbingAkademik()->first();
+            $pengajuanMap[$pengajuan->id] = [
+                'pembimbingIndustri_id' => $pembimbingIndustri ? $pembimbingIndustri->id : null,
+                'pembimbingIndustri_nama' => $pembimbingIndustri ? $pembimbingIndustri->nama_pembimbing : null,
+                'pembimbingAkademik_id' => $pembimbingAkademik ? $pembimbingAkademik->id : null,
+                'pembimbingAkademik_nama' => $pembimbingAkademik ? $pembimbingAkademik->nama : null,
+            ];
+        }
+        return view('backend.perusahaan.laporanMahasiswa.create', compact('pengajuans', 'pembimbingIndustris', 'pembimbingAkademiks', 'today', 'pengajuanMap'));
     }
 
     // Simpan laporan baru

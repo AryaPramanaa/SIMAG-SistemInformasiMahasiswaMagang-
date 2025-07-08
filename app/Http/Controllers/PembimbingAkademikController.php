@@ -27,7 +27,9 @@ class PembimbingAkademikController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|unique:pembimbing_akademik',
             'prodi_id' => 'required|exists:prodis,id',
-            'kapasitas_bimbingan' => 'required|integer|min:1'
+            'kapasitas_bimbingan' => 'required|integer|min:1',
+            'kontak' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
         ]);
 
         PembimbingAkademik::create($request->all());
@@ -38,13 +40,13 @@ class PembimbingAkademikController extends Controller
 
     public function show(PembimbingAkademik $pembimbingAkademik)
     {
-        $pembimbingAkademik->load(['prodi', 'mahasiswas']);
+        $pembimbingAkademik->load(['prodi', 'mahasiswas.pengajuanpkl.perusahaan']);
         
-        // Get students with successful PKL submissions from the same prodi
-        $availableStudents = \App\Models\Mahasiswa::where('prodi_id', $pembimbingAkademik->prodi_id)
-            ->whereDoesntHave('pembimbingAkademik')
+        // Ambil semua prodi_id yang jurusannya sama dengan jurusan pembimbing akademik
+        $prodiIds = \App\Models\Prodi::where('jurusan', $pembimbingAkademik->prodi->jurusan)->pluck('id');
+        $availableStudents = \App\Models\Mahasiswa::whereIn('prodi_id', $prodiIds)
             ->whereHas('pengajuanpkl', function($query) {
-                $query->where('status', 'Diterima');
+                $query->whereRaw('LOWER(status) = ?', ['diterima']);
             })
             ->get();
         
@@ -63,7 +65,9 @@ class PembimbingAkademikController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|unique:pembimbing_akademik,nip,' . $pembimbingAkademik->id,
             'prodi_id' => 'required|exists:prodis,id',
-            'kapasitas_bimbingan' => 'required|integer|min:1'
+            'kapasitas_bimbingan' => 'required|integer|min:1',
+            'kontak' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255',
         ]);
 
         $pembimbingAkademik->update($request->all());

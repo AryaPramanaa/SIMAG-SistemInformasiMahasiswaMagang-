@@ -16,45 +16,33 @@
             </a>
         </div>
         <div class="bg-white rounded-xl shadow-lg p-6">
-            <div class="space-y-6">
-                <div>
-                    <h3 class="text-lg font-medium text-gray-900">Informasi Laporan</h3>
-                    <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Mahasiswa</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $laporan->pengajuanPKL->mahasiswa->nama ?? '-' }} ({{ $laporan->pengajuanPKL->mahasiswa->nim ?? '-' }})</p>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Pembimbing Industri</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $laporan->pembimbingIndustri->nama_pembimbing ?? '-' }}</p>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Pembimbing Akademik</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $laporan->pembimbingAkademik->nama ?? '-' }}</p>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Tanggal Laporan</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ \Carbon\Carbon::parse($laporan->tanggal_laporan)->format('d/m/Y') }}</p>
-                        </div>
+            <form>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Mahasiswa</label>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pengajuanPKL->mahasiswa->nama ?? '-' }} ({{ $laporan->pengajuanPKL->mahasiswa->nim ?? '-' }})" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pembimbing Industri</label>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pembimbingIndustri->nama_pembimbing ?? '-' }}" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pembimbing Akademik</label>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pembimbingAkademik->nama ?? '-' }}" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Laporan</label>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ \Carbon\Carbon::parse($laporan->tanggal_laporan)->format('d/m/Y') }}" readonly>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-lg font-medium text-gray-900">Isi Laporan</h3>
-                    <div class="mt-2">
-                        <p class="text-sm text-gray-900">{{ $laporan->isi_laporan }}</p>
-                    </div>
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Isi Laporan</label>
+                    <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="5" readonly>{{ $laporan->isi_laporan }}</textarea>
                 </div>
-                <div class="flex justify-end space-x-4">
-                    <a href="{{ route('perusahaan.laporanMahasiswa.index') }}"
-                        class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
-                        Kembali
-                    </a>
-                    <a href="{{ route('perusahaan.laporanMahasiswa.edit', $laporan) }}"
-                        class="px-6 py-2 border border-transparent rounded-lg shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                        Edit
-                    </a>
+                <div class="flex justify-end space-x-4 mt-6">
+                    
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection 

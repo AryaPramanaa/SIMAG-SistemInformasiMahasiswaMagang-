@@ -25,25 +25,25 @@
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">NO</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Mahasiswa</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Pembimbing Industri</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Pembimbing Akademik</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Tanggal Laporan</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Isi Laporan</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Aksi</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">MAHASISWA</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">PEMBIMBING INDUSTRI</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">PEMBIMBING AKADEMIK</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">TANGGAL LAPORAN</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">ISI LAPORAN</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">AKSI</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse($laporans as $index => $laporan)
                             <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-6 py-5 text-center">{{ $index + 1 }}</td>
-                                <td class="px-6 py-5 text-center">{{ $laporan->pengajuanPKL->mahasiswa->nama ?? '-' }}</td>
-                                <td class="px-6 py-5 text-center">{{ $laporan->pembimbingIndustri->nama_pembimbing ?? '-' }}</td>
-                                <td class="px-6 py-5 text-center">{{ $laporan->pembimbingAkademik->nama ?? '-' }}</td>
-                                <td class="px-6 py-5 text-center">{{ \Carbon\Carbon::parse($laporan->tanggal_laporan)->format('d/m/Y') }}</td>
-                                <td class="px-6 py-5 text-center">{{ Str::limit($laporan->isi_laporan, 50) }}</td>
-                                <td class="px-6 py-5 text-center">
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $index + 1 }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $laporan->pengajuanPKL->mahasiswa->nama ?? '-' }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $laporan->pembimbingIndustri->nama_pembimbing ?? '-' }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $laporan->pembimbingAkademik->nama ?? '-' }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ \Carbon\Carbon::parse($laporan->tanggal_laporan)->format('d/m/Y') }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ Str::limit($laporan->isi_laporan, 50) }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
                                     <div class="flex items-center justify-center space-x-2">
                                         <a href="{{ route('perusahaan.laporanMahasiswa.show', $laporan) }}" class="text-blue-600 hover:text-blue-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

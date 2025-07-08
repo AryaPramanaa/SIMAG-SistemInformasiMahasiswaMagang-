@@ -20,96 +20,43 @@
         <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Mahasiswa</label>
-                    <p class="text-sm text-gray-900">{{ $pengajuan->mahasiswa->nama }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Mahasiswa</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->nama }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">NIM</label>
-                    <p class="text-sm text-gray-900">{{ $pengajuan->mahasiswa->nim }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">NIM</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->nim }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Program Studi</label>
-                    <p class="text-sm text-gray-900">{{ $pengajuan->mahasiswa->prodi->nama_prodi }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Program Studi</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->prodi->nama_prodi }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
-                    <p class="text-sm text-gray-900">{{ $pengajuan->perusahaan->nama_perusahaan }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->perusahaan->nama_perusahaan }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Divisi</label>
-                    <p class="text-sm text-gray-900">{{ $pengajuan->divisi_pilihan }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Divisi</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->divisi_pilihan }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Tanggal Pengajuan</label>
-                    <p class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Pengajuan</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                    <p class="text-sm">
-                        <span class="px-3 py-1 rounded-full text-xs
-                            @if($pengajuan->status == 'Pending') bg-yellow-100 text-yellow-800
-                            @elseif($pengajuan->status == 'Diterima') bg-green-100 text-green-800
-                            @else bg-red-100 text-red-800 @endif">
-                            {{ $pengajuan->status }}
-                        </span>
-                    </p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 @if($pengajuan->status == 'Pending') text-yellow-800 @elseif($pengajuan->status == 'Diterima') text-green-800 @else text-red-800 @endif" value="{{ $pengajuan->status }}" readonly>
                 </div>
-
-                @if($pengajuan->status == 'Ditolak')
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Alasan Penolakan</label>
-                    <p class="text-sm text-gray-900">{{ $pengajuan->alasan_penolakan }}</p>
-                </div>
-                @endif
             </div>
+            @if($pengajuan->status == 'Ditolak')
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Alasan Penolakan</label>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="3" readonly>{{ $pengajuan->alasan_penolakan }}</textarea>
+            </div>
+            @endif
 
             @if($pengajuan->status == 'Diterima')
-                <div class="mt-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Pembimbing Akademik</label>
-                    @if($pengajuan->mahasiswa->pembimbingAkademik && $pengajuan->mahasiswa->pembimbingAkademik->count())
-                        <ul class="list-disc pl-5">
-                            @foreach($pengajuan->mahasiswa->pembimbingAkademik as $pembimbing)
-                                <li class="text-sm text-gray-900">{{ $pembimbing->nama }} (NIP: {{ $pembimbing->nip ?? '-' }})</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <p class="text-sm text-gray-500">Belum ada pembimbing akademik yang dipasangkan.</p>
-                    @endif
-                </div>
-                <div class="mt-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Pembimbing Industri yang Dipilih</label>
-                    @if(isset($pembimbingIndustriTerpilih) && $pembimbingIndustriTerpilih->count())
-                        <ul class="list-disc pl-5">
-                            @foreach($pembimbingIndustriTerpilih as $pembimbing)
-                                <li class="text-sm text-gray-900">{{ $pembimbing->nama_pembimbing }} ({{ $pembimbing->jabatan }})</li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <p class="text-sm text-gray-500">Belum ada pembimbing industri yang dipilih.</p>
-                    @endif
-                </div>
-                @if(isset($pembimbingIndustriTersedia) && $pembimbingIndustriTersedia->count())
-                <div class="mt-6">
-                    <form action="{{ route('mahasiswa.pengajuanPKL.pilihPembimbingIndustri', $pengajuan->id) }}" method="POST">
-                        @csrf
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Pembimbing Industri dari Perusahaan</label>
-                        <select name="pembimbing_industri_ids[]" multiple required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
-                            @foreach($pembimbingIndustriTersedia as $pembimbing)
-                                <option value="{{ $pembimbing->id }}" @if($pembimbingIndustriTerpilih->contains('id', $pembimbing->id)) selected @endif>
-                                    {{ $pembimbing->nama_pembimbing }} ({{ $pembimbing->jabatan }})
-                                </option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Simpan Pembimbing Industri</button>
-                    </form>
-                </div>
-                @endif
+                {{-- Bagian pembimbing akademik dan pembimbing industri dihapus sesuai permintaan --}}
             @endif
 
             @if($pengajuan->status == 'Pending')

@@ -13,6 +13,7 @@ class SuratPKL extends Model
     protected $table = 'suratPKLs';
     
     protected $fillable = [
+        'mahasiswa_id',
         'perusahaan_id',
         'nomor_surat',
         'jenis_surat',
@@ -31,5 +32,10 @@ class SuratPKL extends Model
     public function perusahaan()
     {
         return $this->belongsTo(Perusahaan::class);
+    }
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(\App\Models\Mahasiswa::class);
     }
 }

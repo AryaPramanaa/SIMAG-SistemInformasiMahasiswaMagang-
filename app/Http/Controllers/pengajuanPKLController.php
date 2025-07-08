@@ -84,28 +84,6 @@ class pengajuanPKLController extends Controller
         return view('backend.mahasiswa.pengajuanPKL.show', compact('pengajuan', 'pembimbingIndustriTerpilih', 'pembimbingIndustriTersedia'));
     }
 
-    // Endpoint untuk menyimpan pembimbing industri yang dipilih mahasiswa setelah pengajuan diterima
-    public function pilihPembimbingIndustri(Request $request, $pengajuanId)
-    {
-        $request->validate([
-            'pembimbing_industri_ids' => 'required|array',
-            'pembimbing_industri_ids.*' => 'exists:pembimbingIndustris,id',
-        ]);
-        $pengajuan = pengajuanPKL::findOrFail($pengajuanId);
-        $mahasiswa = $pengajuan->mahasiswa;
-        // Hanya boleh memilih jika status diterima
-        if ($pengajuan->status !== 'Diterima') {
-            return back()->with('error', 'Hanya bisa memilih pembimbing industri jika pengajuan sudah diterima.');
-        }
-        // Sync pembimbing industri untuk pengajuan ini
-        $syncData = [];
-        foreach ($request->pembimbing_industri_ids as $id) {
-            $syncData[$id] = ['pengajuan_pkl_id' => $pengajuan->id];
-        }
-        $mahasiswa->pembimbingIndustri()->syncWithoutDetaching($syncData);
-        return back()->with('success', 'Pembimbing industri berhasil dipilih.');
-    }
-
     public function edit($id)
     {
         $pengajuan = pengajuanPKL::findOrFail($id);

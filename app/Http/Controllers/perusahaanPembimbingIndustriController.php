@@ -60,7 +60,11 @@ class perusahaanPembimbingIndustriController extends Controller
     public function show($id)
     {
         $pembimbingIndustri = PembimbingIndustri::with(['perusahaan', 'mahasiswas'])->findOrFail($id);
-        $allMahasiswa = Mahasiswa::all();
+        $perusahaan_id = $pembimbingIndustri->perusahaan_id;
+        $allMahasiswa = \App\Models\Mahasiswa::whereHas('pengajuanpkl', function($q) use ($perusahaan_id) {
+            $q->where('perusahaan_id', $perusahaan_id)
+              ->whereRaw('LOWER(status) = ?', ['diterima']);
+        })->get();
         return view('backend.perusahaan.pembimbingIndustri.show', compact('pembimbingIndustri', 'allMahasiswa'));
     }
 
@@ -107,10 +111,24 @@ class perusahaanPembimbingIndustriController extends Controller
     {
         $pembimbing = PembimbingIndustri::findOrFail($id);
         $validated = $request->validate([
-            'mahasiswa_ids' => 'required|array',
+            'mahasiswa_ids' => 'nullable|array',
             'mahasiswa_ids.*' => 'exists:mahasiswas,id',
         ]);
-        $pembimbing->mahasiswas()->sync($validated['mahasiswa_ids']);
-        return redirect()->route('perusahaan.pembimbingIndustri.show', $id)->with('success', 'Mahasiswa berhasil dikaitkan.');
+        $pembimbing->mahasiswas()->sync($validated['mahasiswa_ids'] ?? []);
+        if (empty($validated['mahasiswa_ids'])) {
+            $message = 'Bimbingan mahasiswa telah dibatalkan.';
+        } else {
+            $message = 'Mahasiswa berhasil dikaitkan.';
+        }
+        return redirect()->route('perusahaan.pembimbingIndustri.show', $id)->with('success', $message);
+    }
+
+    // Remove a mahasiswa from pembimbing industri
+    public function removeMahasiswa($pembimbingIndustriId, $mahasiswaId)
+    {
+        $pembimbing = PembimbingIndustri::findOrFail($pembimbingIndustriId);
+        $pembimbing->mahasiswas()->detach($mahasiswaId);
+        return redirect()->route('perusahaan.pembimbingIndustri.show', $pembimbingIndustriId)
+            ->with('success', 'Bimbingan mahasiswa berhasil dibatalkan.');
     }
 }

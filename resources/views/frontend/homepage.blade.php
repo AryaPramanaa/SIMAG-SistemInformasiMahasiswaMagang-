@@ -141,6 +141,35 @@
         </div>
     </section>
 
+    <!-- Pengumuman Section Start -->
+    <section id="pengumuman" class="max-w-6xl mx-auto py-8 px-5">
+        <div class="flex flex-col items-center mb-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-2 font-['Manrope']">Pengumuman</h2>
+            <p class="text-gray-500 text-base">Informasi terbaru dari operator SIMAG</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Dummy Announcement 1 -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z"/></svg>
+                    <span class="text-green-700 font-semibold">12 Juli 2025</span>
+                </div>
+                <h3 class="font-bold text-xl mb-1">Pendaftaran PKL Gelombang 2 Dibuka!</h3>
+                <p class="text-gray-600">Pendaftaran PKL gelombang 2 telah dibuka mulai hari ini. Silakan cek jadwal dan persyaratan di menu pendaftaran.</p>
+            </div>
+            <!-- Dummy Announcement 2 -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z"/></svg>
+                    <span class="text-green-700 font-semibold">5 Juli 2025</span>
+                </div>
+                <h3 class="font-bold text-xl mb-1">Update Sistem SIMAG</h3>
+                <p class="text-gray-600">SIMAG telah melakukan update fitur untuk kemudahan akses dan keamanan data. Silakan refresh halaman jika mengalami kendala.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Pengumuman Section End -->
+
     <section id="partners" class="partners max-w-6xl mx-auto py-12 overflow-hidden">
         <div class="partners-container">
             <div class="flex gap-x-16 animate-slide">
@@ -161,14 +190,14 @@
     <section id="features" class="features max-w-6xl mx-auto py-12 text-center ">
         <div class="flex flex-col mb-8">
             <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
-                Why Choose SIMAG?
+                Why Choose <span class="text-green-700">SIMAG?</span>
             </h3>
             <p class="text-base leading-loose text-gray-500">
-                We connect students with the best internship opportunities
+                We connect students with the <span class="text-green-700 font-semibold">best internship opportunities</span>
             </p>
         </div>
-        <div class="grid grid-cols-3 gap-x-4">
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
                 <svg class="w-11 h-11 fill-none stroke-green-600 bg-green-100 rounded-2xl p-2" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -219,35 +248,25 @@
     </section>
 
     <section id="internships" class="internships max-w-6xl mx-auto py-12 ">
-        <div class="flex flex-col justify-center items-center text-center">
+        <div class="flex flex-col justify-center items-center text-center mb-8">
             <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
-                Browse Internships by Major
+                Browse Internships by <span class="text-green-700">Major</span>
             </h3>
             <p class="text-base leading-loose text-gray-500">
                 Find opportunities specifically tailored to your field of study
             </p>
         </div>
         <div class="mt-6">
-            <ul class="flex flex-row bg-white justify-between p-4 rounded-2xl">
-                <li><a href="#"
-                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknologi
-                        Informasi</a></li>
-                <li><a href="#"
-                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknik
-                        Elektro</a></li>
-                <li><a href="#"
-                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknik
-                        Mesin</a></li>
-                <li><a href="#"
-                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-xl">Teknik
-                        Sipil</a></li>
-                <li><a href="#"
-                        class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4 p-2 active:text-green-600 active:bg-green-100 active:rounded-2xl">Administrasi
-                        Niaga</a></li>
+            <ul class="flex flex-wrap justify-center gap-2 bg-white p-4 rounded-2xl shadow">
+                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknologi Informasi</a></li>
+                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknik Elektro</a></li>
+                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknik Mesin</a></li>
+                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknik Sipil</a></li>
+                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Administrasi Niaga</a></li>
             </ul>
         </div>
-        <div class="mt-4 grid grid-cols-2 gap-4">
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
                 <div class="flex flex-col items-center pb-4">
                     <h3 class="font-bold text-2xl ">
                         Frontend Developer
@@ -286,7 +305,7 @@
                     <a href="#">View Detail</a>
                 </div>
             </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
                 <div class="flex flex-col items-center pb-4">
                     <h3 class="font-bold text-2xl ">
                         Backend Developer
@@ -325,7 +344,7 @@
                     <a href="#">View Detail</a>
                 </div>
             </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
                 <div class="flex flex-col items-center pb-4">
                     <h3 class="font-bold text-2xl ">
                         Fullstack Developer
@@ -364,7 +383,7 @@
                     <a href="#">View Detail</a>
                 </div>
             </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col">
+            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
                 <div class="flex flex-col items-center pb-4">
                     <h3 class="font-bold text-2xl ">
                         IT Software Tester
@@ -403,7 +422,6 @@
                     <a href="#">View Detail</a>
                 </div>
             </div>
-
         </div>
         <div class="items-center justify-center flex">
             <div

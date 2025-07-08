@@ -7,7 +7,16 @@
             <div class="w-40 h-1 bg-green-500 mx-auto"></div>
         </div>
 
-        <div class="max-w-4xl mx-auto">
+        <div class="mb-6">
+            <a href="{{ route('operator.pengajuanPKL.index') }}"
+                class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+                Kembali
+            </a>
+        </div>
+        <div class="mx-auto">
             <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                 <div class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -15,16 +24,16 @@
                         <div class="space-y-4">
                             <h2 class="text-xl font-semibold text-gray-800 mb-4">Informasi Mahasiswa</h2>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">Nama</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nama }}</p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Nama</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->nama }}" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">NIM</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->nim }}</p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">NIM</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->nim }}" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">Program Studi</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->mahasiswa->prodi->nama_prodi }}</p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Program Studi</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->prodi->nama_prodi }}" readonly>
                             </div>
                         </div>
 
@@ -32,16 +41,16 @@
                         <div class="space-y-4">
                             <h2 class="text-xl font-semibold text-gray-800 mb-4">Informasi Perusahaan</h2>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">Nama Perusahaan</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->perusahaan->nama_perusahaan }}</p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Nama Perusahaan</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->perusahaan->nama_perusahaan }}" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">Alamat</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->perusahaan->alamat }}</p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Alamat</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->perusahaan->alamat }}" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">Divisi</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->divisi_pilihan }}</p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Divisi</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->divisi_pilihan }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -51,24 +60,17 @@
                         <h2 class="text-xl font-semibold text-gray-800 mb-4">Status Pengajuan</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">Status</label>
-                                <p class="mt-1">
-                                    <span class="px-3 py-1 rounded-full text-xs
-                                        @if($pengajuan->status == 'Pending') bg-yellow-100 text-yellow-800
-                                        @elseif($pengajuan->status == 'Diterima') bg-green-100 text-green-800
-                                        @else bg-red-100 text-red-800 @endif">
-                                        {{ $pengajuan->status }}
-                                    </span>
-                                </p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Status</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 @if($pengajuan->status == 'Pending') text-yellow-800 @elseif($pengajuan->status == 'Diterima') text-green-800 @else text-red-800 @endif" value="{{ $pengajuan->status }}" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-600">Tanggal Pengajuan</label>
-                                <p class="mt-1 text-gray-900">{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}</p>
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Tanggal Pengajuan</label>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}" readonly>
                             </div>
                             @if($pengajuan->status == 'Ditolak')
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-600">Alasan Penolakan</label>
-                                <p class="mt-1 text-gray-900">{{ $pengajuan->alasan_penolakan }}</p>
+                            <div class="md:col-span-2 mt-6">
+                                <label class="block text-sm font-medium text-gray-600 mb-1">Alasan Penolakan</label>
+                                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="3" readonly>{{ $pengajuan->alasan_penolakan }}</textarea>
                             </div>
                             @endif
                         </div>
@@ -89,18 +91,9 @@
                         </div>
                     @endif
 
-                    <!-- Action Buttons -->
-                    <div class="mt-8 flex justify-end space-x-3">
-                        <a href="{{ route('operator.pengajuanPKL.index') }}" 
-                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            Kembali
-                        </a>
-                        @if($pengajuan->status == 'Pending')
-                        <a href="{{ route('operator.pengajuanPKL.edit', $pengajuan->id) }}" 
-                            class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                            Update Status
-                        </a>
-                        @endif
+                    <!-- Action Button -->
+                    <div class="mt-8 flex justify-end">
+                        <!-- Hanya tombol kembali, update status dihilangkan agar konsisten -->
                     </div>
                 </div>
             </div>

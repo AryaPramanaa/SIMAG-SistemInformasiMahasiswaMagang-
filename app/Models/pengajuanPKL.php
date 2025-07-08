@@ -25,7 +25,7 @@ class pengajuanPKL extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(Mahasiswa::class );
+        return $this->belongsTo(Mahasiswa::class )->with('prodi');
     }
 
     public function perusahaan()

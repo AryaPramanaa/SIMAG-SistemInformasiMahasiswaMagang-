@@ -14,6 +14,14 @@
         @endif
 
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="p-4">
+                <form method="GET" action="" class="flex flex-col md:flex-row md:items-center gap-2 mb-4 flex-wrap">
+                    <input type="text" name="nama" value="{{ request('nama') }}" placeholder="Cari Nama Mahasiswa..." class="border rounded px-3 py-2 w-full md:w-48" />
+                    <input type="text" name="nim" value="{{ request('nim') }}" placeholder="Cari NIM..." class="border rounded px-3 py-2 w-full md:w-40" />
+                    <input type="text" name="perusahaan" value="{{ request('perusahaan') }}" placeholder="Cari Perusahaan..." class="border rounded px-3 py-2 w-full md:w-56" />
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Cari</button>
+                </form>
+            </div>
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b">
@@ -22,6 +30,8 @@
                                 NO</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
                                 NAMA</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
+                                NIM</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
                                 PERUSAHAAN PKL</th>
                             <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
@@ -41,6 +51,8 @@
                                     {{ $loop->index + 1 }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
                                     {{ $pengajuan->mahasiswa->nama }}</td>
+                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
+                                    {{ $pengajuan->mahasiswa->nim }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
                                     {{ $pengajuan->perusahaan->nama_perusahaan }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">

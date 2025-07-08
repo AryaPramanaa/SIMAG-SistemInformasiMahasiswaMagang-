@@ -21,46 +21,39 @@
         <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Surat</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Surat</label>
-                            <p class="text-gray-900">{{ $suratPKL->nomor_surat }}</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Surat</label>
-                            <p class="text-gray-900">{{ $suratPKL->jenis_surat }}</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Upload</label>
-                            <p class="text-gray-900">{{ $suratPKL->tanggal_upload->format('d/m/Y') }}</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
-                            <p class="text-gray-900">{{ $suratPKL->perusahaan->nama_perusahaan }}</p>
-                        </div>
-                    </div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Surat</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $suratPKL->nomor_surat }}" readonly>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Deskripsi</h3>
-                    <div class="space-y-2">
-                        <p class="text-gray-900">{{ $suratPKL->deskripsi }}</p>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-700 mt-6 mb-4">File Surat</h3>
-                    <div class="space-y-2">
-                        @if($suratPKL->file_path)
-                            <a href="{{ Storage::url($suratPKL->file_path) }}" target="_blank"
-                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                                Lihat File
-                            </a>
-                        @else
-                            <p class="text-sm text-gray-500">Tidak ada file</p>
-                        @endif
-                    </div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Jenis Surat</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $suratPKL->jenis_surat }}" readonly>
                 </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Upload</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $suratPKL->tanggal_upload->format('d/m/Y') }}" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $suratPKL->perusahaan->nama_perusahaan }}" readonly>
+                </div>
+            </div>
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="3" readonly>{{ $suratPKL->deskripsi }}</textarea>
+            </div>
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">File Surat</label>
+                @if($suratPKL->file_path)
+                    <a href="{{ Storage::url($suratPKL->file_path) }}" target="_blank"
+                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Lihat File
+                    </a>
+                @else
+                    <p class="text-sm text-gray-500">Tidak ada file</p>
+                @endif
             </div>
             <div class="flex justify-end mt-6 space-x-3">
                 <a href="{{ route('mahasiswa.suratPKL.edit', $suratPKL) }}"

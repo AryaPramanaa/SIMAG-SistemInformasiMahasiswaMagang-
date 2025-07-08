@@ -106,9 +106,13 @@
                                     {{ ucfirst($user->role) }}</td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
                                     <span class="px-3 py-1 rounded-full text-xs
-                                        @if($user->status == 'Aktif') bg-green-100 text-green-800
+                                        @if(strtolower(str_replace([' ', '-'], '', $user->status)) == 'aktif') bg-green-100 text-green-800
                                         @else bg-red-100 text-red-800 @endif">
-                                        {{ $user->status }}
+                                        @if(strtolower(str_replace([' ', '-'], '', $user->status)) == 'aktif')
+                                            Aktif
+                                        @else
+                                            {{ $user->status }}
+                                        @endif
                                     </span>
                                 </td>
                                 <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">

@@ -20,34 +20,21 @@
         <div class="bg-white rounded-xl shadow-lg p-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
-                    <p class="text-sm text-gray-900">{{ $lowonganPKL->perusahaan->nama_perusahaan }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $lowonganPKL->perusahaan->nama_perusahaan }}" readonly>
                 </div>
-
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Divisi</label>
-                    <p class="text-sm text-gray-900">{{ $lowonganPKL->divisi }}</p>
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi</label>
-                    <p class="text-sm text-gray-900 whitespace-pre-line">{{ $lowonganPKL->deskripsi }}</p>
-                </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Syarat</label>
-                    <p class="text-sm text-gray-900 whitespace-pre-line">{{ $lowonganPKL->syarat }}</p>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Divisi</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $lowonganPKL->divisi }}" readonly>
                 </div>
             </div>
-
-            <div class="flex justify-end mt-6">
-                <a href="{{ route('operator.lowonganPKL.edit', $lowonganPKL->id) }}"
-                    class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                    </svg>
-                    Edit
-                </a>
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi</label>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="3" readonly>{{ $lowonganPKL->deskripsi }}</textarea>
+            </div>
+            <div class="mt-6">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Syarat</label>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="3" readonly>{{ $lowonganPKL->syarat }}</textarea>
             </div>
         </div>
     </div>

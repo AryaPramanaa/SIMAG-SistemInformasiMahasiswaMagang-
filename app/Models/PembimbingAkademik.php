@@ -15,7 +15,9 @@ class PembimbingAkademik extends Model
         'nama',
         'nip',
         'prodi_id',
-        'kapasitas_bimbingan'
+        'kapasitas_bimbingan',
+        'kontak',
+        'email'
     ];
 
     public function prodi()

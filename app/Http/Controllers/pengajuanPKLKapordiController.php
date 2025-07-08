@@ -12,9 +12,25 @@ use Illuminate\Support\Facades\Auth;
 
 class pengajuanPKLKapordiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pengajuans = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])->latest()->paginate(10);
+        $query = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan']);
+        if ($request->filled('nama')) {
+            $query->whereHas('mahasiswa', function($q) use ($request) {
+                $q->where('nama', 'like', "%{$request->nama}%");
+            });
+        }
+        if ($request->filled('nim')) {
+            $query->whereHas('mahasiswa', function($q) use ($request) {
+                $q->where('nim', 'like', "%{$request->nim}%");
+            });
+        }
+        if ($request->filled('perusahaan')) {
+            $query->whereHas('perusahaan', function($q) use ($request) {
+                $q->where('nama_perusahaan', 'like', "%{$request->perusahaan}%");
+            });
+        }
+        $pengajuans = $query->latest()->paginate(10);
         return view('backend.kaprodi.pengajuanPKLkaprodi.index', compact('pengajuans'));
     }
 

@@ -1,129 +1,213 @@
 @extends('backend.dashboard.kaprodi')
 @section('content')
     <div class="min-h-screen py-8 px-4 md:px-8">
-        <!-- Header -->
         <div class="text-center mb-10">
             <h1 class="text-4xl font-bold text-gray-800 mb-3">Detail Pembimbing Akademik</h1>
             <div class="w-40 h-1 bg-green-500 mx-auto"></div>
         </div>
-
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                <!-- Informasi Dasar -->
-                <div class="p-6 border-b">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Informasi Dasar</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-6">
+            <a href="{{ route('pembimbing-akademik.index') }}"
+                class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 font-medium">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+                Kembali
+            </a>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Pembimbing</h3>
+                    <div class="space-y-4">
                         <div>
-                            <p class="text-sm font-medium text-gray-500">Nama</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $pembimbingAkademik->nama }}</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingAkademik->nama }}" readonly>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-500">NIP</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $pembimbingAkademik->nip }}</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingAkademik->nip }}" readonly>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-500">Jurusan</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $pembimbingAkademik->prodi->jurusan }}</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Kontak</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingAkademik->kontak }}" readonly>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-500">Program Studi</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $pembimbingAkademik->prodi->nama_prodi }}</p>
-                        </div>
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Kapasitas Bimbingan</p>
-                            <p class="mt-1 text-sm text-gray-900">{{ $pembimbingAkademik->kapasitas_bimbingan }}</p>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingAkademik->email }}" readonly>
                         </div>
                     </div>
                 </div>
-
-                <!-- Daftar Mahasiswa Bimbingan -->
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-xl font-semibold text-gray-800">Daftar Mahasiswa Bimbingan</h2>
-                        <span class="px-3 py-1 text-sm font-medium rounded-full {{ $pembimbingAkademik->mahasiswas->count() >= $pembimbingAkademik->kapasitas_bimbingan ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }}">
-                            {{ $pembimbingAkademik->mahasiswas->count() }}/{{ $pembimbingAkademik->kapasitas_bimbingan }}
-                        </span>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50 border-b">
-                                <tr>
-                                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
-                                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NIM</th>
-                                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NAMA</th>
-                                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">AKSI</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                @forelse($pembimbingAkademik->mahasiswas as $index => $mahasiswa)
-                                    <tr class="bg-white hover:bg-gray-50">
-                                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $index + 1 }}</td>
-                                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $mahasiswa->nim }}</td>
-                                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $mahasiswa->nama }}</td>
-                                        <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">
-                                            <form action="{{ route('pembimbing-akademik.remove-mahasiswa', [$pembimbingAkademik, $mahasiswa]) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Apakah Anda yakin ingin menghapus mahasiswa ini dari bimbingan?')">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="4" class="px-6 py-5 text-center text-sm text-gray-500">Belum ada mahasiswa yang dibimbing</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Form Tambah Mahasiswa -->
-                @if($pembimbingAkademik->mahasiswas->count() < $pembimbingAkademik->kapasitas_bimbingan)
-                    <div class="p-6 border-t">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-4">Tambah Mahasiswa Bimbingan</h2>
-                        <form action="{{ route('pembimbing-akademik.assign-mahasiswa', $pembimbingAkademik) }}" method="POST">
-                            @csrf
-                            <div class="space-y-4">
-                                <div>
-                                    <label for="mahasiswa_ids" class="block text-sm font-medium text-gray-700">Pilih Mahasiswa</label>
-                                    <select name="mahasiswa_ids[]" id="mahasiswa_ids" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500" multiple required>
-                                        @foreach($availableStudents as $mahasiswa)
-                                            <option value="{{ $mahasiswa->id }}">{{ $mahasiswa->nim }} - {{ $mahasiswa->nama }}</option>
-                                        @endforeach
-                                    </select>
-                                    @if($availableStudents->isEmpty())
-                                        <p class="mt-2 text-sm text-gray-500">Tidak ada mahasiswa yang tersedia untuk dipasangkan</p>
-                                    @endif
-                                </div>
-                                <div class="flex justify-end">
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                        Tambah Mahasiswa
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                @endif
-
-                <!-- Tombol Aksi -->
-                <div class="p-6 border-t bg-gray-50">
-                    <div class="flex justify-end space-x-3">
-                        <a href="{{ route('pembimbing-akademik.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            Kembali
-                        </a>
-                        <a href="{{ route('pembimbing-akademik.edit', $pembimbingAkademik) }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                            Edit
-                        </a>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Program Studi</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Jurusan</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingAkademik->prodi->jurusan }}" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Program Studi</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingAkademik->prodi->nama_prodi }}" readonly>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Kapasitas Bimbingan</label>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pembimbingAkademik->kapasitas_bimbingan }}" readonly>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Kelola Mahasiswa Bimbingan</h3>
+            @if(session('success'))
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+                    <p>{{ session('success') }}</p>
+                </div>
+            @endif
+            <div class="mb-6">
+                <div class="relative">
+                    <input type="text" id="searchMahasiswa" placeholder="Cari mahasiswa berdasarkan nama, NIM, email, atau perusahaan..." 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <form action="{{ route('pembimbing-akademik.assign-mahasiswa', $pembimbingAkademik) }}" method="POST">
+                @csrf
+                <div id="mahasiswaList" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 max-h-96 overflow-y-auto">
+                    @foreach($availableStudents as $mahasiswa)
+                        @php
+                            $pengajuanDiterima = $mahasiswa->pengajuanpkl->firstWhere('status', 'Diterima');
+                        @endphp
+                        <div class="mahasiswa-item flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
+                            <input type="checkbox" name="mahasiswa_ids[]" value="{{ $mahasiswa->id }}" id="mahasiswa_{{ $mahasiswa->id }}"
+                                {{ $pembimbingAkademik->mahasiswas->contains($mahasiswa->id) ? 'checked' : '' }}
+                                class="mr-3">
+                            <label for="mahasiswa_{{ $mahasiswa->id }}" class="text-gray-700 cursor-pointer flex-1">
+                                <div class="font-medium">{{ $mahasiswa->nama }}</div>
+                                <div class="text-sm text-gray-500">NIM: {{ $mahasiswa->nim }}</div>
+                                <div class="text-sm text-gray-500">{{ $mahasiswa->email }}</div>
+                                <div class="text-sm text-gray-500">Perusahaan: {{ $pengajuanDiterima && $pengajuanDiterima->perusahaan ? $pengajuanDiterima->perusahaan->nama_perusahaan : '-' }}</div>
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="text-sm text-gray-600">
+                        <span id="selectedCount">0</span> mahasiswa dipilih
+                    </div>
+                    <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Simpan Mahasiswa
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Daftar Mahasiswa yang Dibimbing</h3>
+            <div class="mb-4">
+                <div class="relative">
+                    <input type="text" id="searchTabelMahasiswa" placeholder="Cari mahasiswa berdasarkan nama, NIM, email, atau perusahaan..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            @if($pembimbingAkademik->mahasiswas->count() > 0)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIM</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Perusahaan PKL</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200" id="tabelMahasiswaBimbingan">
+                            @foreach($pembimbingAkademik->mahasiswas as $i => $mahasiswa)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $i+1 }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap col-nama">{{ $mahasiswa->nama }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap col-nim">{{ $mahasiswa->nim }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap col-email">{{ $mahasiswa->email }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap col-perusahaan">
+                                        @php
+                                            $pengajuanDiterima = $mahasiswa->pengajuanpkl->firstWhere('status', 'Diterima');
+                                        @endphp
+                                        {{ $pengajuanDiterima && $pengajuanDiterima->perusahaan ? $pengajuanDiterima->perusahaan->nama_perusahaan : '-' }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <form action="{{ route('pembimbing-akademik.remove-mahasiswa', [$pembimbingAkademik, $mahasiswa]) }}" method="POST" onsubmit="return confirm('Batalkan bimbingan untuk mahasiswa ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 font-medium">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M6 18L18 6M6 6l12 12" clip-rule="evenodd" />
+                                                </svg>
+                                                Batalkan Bimbingan
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <div class="text-gray-500">Belum ada mahasiswa yang dibimbing.</div>
+            @endif
+        </div>
+        <script>
+            document.getElementById('searchMahasiswa').addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const mahasiswaItems = document.querySelectorAll('.mahasiswa-item');
+                mahasiswaItems.forEach(item => {
+                    const nama = item.querySelector('label .font-medium').textContent.toLowerCase();
+                    const nim = item.querySelectorAll('.text-sm')[0].textContent.toLowerCase();
+                    const email = item.querySelectorAll('.text-sm')[1].textContent.toLowerCase();
+                    const perusahaan = item.querySelectorAll('.text-sm')[2].textContent.toLowerCase();
+                    if (nama.includes(searchTerm) || nim.includes(searchTerm) || email.includes(searchTerm) || perusahaan.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                updateSelectedCount();
+            });
+            function updateSelectedCount() {
+                const checkedBoxes = document.querySelectorAll('input[name="mahasiswa_ids[]"]:checked');
+                document.getElementById('selectedCount').textContent = checkedBoxes.length;
+            }
+            document.querySelectorAll('input[name="mahasiswa_ids[]"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updateSelectedCount);
+            });
+            updateSelectedCount();
+            // Search for table Daftar Mahasiswa yang Dibimbing
+            document.getElementById('searchTabelMahasiswa').addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const rows = document.querySelectorAll('#tabelMahasiswaBimbingan tbody tr');
+                rows.forEach(row => {
+                    const nama = row.querySelector('.col-nama').textContent.toLowerCase();
+                    const nim = row.querySelector('.col-nim').textContent.toLowerCase();
+                    const email = row.querySelector('.col-email').textContent.toLowerCase();
+                    const perusahaan = row.querySelector('.col-perusahaan').textContent.toLowerCase();
+                    if (nama.includes(searchTerm) || nim.includes(searchTerm) || email.includes(searchTerm) || perusahaan.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        </script>
     </div>
 @endsection
 
