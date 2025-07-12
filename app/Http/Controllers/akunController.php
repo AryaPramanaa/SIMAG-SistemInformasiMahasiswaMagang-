@@ -14,10 +14,13 @@ class akunController extends Controller
     {
         $query = User::query();
 
-        // Search by username
+        // Search by username or email
         if ($request->has('search') && $request->search !== '') {
             $search = $request->search;
-            $query->where('username', 'like', "%{$search}%");
+            $query->where(function($q) use ($search) {
+                $q->where('username', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
         }
 
         // Filter by role
@@ -84,6 +87,15 @@ class akunController extends Controller
 
     public function show(User $akun)
     {
+        // Load relationships based on role
+        if ($akun->role === 'mahasiswa') {
+            $akun->load('mahasiswa.prodi');
+        } elseif ($akun->role === 'kaprodi') {
+            $akun->load('prodi');
+        } elseif ($akun->role === 'perusahaan') {
+            $akun->load('perusahaan');
+        }
+        
         return view('backend.operator.Akun.show', compact('akun'));
     }
 

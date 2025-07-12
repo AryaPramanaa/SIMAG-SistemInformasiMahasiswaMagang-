@@ -65,17 +65,51 @@ class SuratPKLController extends Controller
 
     public function show(SuratPKL $suratPKL)
     {
+        // Check if the surat PKL belongs to the authenticated mahasiswa
+        $mahasiswa = \App\Models\Mahasiswa::where('email', Auth::user()->email)->first();
+        if (!$mahasiswa || $suratPKL->mahasiswa_id !== $mahasiswa->id) {
+            return redirect()->route('mahasiswa.suratPKL.index')
+                ->with('error', 'Anda tidak memiliki akses untuk melihat surat PKL ini.');
+        }
+
         return view('backend.mahasiswa.suratPKL.show', compact('suratPKL'));
     }
 
     public function edit(SuratPKL $suratPKL)
     {
-        $perusahaans = Perusahaan::where('status', 'aktif')->get();
+        // Check if the surat PKL belongs to the authenticated mahasiswa
+        $mahasiswa = \App\Models\Mahasiswa::where('email', Auth::user()->email)->first();
+        if (!$mahasiswa || $suratPKL->mahasiswa_id !== $mahasiswa->id) {
+            return redirect()->route('mahasiswa.suratPKL.index')
+                ->with('error', 'Anda tidak memiliki akses untuk mengedit surat PKL ini.');
+        }
+
+        // Get perusahaan based on mahasiswa's accepted pengajuan PKL
+        $perusahaans = collect();
+        $pengajuanDiterima = $mahasiswa->pengajuanpkl()->where('status', 'Diterima')->first();
+        if ($pengajuanDiterima) {
+            $perusahaans = Perusahaan::where('id', $pengajuanDiterima->perusahaan_id)->get();
+        }
+
         return view('backend.mahasiswa.suratPKL.edit', compact('suratPKL', 'perusahaans'));
     }
 
     public function update(Request $request, SuratPKL $suratPKL)
     {
+        // Check if the surat PKL belongs to the authenticated mahasiswa
+        $mahasiswa = \App\Models\Mahasiswa::where('email', Auth::user()->email)->first();
+        if (!$mahasiswa || $suratPKL->mahasiswa_id !== $mahasiswa->id) {
+            return redirect()->route('mahasiswa.suratPKL.index')
+                ->with('error', 'Anda tidak memiliki akses untuk mengedit surat PKL ini.');
+        }
+
+        // Validate that the perusahaan_id is valid for this mahasiswa
+        $pengajuanDiterima = $mahasiswa->pengajuanpkl()->where('status', 'Diterima')->first();
+        if (!$pengajuanDiterima || $request->perusahaan_id != $pengajuanDiterima->perusahaan_id) {
+            return redirect()->route('mahasiswa.suratPKL.index')
+                ->with('error', 'Perusahaan yang dipilih tidak valid untuk akun Anda.');
+        }
+
         $request->validate([
             'perusahaan_id' => 'required|exists:perusahaans,id',
             'nomor_surat' => 'required|string',
@@ -110,6 +144,13 @@ class SuratPKLController extends Controller
 
     public function destroy(SuratPKL $suratPKL)
     {
+        // Check if the surat PKL belongs to the authenticated mahasiswa
+        $mahasiswa = \App\Models\Mahasiswa::where('email', Auth::user()->email)->first();
+        if (!$mahasiswa || $suratPKL->mahasiswa_id !== $mahasiswa->id) {
+            return redirect()->route('mahasiswa.suratPKL.index')
+                ->with('error', 'Anda tidak memiliki akses untuk menghapus surat PKL ini.');
+        }
+
         if ($suratPKL->file_path) {
             Storage::disk('public')->delete($suratPKL->file_path);
         }

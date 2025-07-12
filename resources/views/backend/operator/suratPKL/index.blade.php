@@ -58,29 +58,40 @@
         </div>
 
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full">
+            <div>
+                <table class="w-full table-fixed">
                     <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Mahasiswa</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Pembimbing Industri</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Pembimbing Akademik</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Tanggal Laporan</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Isi Laporan</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Aksi</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Mahasiswa</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NIM</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Jenis Surat</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Nama Perusahaan</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">File</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse($suratPKL as $index => $surat)
                             <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $index + 1 }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->mahasiswa->nama ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->pembimbingIndustri->nama_pembimbing ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $surat->pembimbingAkademik->nama ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ \Carbon\Carbon::parse($surat->tanggal_laporan)->format('d/m/Y') }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ Str::limit($surat->isi_laporan, 50) }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-center">
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $index + 1 }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $surat->mahasiswa->nama ?? '-' }}">{{ $surat->mahasiswa->nama ?? '-' }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $surat->mahasiswa->nim ?? '-' }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $surat->jenis_surat ?? '-' }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $surat->perusahaan->nama_perusahaan ?? '-' }}">{{ $surat->perusahaan->nama_perusahaan ?? '-' }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-center whitespace-nowrap">
+                                    @if($surat->file_path)
+                                        <a href="{{ Storage::url($surat->file_path) }}" target="_blank" title="Download File"
+                                            class="inline-flex items-center justify-center w-10 h-10">
+                                            <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </a>
+                                    @else
+                                        <span class="text-gray-400">-</span>
+                                    @endif
+                                </td>
+                                <td class="px-2 py-5 text-sm font-semibold text-center whitespace-nowrap">
                                     <div class="flex items-center justify-center space-x-2">
                                         <a href="{{ route('operator.suratPKL.show', $surat) }}" class="text-blue-600 hover:text-blue-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,7 +118,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="7" class="px-2 py-4 text-center text-gray-500">
                                     Tidak ada data surat PKL
                                 </td>
                             </tr>

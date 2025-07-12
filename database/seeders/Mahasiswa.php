@@ -21,6 +21,7 @@ class Mahasiswa extends Seeder
             'status_aktif' => 'Aktif',
             'alamat' => 'Jl. Contoh No. 123',
             'semester' => '5',
+            'ktm' => null,
             'prodi_id' => 1,
             'user_id' => 1  // This links to the first user (John mahasiswa)
         ]);
@@ -33,6 +34,7 @@ class Mahasiswa extends Seeder
             'status_aktif' => 'Aktif',
             'alamat' => 'Jl. Mawar No. 45',
             'semester' => '5',
+            'ktm' => null,
             'prodi_id' => 1,
             'user_id' => 6
         ]);

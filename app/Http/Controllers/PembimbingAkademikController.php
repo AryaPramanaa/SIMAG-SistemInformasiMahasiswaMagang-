@@ -6,23 +6,55 @@ use App\Models\PembimbingAkademik;
 use App\Models\Prodi;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PembimbingAkademikController extends Controller
 {
     public function index()
     {
-        $pembimbingAkademik = PembimbingAkademik::with('prodi')->get();
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Filter pembimbing akademik berdasarkan prodi kaprodi
+        $pembimbingAkademik = PembimbingAkademik::with('prodi')
+            ->whereHas('prodi', function($q) use ($prodi) {
+                $q->where('nama_prodi', $prodi->nama_prodi);
+            })
+            ->get();
+            
         return view('backend.kaprodi.pembimbingAkademik.index', compact('pembimbingAkademik'));
     }
 
     public function create()
     {
-        $prodis = Prodi::all();
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Hanya tampilkan prodi yang sesuai dengan kaprodi
+        $prodis = Prodi::where('nama_prodi', $prodi->nama_prodi)->get();
         return view('backend.kaprodi.pembimbingAkademik.create', compact('prodis'));
     }
 
     public function store(Request $request)
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
         $request->validate([
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|unique:pembimbing_akademik',
@@ -31,6 +63,12 @@ class PembimbingAkademikController extends Controller
             'kontak' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
         ]);
+        
+        // Validasi bahwa prodi_id sesuai dengan prodi kaprodi
+        $selectedProdi = Prodi::find($request->prodi_id);
+        if ($selectedProdi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda hanya dapat menambahkan pembimbing akademik untuk prodi Anda sendiri.');
+        }
 
         PembimbingAkademik::create($request->all());
 
@@ -40,11 +78,23 @@ class PembimbingAkademikController extends Controller
 
     public function show(PembimbingAkademik $pembimbingAkademik)
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Validasi bahwa pembimbing akademik sesuai dengan prodi kaprodi
+        if ($pembimbingAkademik->prodi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pembimbing akademik ini.');
+        }
+        
         $pembimbingAkademik->load(['prodi', 'mahasiswas.pengajuanpkl.perusahaan']);
         
-        // Ambil semua prodi_id yang jurusannya sama dengan jurusan pembimbing akademik
-        $prodiIds = \App\Models\Prodi::where('jurusan', $pembimbingAkademik->prodi->jurusan)->pluck('id');
-        $availableStudents = \App\Models\Mahasiswa::whereIn('prodi_id', $prodiIds)
+        // Ambil mahasiswa yang sesuai dengan prodi kaprodi
+        $availableStudents = \App\Models\Mahasiswa::where('prodi_id', $prodi->id)
             ->whereHas('pengajuanpkl', function($query) {
                 $query->whereRaw('LOWER(status) = ?', ['diterima']);
             })
@@ -55,12 +105,39 @@ class PembimbingAkademikController extends Controller
 
     public function edit(PembimbingAkademik $pembimbingAkademik)
     {
-        $prodis = Prodi::all();
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Validasi bahwa pembimbing akademik sesuai dengan prodi kaprodi
+        if ($pembimbingAkademik->prodi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pembimbing akademik ini.');
+        }
+        
+        // Hanya tampilkan prodi yang sesuai dengan kaprodi
+        $prodis = Prodi::where('nama_prodi', $prodi->nama_prodi)->get();
         return view('backend.kaprodi.pembimbingAkademik.edit', compact('pembimbingAkademik', 'prodis'));
     }
 
     public function update(Request $request, PembimbingAkademik $pembimbingAkademik)
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Validasi bahwa pembimbing akademik sesuai dengan prodi kaprodi
+        if ($pembimbingAkademik->prodi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pembimbing akademik ini.');
+        }
+        
         $request->validate([
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|unique:pembimbing_akademik,nip,' . $pembimbingAkademik->id,
@@ -69,6 +146,12 @@ class PembimbingAkademikController extends Controller
             'kontak' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
         ]);
+        
+        // Validasi bahwa prodi_id sesuai dengan prodi kaprodi
+        $selectedProdi = Prodi::find($request->prodi_id);
+        if ($selectedProdi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda hanya dapat mengedit pembimbing akademik untuk prodi Anda sendiri.');
+        }
 
         $pembimbingAkademik->update($request->all());
 
@@ -78,6 +161,19 @@ class PembimbingAkademikController extends Controller
 
     public function destroy(PembimbingAkademik $pembimbingAkademik)
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Validasi bahwa pembimbing akademik sesuai dengan prodi kaprodi
+        if ($pembimbingAkademik->prodi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pembimbing akademik ini.');
+        }
+        
         $pembimbingAkademik->delete();
 
         return redirect()->route('pembimbing-akademik.index')
@@ -86,6 +182,19 @@ class PembimbingAkademikController extends Controller
 
     public function assignMahasiswa(Request $request, PembimbingAkademik $pembimbingAkademik)
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Validasi bahwa pembimbing akademik sesuai dengan prodi kaprodi
+        if ($pembimbingAkademik->prodi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pembimbing akademik ini.');
+        }
+        
         $request->validate([
             'mahasiswa_ids' => 'required|array',
             'mahasiswa_ids.*' => 'exists:mahasiswas,id'
@@ -106,6 +215,19 @@ class PembimbingAkademikController extends Controller
 
     public function removeMahasiswa(PembimbingAkademik $pembimbingAkademik, Mahasiswa $mahasiswa)
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Validasi bahwa pembimbing akademik sesuai dengan prodi kaprodi
+        if ($pembimbingAkademik->prodi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pembimbing akademik ini.');
+        }
+        
         $pembimbingAkademik->mahasiswas()->detach($mahasiswa->id);
 
         return back()->with('success', 'Mahasiswa berhasil dihapus dari pembimbing akademik');
@@ -113,6 +235,19 @@ class PembimbingAkademikController extends Controller
 
     public function assignSingleMahasiswa(Request $request, PembimbingAkademik $pembimbingAkademik, \App\Models\Mahasiswa $mahasiswa)
     {
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Validasi bahwa pembimbing akademik sesuai dengan prodi kaprodi
+        if ($pembimbingAkademik->prodi->nama_prodi !== $prodi->nama_prodi) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pembimbing akademik ini.');
+        }
+        
         // Cek kapasitas bimbingan
         $currentCount = $pembimbingAkademik->mahasiswas()->count();
         if ($currentCount >= $pembimbingAkademik->kapasitas_bimbingan) {

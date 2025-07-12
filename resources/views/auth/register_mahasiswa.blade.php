@@ -60,7 +60,7 @@
                     </ul>
                 </div>
             @endif
-            <form method="POST" action="{{ route('register.mahasiswa') }}" class="space-y-6 mt-6">
+            <form method="POST" action="{{ route('register.mahasiswa') }}" class="space-y-6 mt-6" enctype="multipart/form-data">
                 @csrf
                 <div class="space-y-2">
                     <label for="nim" class="text-sm font-medium text-gray-700 block">NIM</label>
@@ -88,6 +88,11 @@
                 <div class="space-y-2">
                     <label for="semester" class="text-sm font-medium text-gray-700 block">Semester</label>
                     <input id="semester" name="semester" type="number" min="1" required class="input-transition flex h-11 w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-slate-900" placeholder="Masukkan Semester">
+                </div>
+                <div class="space-y-2">
+                    <label for="ktm" class="text-sm font-medium text-gray-700 block">Upload KTM (Kartu Tanda Mahasiswa)</label>
+                    <input id="ktm" name="ktm" type="file" accept="image/*,.pdf" required class="input-transition flex h-11 w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-slate-900">
+                    <p class="text-xs text-gray-500 mt-1">Format yang diterima: JPG, PNG, PDF. Maksimal 2MB</p>
                 </div>
                 <div class="space-y-2">
                     <label for="prodi_id" class="text-sm font-medium text-gray-700 block">Prodi</label>

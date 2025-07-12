@@ -56,37 +56,34 @@
         @endif
 
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full">
+            <div>
+                <table class="w-full table-fixed">
                     <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">No</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Perusahaan</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Divisi</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Deskripsi</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Syarat</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Kuota</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Aksi</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">No</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Perusahaan</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Divisi</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Deskripsi</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Syarat</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Kuota</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse($lowonganPKLs as $lowongan)
                             <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $lowongan->perusahaan->nama_perusahaan }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $lowongan->divisi }}</td>
-                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center max-w-xs truncate">{{ $lowongan->deskripsi }}</td>
-                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center max-w-xs truncate">{{ $lowongan->syarat }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $lowongan->kuota ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm text-center">
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $lowongan->perusahaan->nama_perusahaan }}">{{ $lowongan->perusahaan->nama_perusahaan }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $lowongan->divisi }}">{{ $lowongan->divisi }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $lowongan->deskripsi }}">{{ $lowongan->deskripsi }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $lowongan->syarat }}">{{ $lowongan->syarat }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $lowongan->kuota ?? '-' }}</td>
+                                <td class="px-2 py-5 text-sm text-center whitespace-nowrap">
                                     <div class="flex items-center justify-center space-x-2">
-                                        <a href="{{ route('mahasiswa.lowonganPKL.show', $lowongan->id) }}"
-                                            class="text-blue-600 hover:text-blue-900">
+                                        <a href="{{ route('mahasiswa.lowonganPKL.show', $lowongan->id) }}" class="text-blue-600 hover:text-blue-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
                                         </a>
                                     </div>
@@ -94,7 +91,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="6" class="px-2 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                     Tidak ada data lowongan PKL
                                 </td>
                             </tr>

@@ -14,7 +14,22 @@ class pengajuanPKLKapordiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan']);
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        
+        // Ambil prodi yang terkait dengan user kaprodi
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Query pengajuan PKL dengan filter berdasarkan prodi kaprodi
+        $query = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])
+            ->whereHas('mahasiswa.prodi', function($q) use ($prodi) {
+                $q->where('nama_prodi', $prodi->nama_prodi);
+            });
+            
         if ($request->filled('nama')) {
             $query->whereHas('mahasiswa', function($q) use ($request) {
                 $q->where('nama', 'like', "%{$request->nama}%");
@@ -36,13 +51,40 @@ class pengajuanPKLKapordiController extends Controller
 
     public function show($id)
     {
-        $pengajuan = pengajuanPKL::with(['mahasiswa.prodi', 'mahasiswa.pembimbingAkademik', 'perusahaan'])->findOrFail($id);
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Ambil pengajuan PKL dengan validasi prodi
+        $pengajuan = pengajuanPKL::with(['mahasiswa.prodi', 'mahasiswa.pembimbingAkademik', 'perusahaan'])
+            ->whereHas('mahasiswa.prodi', function($q) use ($prodi) {
+                $q->where('nama_prodi', $prodi->nama_prodi);
+            })
+            ->findOrFail($id);
+            
         return view('backend.kaprodi.pengajuanPKLkaprodi.show', compact('pengajuan'));
     }
 
     public function edit($id)
     {
-        $pengajuan = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])->findOrFail($id);
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Ambil pengajuan PKL dengan validasi prodi
+        $pengajuan = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])
+            ->whereHas('mahasiswa.prodi', function($q) use ($prodi) {
+                $q->where('nama_prodi', $prodi->nama_prodi);
+            })
+            ->findOrFail($id);
         
         // Check if pengajuan can be edited
         if ($pengajuan->status !== 'Pending') {
@@ -57,7 +99,19 @@ class pengajuanPKLKapordiController extends Controller
 
     public function update(Request $request, $id)
     {
-        $pengajuan = pengajuanPKL::findOrFail($id);
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Ambil pengajuan PKL dengan validasi prodi
+        $pengajuan = pengajuanPKL::whereHas('mahasiswa.prodi', function($q) use ($prodi) {
+                $q->where('nama_prodi', $prodi->nama_prodi);
+            })
+            ->findOrFail($id);
 
         $request->validate([
             'status' => 'required|in:Pending,Diterima,Ditolak',
@@ -104,7 +158,20 @@ class pengajuanPKLKapordiController extends Controller
 
     public function destroy($id)
     {
-        $pengajuan = pengajuanPKL::findOrFail($id);
+        // Ambil user yang sedang login
+        $user = Auth::user();
+        $prodi = $user->prodi;
+        
+        if (!$prodi) {
+            return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun ini.');
+        }
+        
+        // Ambil pengajuan PKL dengan validasi prodi
+        $pengajuan = pengajuanPKL::whereHas('mahasiswa.prodi', function($q) use ($prodi) {
+                $q->where('nama_prodi', $prodi->nama_prodi);
+            })
+            ->findOrFail($id);
+            
         $pengajuan->delete();
         
         return redirect()->route('kaprodi.pengajuanPKL.index')

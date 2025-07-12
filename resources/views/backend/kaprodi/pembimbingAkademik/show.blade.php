@@ -14,8 +14,10 @@
                 Kembali
             </a>
         </div>
+        
+        <!-- Informasi Pembimbing -->
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
-            <div class="space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Pembimbing</h3>
                     <div class="space-y-4">
@@ -56,6 +58,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Kelola Mahasiswa Bimbingan -->
         <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
             <h3 class="text-lg font-semibold text-gray-700 mb-4">Kelola Mahasiswa Bimbingan</h3>
             @if(session('success'))
@@ -76,7 +80,7 @@
             </div>
             <form action="{{ route('pembimbing-akademik.assign-mahasiswa', $pembimbingAkademik) }}" method="POST">
                 @csrf
-                <div id="mahasiswaList" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 max-h-96 overflow-y-auto">
+                <div id="mahasiswaList" class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4 max-h-96 overflow-y-auto">
                     @foreach($availableStudents as $mahasiswa)
                         @php
                             $pengajuanDiterima = $mahasiswa->pengajuanpkl->firstWhere('status', 'Diterima');
@@ -107,7 +111,9 @@
                 </div>
             </form>
         </div>
-        <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+
+        <!-- Daftar Mahasiswa yang Dibimbing -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
             <h3 class="text-lg font-semibold text-gray-700 mb-4">Daftar Mahasiswa yang Dibimbing</h3>
             <div class="mb-4">
                 <div class="relative">
@@ -120,40 +126,47 @@
                 </div>
             </div>
             @if($pembimbingAkademik->mahasiswas->count() > 0)
-                <div class="overflow-x-auto">
+                <!-- Desktop Table -->
+                <div class="hidden md:block overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIM</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Perusahaan PKL</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">NIM</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Perusahaan PKL</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200" id="tabelMahasiswaBimbingan">
                             @foreach($pembimbingAkademik->mahasiswas as $i => $mahasiswa)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $i+1 }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap col-nama">{{ $mahasiswa->nama }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap col-nim">{{ $mahasiswa->nim }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap col-email">{{ $mahasiswa->email }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap col-perusahaan">
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $i+1 }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap col-nama">
+                                        <div class="text-sm font-medium text-gray-900">{{ $mahasiswa->nama }}</div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap col-nim">
+                                        <div class="text-sm text-gray-900">{{ $mahasiswa->nim }}</div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap col-email">
+                                        <div class="text-sm text-gray-900">{{ $mahasiswa->email }}</div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap col-perusahaan">
                                         @php
                                             $pengajuanDiterima = $mahasiswa->pengajuanpkl->firstWhere('status', 'Diterima');
                                         @endphp
-                                        {{ $pengajuanDiterima && $pengajuanDiterima->perusahaan ? $pengajuanDiterima->perusahaan->nama_perusahaan : '-' }}
+                                        <div class="text-sm text-gray-900">{{ $pengajuanDiterima && $pengajuanDiterima->perusahaan ? $pengajuanDiterima->perusahaan->nama_perusahaan : '-' }}</div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                         <form action="{{ route('pembimbing-akademik.remove-mahasiswa', [$pembimbingAkademik, $mahasiswa]) }}" method="POST" onsubmit="return confirm('Batalkan bimbingan untuk mahasiswa ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 font-medium">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 text-xs">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M6 18L18 6M6 6l12 12" clip-rule="evenodd" />
                                                 </svg>
-                                                Batalkan Bimbingan
+                                                Batalkan
                                             </button>
                                         </form>
                                     </td>
@@ -162,11 +175,46 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Mobile Cards -->
+                <div class="md:hidden space-y-4" id="mobileMahasiswaBimbingan">
+                    @foreach($pembimbingAkademik->mahasiswas as $i => $mahasiswa)
+                        @php
+                            $pengajuanDiterima = $mahasiswa->pengajuanpkl->firstWhere('status', 'Diterima');
+                        @endphp
+                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200 mobile-mahasiswa-item">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex-1">
+                                    <div class="font-medium text-gray-900 col-nama">{{ $mahasiswa->nama }}</div>
+                                    <div class="text-sm text-gray-600 col-nim">NIM: {{ $mahasiswa->nim }}</div>
+                                    <div class="text-sm text-gray-600 col-email">{{ $mahasiswa->email }}</div>
+                                    <div class="text-sm text-gray-600 col-perusahaan">
+                                        Perusahaan: {{ $pengajuanDiterima && $pengajuanDiterima->perusahaan ? $pengajuanDiterima->perusahaan->nama_perusahaan : '-' }}
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <form action="{{ route('pembimbing-akademik.remove-mahasiswa', [$pembimbingAkademik, $mahasiswa]) }}" method="POST" onsubmit="return confirm('Batalkan bimbingan untuk mahasiswa ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 text-xs">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M6 18L18 6M6 6l12 12" clip-rule="evenodd" />
+                                            </svg>
+                                            Batalkan
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             @else
-                <div class="text-gray-500">Belum ada mahasiswa yang dibimbing.</div>
+                <div class="text-gray-500 text-center py-8">Belum ada mahasiswa yang dibimbing.</div>
             @endif
         </div>
+
         <script>
+            // Search functionality for mahasiswa list
             document.getElementById('searchMahasiswa').addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase();
                 const mahasiswaItems = document.querySelectorAll('.mahasiswa-item');
@@ -183,18 +231,23 @@
                 });
                 updateSelectedCount();
             });
+
             function updateSelectedCount() {
                 const checkedBoxes = document.querySelectorAll('input[name="mahasiswa_ids[]"]:checked');
                 document.getElementById('selectedCount').textContent = checkedBoxes.length;
             }
+
             document.querySelectorAll('input[name="mahasiswa_ids[]"]').forEach(checkbox => {
                 checkbox.addEventListener('change', updateSelectedCount);
             });
             updateSelectedCount();
-            // Search for table Daftar Mahasiswa yang Dibimbing
+
+            // Search functionality for table and mobile cards
             document.getElementById('searchTabelMahasiswa').addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase();
-                const rows = document.querySelectorAll('#tabelMahasiswaBimbingan tbody tr');
+                
+                // Search in desktop table
+                const rows = document.querySelectorAll('#tabelMahasiswaBimbingan tr');
                 rows.forEach(row => {
                     const nama = row.querySelector('.col-nama').textContent.toLowerCase();
                     const nim = row.querySelector('.col-nim').textContent.toLowerCase();
@@ -204,6 +257,20 @@
                         row.style.display = '';
                     } else {
                         row.style.display = 'none';
+                    }
+                });
+
+                // Search in mobile cards
+                const mobileItems = document.querySelectorAll('.mobile-mahasiswa-item');
+                mobileItems.forEach(item => {
+                    const nama = item.querySelector('.col-nama').textContent.toLowerCase();
+                    const nim = item.querySelector('.col-nim').textContent.toLowerCase();
+                    const email = item.querySelector('.col-email').textContent.toLowerCase();
+                    const perusahaan = item.querySelector('.col-perusahaan').textContent.toLowerCase();
+                    if (nama.includes(searchTerm) || nim.includes(searchTerm) || email.includes(searchTerm) || perusahaan.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
                     }
                 });
             });

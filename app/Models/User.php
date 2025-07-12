@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function prodi()
     {
-        return $this->belongsTo(Prodi::class, 'nomor_unik', 'nama_kaprodi');
+        return $this->hasOne(Prodi::class, 'user_id');
     }
 
     public function perusahaan()

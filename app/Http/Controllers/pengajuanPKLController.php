@@ -47,13 +47,23 @@ class pengajuanPKLController extends Controller
                 'perusahaan_id' => 'required|exists:perusahaans,id',
                 'tanggal_pengajuan' => 'required|date',
                 'divisi_pilihan' => 'required|string|max:255',
+                'cv' => 'required|file|mimes:pdf|max:2048',
             ]);
+
+            // Handle CV file upload
+            $cvPath = null;
+            if ($request->hasFile('cv')) {
+                $cvFile = $request->file('cv');
+                $cvFileName = time() . '_' . $request->mahasiswa_id . '_CV.' . $cvFile->getClientOriginalExtension();
+                $cvPath = $cvFile->storeAs('public/cv', $cvFileName);
+            }
 
             $data = [
                 'mahasiswa_id' => $request->mahasiswa_id,
                 'perusahaan_id' => $request->perusahaan_id,
                 'tanggal_pengajuan' => $request->tanggal_pengajuan,
                 'divisi_pilihan' => $request->divisi_pilihan,
+                'cv' => $cvPath,
                 'status' => 'Pending'
             ];
 
@@ -114,6 +124,7 @@ class pengajuanPKLController extends Controller
             'perusahaan_id' => 'required|exists:perusahaans,id',
             'tanggal_pengajuan' => 'required|date',
             'divisi_pilihan' => 'required|string|max:255',
+            'cv' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
         $data = [
@@ -122,6 +133,19 @@ class pengajuanPKLController extends Controller
             'tanggal_pengajuan' => $request->tanggal_pengajuan,
             'divisi_pilihan' => $request->divisi_pilihan,
         ];
+
+        // Handle CV file upload if provided
+        if ($request->hasFile('cv')) {
+            // Delete old CV file if exists
+            if ($pengajuan->cv && Storage::exists($pengajuan->cv)) {
+                Storage::delete($pengajuan->cv);
+            }
+            
+            $cvFile = $request->file('cv');
+            $cvFileName = time() . '_' . $request->mahasiswa_id . '_CV.' . $cvFile->getClientOriginalExtension();
+            $cvPath = $cvFile->storeAs('public/cv', $cvFileName);
+            $data['cv'] = $cvPath;
+        }
 
         $pengajuan->update($data);
 

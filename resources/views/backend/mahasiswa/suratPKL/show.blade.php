@@ -30,7 +30,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Upload</label>
-                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $suratPKL->tanggal_upload->format('d/m/Y') }}" readonly>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ \Carbon\Carbon::parse($suratPKL->tanggal_upload)->format('d/m/Y') }}" readonly>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
@@ -56,13 +56,7 @@
                 @endif
             </div>
             <div class="flex justify-end mt-6 space-x-3">
-                <a href="{{ route('mahasiswa.suratPKL.edit', $suratPKL) }}"
-                    class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                    </svg>
-                    Edit
-                </a>
+                <!-- Tombol edit dihapus sesuai permintaan user -->
             </div>
         </div>
     </div>

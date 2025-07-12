@@ -15,23 +15,18 @@
             Kembali ke Daftar
         </a>
     </div>
-    <div class="bg-white rounded-xl shadow-lg p-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <!-- Informasi Mahasiswa -->
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Mahasiswa</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nama Mahasiswa</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->nama ?? '-' }}" readonly>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $pengajuan->mahasiswa->nama ?? '-' }}" readonly>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">NIM</label>
                 <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->nim ?? '-' }}" readonly>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Perusahaan</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->perusahaan->nama_perusahaan ?? '-' }}" readonly>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Perusahaan</label>
-                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="2" readonly>{{ $pengajuan->perusahaan->alamat ?? '-' }}</textarea>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">No HP Mahasiswa</label>
@@ -39,23 +34,45 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Email Mahasiswa</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->email ?? '-' }}" readonly>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $pengajuan->mahasiswa->email ?? '-' }}" readonly>
             </div>
-            <div>
+            <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Mahasiswa</label>
-                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="2" readonly>{{ $pengajuan->mahasiswa->alamat ?? '-' }}</textarea>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" rows="2" readonly>{{ $pengajuan->mahasiswa->alamat ?? '-' }}</textarea>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Semester</label>
                 <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->semester ?? '-' }}" readonly>
             </div>
+        </div>
+    </div>
+
+    <!-- Informasi Program Studi -->
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Program Studi</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Jurusan</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->prodi->jurusan ?? '-' }}" readonly>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $pengajuan->mahasiswa->prodi->jurusan ?? '-' }}" readonly>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Prodi</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $pengajuan->mahasiswa->prodi->nama_prodi ?? '-' }}" readonly>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Program Studi</label>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $pengajuan->mahasiswa->prodi->nama_prodi ?? '-' }}" readonly>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informasi Perusahaan -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Informasi Perusahaan</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nama Perusahaan</label>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $pengajuan->perusahaan->nama_perusahaan ?? '-' }}" readonly>
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Perusahaan</label>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" rows="3" readonly>{{ $pengajuan->perusahaan->alamat ?? '-' }}</textarea>
             </div>
         </div>
     </div>

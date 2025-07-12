@@ -9,72 +9,74 @@
         </div>
 
         <!-- Search and Filter Form -->
-        <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
-            <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <form method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label for="nama" class="block text-sm font-medium text-gray-700">Cari Nama Mahasiswa</label>
-                    <input type="text" name="nama" id="nama" value="{{ request('nama') }}" placeholder="Nama Mahasiswa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2" />
+                    <label for="nama" class="block text-sm font-medium text-gray-700 mb-2">Cari Nama Mahasiswa</label>
+                    <input type="text" name="nama" id="nama" value="{{ request('nama') }}" placeholder="Nama Mahasiswa" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
                 </div>
                 <div>
-                    <label for="nim" class="block text-sm font-medium text-gray-700">Cari NIM</label>
-                    <input type="text" name="nim" id="nim" value="{{ request('nim') }}" placeholder="NIM" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2" />
+                    <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">Cari NIM</label>
+                    <input type="text" name="nim" id="nim" value="{{ request('nim') }}" placeholder="NIM" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
                 </div>
                 <div>
-                    <label for="perusahaan" class="block text-sm font-medium text-gray-700">Cari Perusahaan</label>
-                    <input type="text" name="perusahaan" id="perusahaan" value="{{ request('perusahaan') }}" placeholder="Perusahaan" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 py-2" />
+                    <label for="perusahaan" class="block text-sm font-medium text-gray-700 mb-2">Cari Perusahaan</label>
+                    <input type="text" name="perusahaan" id="perusahaan" value="{{ request('perusahaan') }}" placeholder="Perusahaan" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" />
                 </div>
-                <div class="flex items-end space-x-2 mt-4 md:mt-0">
-                    <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                <div class="flex items-end space-x-2">
+                    <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">
                         <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                        Filter
+                        Cari
                     </button>
-                    <a href="{{ route('pimpinan.rekapMahasiswaPKL.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Reset</a>
+                    <a href="{{ route('pimpinan.rekapMahasiswaPKL.index') }}" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 font-medium">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Reset
+                    </a>
                 </div>
             </form>
         </div>
 
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Desktop Table -->
+        <div class="hidden lg:block bg-white rounded-xl shadow-lg">
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NAMA MAHASISWA</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NIM</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NAMA PERUSAHAAN</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">ALAMAT PERUSAHAAN</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO HP MAHASISWA</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">EMAIL MAHASISWA</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">ALAMAT MAHASISWA</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">SEMESTER</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">JURUSAN</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">PRODI</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">ACTION</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-12">NO</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-48">NAMA MAHASISWA</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-32">NIM</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-40">PROGRAM STUDI</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-48">NAMA PERUSAHAAN</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">ALAMAT PERUSAHAAN</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-20">ACTION</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse($pengajuans as $index => $pengajuan)
                             <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $index + 1 }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->nama ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->nim ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->perusahaan->nama_perusahaan ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->perusahaan->alamat ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->no_hp ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->email ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->alamat ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->semester ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->prodi->jurusan ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->prodi->nama_prodi ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm text-center">
-                                    <a href="{{ route('pimpinan.rekapMahasiswaPKL.show', $pengajuan->id) }}" class="inline-block px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-xs">Detail</a>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center">{{ $index + 1 }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center break-words">{{ $pengajuan->mahasiswa->nama ?? '-' }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->nim ?? '-' }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center break-words">{{ $pengajuan->mahasiswa->prodi->nama_prodi ?? '-' }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center break-words">{{ $pengajuan->perusahaan->nama_perusahaan ?? '-' }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center break-words max-w-xs" title="{{ $pengajuan->perusahaan->alamat ?? '-' }}">
+                                    {{ $pengajuan->perusahaan->alamat ?? '-' }}
+                                </td>
+                                <td class="px-6 py-5 text-sm text-center">
+                                    <a href="{{ route('pimpinan.rekapMahasiswaPKL.show', $pengajuan->id) }}" 
+                                       class="inline-block px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs">Detail</a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="7" class="px-6 py-4 text-sm text-gray-500 text-center">
                                     Tidak ada data mahasiswa PKL
                                 </td>
                             </tr>
@@ -83,5 +85,75 @@
                 </table>
             </div>
         </div>
+
+        <!-- Tablet Table -->
+        <div class="hidden md:block lg:hidden bg-white rounded-xl shadow-lg">
+            <div class="overflow-x-auto">
+                <table class="w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50 border-b">
+                        <tr>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-12">NO</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">NAMA MAHASISWA</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">NIM</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">PROGRAM STUDI</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">PERUSAHAAN</th>
+                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider w-20">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @forelse($pengajuans as $index => $pengajuan)
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center">{{ $index + 1 }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center break-words" title="{{ $pengajuan->mahasiswa->nama ?? '-' }}">
+                                    {{ $pengajuan->mahasiswa->nama ?? '-' }}
+                                </td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->nim ?? '-' }}</td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center break-words" title="{{ $pengajuan->mahasiswa->prodi->nama_prodi ?? '-' }}">
+                                    {{ $pengajuan->mahasiswa->prodi->nama_prodi ?? '-' }}
+                                </td>
+                                <td class="px-6 py-5 text-sm font-semibold text-gray-500 text-center break-words" title="{{ $pengajuan->perusahaan->nama_perusahaan ?? '-' }}">
+                                    {{ $pengajuan->perusahaan->nama_perusahaan ?? '-' }}
+                                </td>
+                                <td class="px-6 py-5 text-sm text-center">
+                                    <a href="{{ route('pimpinan.rekapMahasiswaPKL.show', $pengajuan->id) }}" 
+                                       class="inline-block px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs">Detail</a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-4 text-sm text-gray-500 text-center">
+                                    Tidak ada data mahasiswa PKL
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Mobile Cards -->
+        <div class="md:hidden space-y-4">
+            @forelse($pengajuans as $index => $pengajuan)
+                <div class="bg-white rounded-lg shadow-lg p-4 border border-gray-200">
+                    <div class="flex justify-between items-start mb-3">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium text-gray-900 truncate">{{ $pengajuan->mahasiswa->nama ?? '-' }}</div>
+                            <div class="text-sm text-gray-600">NIM: {{ $pengajuan->mahasiswa->nim ?? '-' }}</div>
+                            <div class="text-sm text-gray-600">Prodi: {{ $pengajuan->mahasiswa->prodi->nama_prodi ?? '-' }}</div>
+                            <div class="text-sm text-gray-600 truncate">Perusahaan: {{ $pengajuan->perusahaan->nama_perusahaan ?? '-' }}</div>
+                            <div class="text-sm text-gray-600 truncate">Alamat: {{ $pengajuan->perusahaan->alamat ?? '-' }}</div>
+                        </div>
+                        <div class="ml-4 flex-shrink-0">
+                            <a href="{{ route('pimpinan.rekapMahasiswaPKL.show', $pengajuan->id) }}" 
+                               class="inline-block px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs">Detail</a>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="bg-white rounded-lg shadow-lg p-8 text-center text-gray-500">
+                    Tidak ada data mahasiswa PKL
+                </div>
+            @endforelse
+        </div>
     </div>
-@endsection 
+@endsection

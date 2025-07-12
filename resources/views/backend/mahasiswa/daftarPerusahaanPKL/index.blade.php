@@ -65,51 +65,37 @@
 
         <!-- Table Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full">
+            <div>
+                <table class="w-full table-fixed">
                     <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                NO</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                NAMA PERUSAHAAN</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                ALAMAT</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                KONTAK</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                BIDANG USAHA</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">
-                                STATUS KERJASAMA</th>
-                            
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NAMA PERUSAHAAN</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">ALAMAT</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">KONTAK</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">BIDANG USAHA</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">STATUS KERJASAMA</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="divide-y divide-gray-200">
                         @forelse($perusahaan as $index => $item)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $perusahaan->firstItem() + $index }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $item['nama_perusahaan'] }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $item['alamat'] }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $item['kontak'] ?? '-' }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">
-                                    {{ $item['bidang_usaha'] }}</td>
-                                
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $perusahaan->firstItem() + $index }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $item['nama_perusahaan'] }}">{{ $item['nama_perusahaan'] }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $item['alamat'] }}">{{ $item['alamat'] }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $item['kontak'] ?? '-' }}">{{ $item['kontak'] ?? '-' }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $item['bidang_usaha'] }}">{{ $item['bidang_usaha'] }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-center whitespace-nowrap">
                                     <span class="px-3 py-1 rounded-full text-xs
                                         @if($item['status_kerjasama'] === 'Aktif') bg-green-100 text-green-800
                                         @else bg-red-100 text-red-800 @endif">
                                         {{ $item['status_kerjasama'] }}
                                     </span>
                                 </td>
-                                
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="6" class="px-2 py-4 text-center text-gray-500">
                                     Tidak ada data perusahaan
                                 </td>
                             </tr>

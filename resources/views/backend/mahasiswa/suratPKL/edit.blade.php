@@ -18,6 +18,12 @@
             </a>
         </div>
 
+        @if(session('error'))
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
+                <p>{{ session('error') }}</p>
+            </div>
+        @endif
+
         @if($errors->any())
             <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6" role="alert">
                 <ul>
@@ -35,7 +41,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="perusahaan_id" class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
-                        <select name="perusahaan_id" id="perusahaan_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <select name="perusahaan_id" id="perusahaan_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
                             <option value="">Pilih Perusahaan</option>
                             @foreach($perusahaans as $perusahaan)
                                 <option value="{{ $perusahaan->id }}" {{ (old('perusahaan_id', $suratPKL->perusahaan_id) == $perusahaan->id) ? 'selected' : '' }}>
@@ -43,14 +49,17 @@
                                 </option>
                             @endforeach
                         </select>
+                        @if($perusahaans->isEmpty())
+                            <p class="mt-1 text-sm text-red-600">Tidak ada perusahaan yang tersedia. Pastikan pengajuan PKL Anda sudah diterima.</p>
+                        @endif
                     </div>
                     <div>
                         <label for="nomor_surat" class="block text-sm font-medium text-gray-700 mb-1">Nomor Surat</label>
-                        <input type="text" name="nomor_surat" id="nomor_surat" value="{{ old('nomor_surat', $suratPKL->nomor_surat) }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan nomor surat">
+                        <input type="text" name="nomor_surat" id="nomor_surat" value="{{ old('nomor_surat', $suratPKL->nomor_surat) }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan nomor surat" required>
                     </div>
                     <div>
                         <label for="jenis_surat" class="block text-sm font-medium text-gray-700 mb-1">Jenis Surat</label>
-                        <input type="text" name="jenis_surat" id="jenis_surat" value="{{ old('jenis_surat', $suratPKL->jenis_surat) }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan jenis surat">
+                        <input type="text" name="jenis_surat" id="jenis_surat" value="{{ old('jenis_surat', $suratPKL->jenis_surat) }}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Masukkan jenis surat" required>
                     </div>
                     <div class="md:col-span-2">
                         <label for="file" class="block text-sm font-medium text-gray-700 mb-1">File Surat PKL (PDF)</label>

@@ -15,31 +15,31 @@
             Kembali ke Daftar
         </a>
     </div>
-    <div class="bg-white rounded-xl shadow-lg p-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nama Mahasiswa</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pengajuanPKL->mahasiswa->nama ?? '-' }}" readonly>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $laporan->pengajuanPKL->mahasiswa->nama ?? '-' }}" readonly>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">NIM</label>
                 <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pengajuanPKL->mahasiswa->nim ?? '-' }}" readonly>
             </div>
-            <div>
+            <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Perusahaan</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pengajuanPKL->perusahaan->nama_perusahaan ?? '-' }}" readonly>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $laporan->pengajuanPKL->perusahaan->nama_perusahaan ?? '-' }}" readonly>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Pembimbing Akademik</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pembimbingAkademik->nama ?? '-' }}" readonly>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $laporan->pembimbingAkademik->nama ?? '-' }}" readonly>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Pembimbing Industri</label>
-                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $laporan->pembimbingIndustri->nama_pembimbing ?? '-' }}" readonly>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" value="{{ $laporan->pembimbingIndustri->nama_pembimbing ?? '-' }}" readonly>
             </div>
-            <div>
+            <div class="md:col-span-2">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Alamat Mahasiswa</label>
-                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="2" readonly>{{ $laporan->pengajuanPKL->mahasiswa->alamat ?? '-' }}</textarea>
+                <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" rows="2" readonly>{{ $laporan->pengajuanPKL->mahasiswa->alamat ?? '-' }}</textarea>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Pengajuan PKL</label>
@@ -48,7 +48,7 @@
         </div>
         <div class="mt-6">
             <label class="block text-sm font-medium text-gray-700 mb-1">Isi Laporan</label>
-            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" rows="4" readonly>{{ $laporan->isi_laporan ?? '-' }}</textarea>
+            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 break-words" rows="4" readonly>{{ $laporan->isi_laporan ?? '-' }}</textarea>
         </div>
     </div>
 </div>

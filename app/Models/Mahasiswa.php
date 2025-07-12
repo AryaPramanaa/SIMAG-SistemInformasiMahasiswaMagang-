@@ -17,6 +17,7 @@ class Mahasiswa extends Model
         'status_aktif',
         'alamat',
         'semester',
+        'ktm',
         'prodi_id',
         'user_id'
     ];

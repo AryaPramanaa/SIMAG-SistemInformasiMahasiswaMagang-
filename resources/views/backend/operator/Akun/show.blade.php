@@ -42,6 +42,46 @@
                     <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $akun->prodi->jurusan }}" readonly>
                 </div>
                 @endif
+                @if($akun->role === 'mahasiswa' && $akun->mahasiswa)
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">NIM</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $akun->mahasiswa->nim }}" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Mahasiswa</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $akun->mahasiswa->nama }}" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Program Studi</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $akun->mahasiswa->prodi->nama_prodi }}" readonly>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Semester</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100" value="{{ $akun->mahasiswa->semester }}" readonly>
+                </div>
+                @if($akun->mahasiswa->ktm)
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">KTM (Kartu Tanda Mahasiswa)</label>
+                    <div class="flex items-center space-x-3">
+                        <a href="{{ Storage::url($akun->mahasiswa->ktm) }}" target="_blank" 
+                           class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                            Lihat KTM
+                        </a>
+                        <span class="text-sm text-gray-500">KTM mahasiswa tersedia</span>
+                    </div>
+                </div>
+                @else
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">KTM (Kartu Tanda Mahasiswa)</label>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-sm text-gray-500">KTM belum diupload</span>
+                    </div>
+                </div>
+                @endif
+                @endif
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                     <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 @if($akun->status == 'Aktif') text-green-800 @else text-red-800 @endif" value="{{ $akun->status }}" readonly>

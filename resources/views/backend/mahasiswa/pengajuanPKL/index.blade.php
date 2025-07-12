@@ -23,53 +23,77 @@
             </div>
         @endif
 
+        <!-- Search and Filter Form -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <form action="{{ route('mahasiswa.pengajuanPKL.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="search_nama" class="block text-base font-semibold text-gray-800 mb-2">Cari Nama</label>
+                    <input type="text" name="search_nama" id="search_nama" value="{{ request('search_nama') }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-base"
+                        placeholder="Masukkan nama mahasiswa">
+                </div>
+                <div>
+                    <label for="search_perusahaan" class="block text-base font-semibold text-gray-800 mb-2">Cari Perusahaan</label>
+                    <input type="text" name="search_perusahaan" id="search_perusahaan" value="{{ request('search_perusahaan') }}"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-base"
+                        placeholder="Masukkan nama perusahaan">
+                </div>
+                <div class="md:col-span-2 flex items-end space-x-4 mt-2">
+                    <button type="submit"
+                        class="inline-flex items-center px-8 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-semibold text-base">
+                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Cari
+                    </button>
+                    <a href="{{ route('mahasiswa.pengajuanPKL.index') }}"
+                        class="inline-flex items-center px-8 py-3 border border-transparent rounded-lg shadow-sm text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 font-semibold text-base">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Reset
+                    </a>
+                </div>
+            </form>
+        </div>
+        <!-- Table Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full">
+            <div>
+                <table class="w-full table-fixed">
                     <thead class="bg-gray-50 border-b">
                         <tr>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">No</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Nama</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Perusahaan PKL</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Tanggal Pengajuan</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Divisi</th>
-                            <th class="px-6 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider">Aksi</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NO</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NAMA</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">PERUSAHAAN PKL</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">TANGGAL PENGAJUAN</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">STATUS</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">DIVISI</th>
+                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">AKSI</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse($pengajuans as $pengajuan)
                             <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->mahasiswa->nama }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->perusahaan->nama_perusahaan }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-medium text-center">
-                                    <span class="px-3 py-1 rounded-full text-xs
-                                        @if($pengajuan->status == 'Pending') bg-yellow-100 text-yellow-800
-                                        @elseif($pengajuan->status == 'Diterima') bg-green-100 text-green-800
-                                        @else bg-red-100 text-red-800 @endif">
-                                        {{ $pengajuan->status }}
-                                    </span>
+                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->mahasiswa->nama }}">{{ $pengajuan->mahasiswa->nama }}</td>
+                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->perusahaan->nama_perusahaan }}">{{ $pengajuan->perusahaan->nama_perusahaan }}</td>
+                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center whitespace-nowrap">{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}</td>
+                                <td class="px-2 py-5 text-base font-medium text-center whitespace-nowrap">
+                                    <span class="px-3 py-1 rounded-full text-xs @if($pengajuan->status == 'Pending') bg-yellow-100 text-yellow-800 @elseif($pengajuan->status == 'Diterima') bg-green-100 text-green-800 @else bg-red-100 text-red-800 @endif">{{ $pengajuan->status }}</span>
                                 </td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm font-semibold text-gray-500 text-center">{{ $pengajuan->divisi_pilihan }}</td>
-                                <td class="px-6 py-5 whitespace-nowrap text-sm text-center">
+                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->divisi_pilihan }}">{{ $pengajuan->divisi_pilihan }}</td>
+                                <td class="px-2 py-5 text-base text-center whitespace-nowrap">
                                     <div class="flex items-center justify-center space-x-2">
-                                        <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}"
-                                            class="text-blue-600 hover:text-blue-900">
+                                        <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}" class="text-blue-600 hover:text-blue-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
                                         </a>
                                         @if($pengajuan->status == 'Pending')
-                                        <a href="{{ route('mahasiswa.pengajuanPKL.edit', $pengajuan->id) }}"
-                                            class="text-yellow-600 hover:text-yellow-900">
+                                        <a href="{{ route('mahasiswa.pengajuanPKL.edit', $pengajuan->id) }}" class="text-yellow-600 hover:text-yellow-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                         </a>
                                         <form id="deleteFormPengajuanPKL" action="" method="POST" class="inline">
@@ -87,7 +111,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="7" class="px-2 py-4 text-center text-gray-500">
                                     Tidak ada data pengajuan PKL
                                 </td>
                             </tr>
@@ -96,7 +120,6 @@
                 </table>
             </div>
         </div>
-
         <div class="mt-6">
             {{ $pengajuans->links() }}
         </div>

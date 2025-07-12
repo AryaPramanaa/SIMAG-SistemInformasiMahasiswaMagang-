@@ -90,6 +90,14 @@
                     </div>
                 </div>
 
+                <!-- CV Upload -->
+                <div class="space-y-2">
+                    <label for="cv" class="text-base font-semibold text-gray-700">Upload CV (Curriculum Vitae)</label>
+                    <input type="file" id="cv" name="cv" accept=".pdf" required
+                        class="w-full rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p class="text-sm text-gray-500">Format yang diterima: PDF. Maksimal 2MB. CV akan digunakan untuk evaluasi pengajuan PKL.</p>
+                </div>
+
                 <!-- Buttons -->
                 <div class="flex justify-end mt-6">
                     <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">

@@ -7,6 +7,7 @@ use App\Models\Mahasiswa;
 use App\Models\Prodi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterMahasiswaController extends Controller
 {
@@ -28,8 +29,17 @@ class RegisterMahasiswaController extends Controller
             'status_aktif' => 'required|string',
             'alamat' => 'required|string',
             'semester' => 'required|integer',
+            'ktm' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'prodi_id' => 'required|exists:prodis,id',
         ]);
+
+        // Handle KTM file upload
+        $ktmPath = null;
+        if ($request->hasFile('ktm')) {
+            $ktmFile = $request->file('ktm');
+            $ktmFileName = time() . '_' . $request->nim . '_KTM.' . $ktmFile->getClientOriginalExtension();
+            $ktmPath = $ktmFile->storeAs('public/ktm', $ktmFileName);
+        }
 
         $user = User::create([
             'username' => $request->username,
@@ -47,6 +57,7 @@ class RegisterMahasiswaController extends Controller
             'status_aktif' => $request->status_aktif,
             'alamat' => $request->alamat,
             'semester' => $request->semester,
+            'ktm' => $ktmPath,
             'prodi_id' => $request->prodi_id,
             'user_id' => $user->id,
         ]);

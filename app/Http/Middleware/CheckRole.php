@@ -15,14 +15,18 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (!$request->user()) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        if (!$request->user() || !in_array($request->user()->role, $roles)) {
+            abort(403, 'Unauthorized action.');
         }
 
-        if (!in_array($request->user()->role, $roles)) {
-            return redirect()->back()->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        // Tambahan validasi untuk kaprodi
+        if (in_array('kaprodi', $roles) && $request->user()->role === 'kaprodi') {
+            // Pastikan user kaprodi memiliki data prodi
+            if (!$request->user()->prodi) {
+                return redirect()->back()->with('error', 'Data prodi tidak ditemukan untuk akun kaprodi ini. Silakan hubungi administrator.');
+            }
         }
 
         return $next($request);
     }
-}
+} 

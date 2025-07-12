@@ -31,6 +31,8 @@ use App\Http\Controllers\MahasiswaProfilController;
 use App\Http\Controllers\ProdiProfilController;
 use App\Http\Controllers\RegisterMahasiswaController;
 use App\Http\Controllers\MahasiswaPembimbingAkademikController;
+use App\Http\Controllers\RekapMahasiswaPKLKaprodiController;
+use App\Http\Controllers\RekapMahasiswaPKLPimpinanController;
 
 
 //Frontend
@@ -101,6 +103,7 @@ Route::middleware(['auth'])->prefix('perusahaan')->name('perusahaan.')->group(fu
     // Profil Perusahaan
     Route::get('profil/edit', [App\Http\Controllers\PerusahaanProfilController::class, 'edit'])->name('profil.edit');
     Route::put('profil/update', [App\Http\Controllers\PerusahaanProfilController::class, 'update'])->name('profil.update');
+    Route::put('profil/updatePassword', [App\Http\Controllers\PerusahaanProfilController::class, 'updatePassword'])->name('profil.updatePassword');
 });
 
 //OPERATOR ROUTE
@@ -120,9 +123,11 @@ Route::middleware(['auth'])->prefix('operator')->name('operator.')->group(functi
 //KAPRODI
 Route::middleware(['auth'])->prefix('kaprodi')->name('kaprodi.')->group(function () {
     Route::resource('pengajuanPKL', pengajuanPKLKapordiController::class);
+    Route::resource('rekapMahasiswaPKL', RekapMahasiswaPKLKaprodiController::class)->only(['index', 'show']);
     // Profil Prodi (Kaprodi)
     Route::get('profil/edit', [App\Http\Controllers\ProdiProfilController::class, 'edit'])->name('profil.edit');
     Route::put('profil/update', [App\Http\Controllers\ProdiProfilController::class, 'update'])->name('profil.update');
+    Route::put('profil/updatePassword', [App\Http\Controllers\ProdiProfilController::class, 'updatePassword'])->name('profil.updatePassword');
 });
 
 // Pembimbing Akademik Routes
@@ -145,7 +150,7 @@ Route::middleware('guest')->group(function () {
 //PIMPINAN
 Route::middleware(['auth'])->prefix('pimpinan')->name('pimpinan.')->group(function () {
     Route::resource('laporanMahasiswa', App\Http\Controllers\PimpinanLaporanMahasiswaController::class)->only(['index', 'show']);
-    Route::resource('rekapMahasiswaPKL', App\Http\Controllers\RekapMahasiswaPKLController::class)->only(['index', 'show']);
+    Route::resource('rekapMahasiswaPKL', App\Http\Controllers\RekapMahasiswaPKLPimpinanController::class)->only(['index', 'show']);
 });
 
 

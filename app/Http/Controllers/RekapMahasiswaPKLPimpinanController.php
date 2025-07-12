@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\pengajuanPKL;
 
-class RekapMahasiswaPKLController extends Controller
+class RekapMahasiswaPKLPimpinanController extends Controller
 {
     public function index(Request $request)
     {
         $query = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])
-            ->where('status', 'diterima'); // asumsikan status 'diterima' menandakan sedang PKL
+            ->where('status', 'Diterima'); // Status 'Diterima' menandakan sedang PKL
 
         if ($request->filled('nama')) {
             $query->whereHas('mahasiswa', function($q) use ($request) {
@@ -34,7 +34,7 @@ class RekapMahasiswaPKLController extends Controller
 
     public function show($id)
     {
-        $pengajuan = \App\Models\pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])->findOrFail($id);
+        $pengajuan = pengajuanPKL::with(['mahasiswa.prodi', 'perusahaan'])->findOrFail($id);
         return view('backend.pimpinan.RekapMahasiswaPKL.show', compact('pengajuan'));
     }
 } 

@@ -15,6 +15,7 @@ class pengajuanPKL extends Model
         'perusahaan_id',
         'tanggal_pengajuan',
         'divisi_pilihan',
+        'cv',
         'status',
         'alasan_penolakan'
     ];
