@@ -29,6 +29,7 @@ class PerusahaanProfilController extends Controller
         }
 
         $validated = $request->validate([
+            'username' => 'required|string|max:255|unique:users,username,' . Auth::id(),
             'nama_perusahaan' => 'required|string|max:255|unique:perusahaans,nama_perusahaan,' . $perusahaan->id,
             'alamat' => 'required|string',
             'kontak' => 'required|string|max:255',
@@ -37,8 +38,14 @@ class PerusahaanProfilController extends Controller
         ]);
 
         try {
+            // Update username di tabel users
+            $user = Auth::user();
+            if ($user->username !== $validated['username']) {
+                $user->username = $validated['username'];
+                $user->save();
+            }
             $perusahaan->update($validated);
-            return redirect()->route('perusahaan.profil.edit')->with('success', 'Profil perusahaan berhasil diperbarui.');
+            return redirect()->route('perusahaan.profil.edit')->with('success', 'Profil perusahaan & username berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

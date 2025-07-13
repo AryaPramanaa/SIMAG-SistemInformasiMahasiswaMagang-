@@ -56,6 +56,28 @@ class akunController extends Controller
             'prodi_id' => 'required_if:role,kaprodi|nullable|exists:prodis,id',
         ]);
 
+        // Validasi hanya satu akun per perusahaan
+        if ($request->role === 'perusahaan' && $request->id_perusahaan) {
+            $exists = \App\Models\User::where('role', 'perusahaan')->where('id_perusahaan', $request->id_perusahaan)->exists();
+            if ($exists) {
+                return back()->withErrors(['id_perusahaan' => 'Akun untuk perusahaan ini sudah ada!'])->withInput();
+            }
+        }
+        // Validasi hanya satu akun kaprodi per prodi
+        if ($request->role === 'kaprodi' && $request->prodi_id) {
+            $exists = \App\Models\User::where('role', 'kaprodi')->where('prodi_id', $request->prodi_id)->exists();
+            if ($exists) {
+                return back()->withErrors(['prodi_id' => 'Akun kaprodi untuk prodi ini sudah ada!'])->withInput();
+            }
+        }
+        // Validasi hanya satu akun mahasiswa per NIM
+        if ($request->role === 'mahasiswa' && $request->username) {
+            $exists = \App\Models\Mahasiswa::where('nim', $request->username)->exists();
+            if ($exists) {
+                return back()->withErrors(['username' => 'Akun mahasiswa dengan NIM ini sudah ada!'])->withInput();
+            }
+        }
+
         $data = [
             'username' => $request->username,
             'email' => $request->email,

@@ -33,15 +33,10 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="perusahaan_id" class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
-                        <select name="perusahaan_id" id="perusahaan_id" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <option value="">Pilih Perusahaan</option>
-                            @foreach($perusahaans as $perusahaan)
-                                <option value="{{ $perusahaan->id }}" {{ old('perusahaan_id') == $perusahaan->id ? 'selected' : '' }}>
-                                    {{ $perusahaan->nama_perusahaan }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label for="perusahaan_search" class="block text-sm font-medium text-gray-700 mb-2">Perusahaan</label>
+                        <input type="text" id="perusahaan_search" name="perusahaan_search" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ketik nama perusahaan" autocomplete="off" value="" />
+                        <input type="hidden" name="perusahaan_id" id="perusahaan_id" value="{{ old('perusahaan_id') }}" />
+                        <div id="perusahaan-suggestions" class="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg mt-1 w-full hidden"></div>
                     </div>
 
                     <div>
@@ -118,26 +113,85 @@
             }
         });
 
-        document.getElementById('perusahaan_id').addEventListener('change', function() {
-            var perusahaanId = this.value;
-            var mahasiswaList = document.getElementById('mahasiswa-list');
-            mahasiswaList.innerHTML = '';
-            if (perusahaanId) {
-                fetch('/operator/surat-pkl/mahasiswa-by-perusahaan/' + perusahaanId)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length > 0) {
-                            data.forEach(function(mhs) {
-                                mahasiswaList.innerHTML += `<li>${mhs.nama} (${mhs.nim})</li>`;
-                            });
-                        } else {
-                            mahasiswaList.innerHTML = '<li class="text-red-500">Tidak ada mahasiswa diterima di perusahaan ini</li>';
-                        }
-                    });
-            } else {
-                mahasiswaList.innerHTML = '';
+        // Autocomplete perusahaan
+        (function() {
+            const perusahaanInput = document.getElementById('perusahaan_search');
+            const perusahaanIdInput = document.getElementById('perusahaan_id');
+            const suggestionsBox = document.getElementById('perusahaan-suggestions');
+            let timeout = null;
+
+            perusahaanInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                const query = this.value.trim();
+                perusahaanIdInput.value = '';
+                if (query.length < 2) {
+                    suggestionsBox.innerHTML = '';
+                    suggestionsBox.classList.add('hidden');
+                    return;
+                }
+                timeout = setTimeout(() => {
+                    fetch(`/api/perusahaan/search?q=${encodeURIComponent(query)}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.length === 0) {
+                                suggestionsBox.innerHTML = '<div class="px-3 py-2 text-gray-500">Tidak ditemukan</div>';
+                                suggestionsBox.classList.remove('hidden');
+                                return;
+                            }
+                            suggestionsBox.innerHTML = data.map(item => `<div class='px-3 py-2 hover:bg-green-100 cursor-pointer' data-id='${item.id}' data-nama='${item.nama_perusahaan.replace(/'/g, "&#39;")}' >${item.nama_perusahaan}</div>`).join('');
+                            suggestionsBox.classList.remove('hidden');
+                        });
+                }, 250);
+            });
+
+            suggestionsBox.addEventListener('mousedown', function(e) {
+                if (e.target && e.target.dataset.id) {
+                    perusahaanInput.value = e.target.dataset.nama;
+                    perusahaanIdInput.value = e.target.dataset.id;
+                    suggestionsBox.innerHTML = '';
+                    suggestionsBox.classList.add('hidden');
+                    // Trigger fetch mahasiswa
+                    fetchMahasiswaByPerusahaan(e.target.dataset.id);
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!perusahaanInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                    suggestionsBox.classList.add('hidden');
+                }
+            });
+
+            // Jika reload dan ada value, fetch mahasiswa
+            if (perusahaanIdInput.value) {
+                fetchMahasiswaByPerusahaan(perusahaanIdInput.value);
             }
-        });
+
+            // Ganti event pada perusahaanInput agar fetch mahasiswa hanya saat pilih dari suggestion
+            perusahaanInput.addEventListener('blur', function() {
+                setTimeout(() => suggestionsBox.classList.add('hidden'), 200);
+            });
+
+            // Fungsi fetch mahasiswa
+            function fetchMahasiswaByPerusahaan(perusahaanId) {
+                var mahasiswaList = document.getElementById('mahasiswa-list');
+                mahasiswaList.innerHTML = '';
+                if (perusahaanId) {
+                    fetch('/operator/surat-pkl/mahasiswa-by-perusahaan/' + perusahaanId)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.length > 0) {
+                                data.forEach(function(mhs) {
+                                    mahasiswaList.innerHTML += `<li>${mhs.nama} (${mhs.nim})</li>`;
+                                });
+                            } else {
+                                mahasiswaList.innerHTML = '<li class="text-red-500">Tidak ada mahasiswa diterima di perusahaan ini</li>';
+                            }
+                        });
+                } else {
+                    mahasiswaList.innerHTML = '';
+                }
+            }
+        })();
     </script>
     @endpush
 @endsection 

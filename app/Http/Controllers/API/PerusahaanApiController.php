@@ -85,4 +85,15 @@ class PerusahaanApiController extends Controller
             'data' => $data
         ]);
     }
+
+    // Tambahan: Search perusahaan by nama (untuk autocomplete/search)
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+        $perusahaans = Perusahaan::where('nama_perusahaan', 'like', "%$query%")
+            ->orderBy('nama_perusahaan')
+            ->limit(10)
+            ->get(['id', 'nama_perusahaan']);
+        return response()->json($perusahaans);
+    }
 } 

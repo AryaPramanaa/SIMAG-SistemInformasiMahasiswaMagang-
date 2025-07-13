@@ -44,7 +44,7 @@
 
                     <div>
                         <label for="tanggal_buka" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Buka</label>
-                        <input type="date" name="tanggal_buka" id="tanggal_buka" required
+                        <input type="date" name="tanggal_buka" id="tanggal_buka"
                             value="{{ old('tanggal_buka') }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                         @error('tanggal_buka')
@@ -54,7 +54,7 @@
 
                     <div>
                         <label for="tanggal_tutup" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Tutup</label>
-                        <input type="date" name="tanggal_tutup" id="tanggal_tutup" required
+                        <input type="date" name="tanggal_tutup" id="tanggal_tutup"
                             value="{{ old('tanggal_tutup') }}"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
                         @error('tanggal_tutup')

@@ -85,9 +85,9 @@
                         @php
                             $pengajuanDiterima = $mahasiswa->pengajuanpkl->firstWhere('status', 'Diterima');
                         @endphp
+                        @if(!$pembimbingAkademik->mahasiswas->contains($mahasiswa->id))
                         <div class="mahasiswa-item flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50">
                             <input type="checkbox" name="mahasiswa_ids[]" value="{{ $mahasiswa->id }}" id="mahasiswa_{{ $mahasiswa->id }}"
-                                {{ $pembimbingAkademik->mahasiswas->contains($mahasiswa->id) ? 'checked' : '' }}
                                 class="mr-3">
                             <label for="mahasiswa_{{ $mahasiswa->id }}" class="text-gray-700 cursor-pointer flex-1">
                                 <div class="font-medium">{{ $mahasiswa->nama }}</div>
@@ -96,6 +96,7 @@
                                 <div class="text-sm text-gray-500">Perusahaan: {{ $pengajuanDiterima && $pengajuanDiterima->perusahaan ? $pengajuanDiterima->perusahaan->nama_perusahaan : '-' }}</div>
                             </label>
                         </div>
+                        @endif
                     @endforeach
                 </div>
                 <div class="flex justify-between items-center">

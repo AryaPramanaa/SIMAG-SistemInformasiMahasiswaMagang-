@@ -86,6 +86,15 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('perusahaan.rekapMahasiswaPKL.index') }}"
+                            class="flex items-center gap-x-3 px-4 py-3 rounded-lg {{ request()->is('perusahaan/rekapMahasiswaPKL*') ? 'bg-green-100 text-green-600' : 'hover:bg-gray-100' }} transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a4 4 0 1 1 8 0v2m-4 4h.01M12 3v4m0 0a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4v0a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4z" />
+                            </svg>
+                            <span class="sidebar-label transition-all duration-200 origin-left">Rekap Mahasiswa PKL</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('perusahaan.pembimbingIndustri.index') }}"
                             class="flex items-center gap-x-3 px-4 py-3 rounded-lg {{ request()->is('perusahaan/pembimbingIndustri*') ? 'bg-green-100 text-green-600' : 'hover:bg-gray-100' }} transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"

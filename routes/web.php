@@ -87,7 +87,6 @@ Route::middleware(['auth'])->prefix('mahasiswa')->name('mahasiswa.')->group(func
     Route::resource('daftarPerusahaanPKL', daftarPerusahaanController::class);
     Route::resource('pembimbingIndustri', pembimbingIndustriController::class);
     Route::resource('pembimbingAkademik', MahasiswaPembimbingAkademikController::class)->only(['index','show']);
-    Route::resource('suratPernyataan', SuratPernyataanController::class);
     Route::resource('pengajuanPKL', pengajuanPKLController::class);
     Route::resource('lowonganPKL', LowonganPKLController::class);
     Route::resource('suratPKL', SuratPKLController::class);
@@ -107,6 +106,8 @@ Route::middleware(['auth'])->prefix('perusahaan')->name('perusahaan.')->group(fu
     Route::get('profil/edit', [App\Http\Controllers\PerusahaanProfilController::class, 'edit'])->name('profil.edit');
     Route::put('profil/update', [App\Http\Controllers\PerusahaanProfilController::class, 'update'])->name('profil.update');
     Route::put('profil/updatePassword', [App\Http\Controllers\PerusahaanProfilController::class, 'updatePassword'])->name('profil.updatePassword');
+    // Rekap Mahasiswa PKL
+    Route::resource('rekapMahasiswaPKL', App\Http\Controllers\RekapMahasiswaPKLPerusahaanController::class)->only(['index', 'show']);
 });
 
 //OPERATOR ROUTE
@@ -143,6 +144,7 @@ Route::middleware(['auth'])->prefix('kaprodi')->group(function () {
 
 //API
 Route::get('/data', [App\Http\Controllers\API\PerusahaanApiController::class, 'importFromJson']); 
+Route::get('/api/perusahaan/search', [App\Http\Controllers\API\PerusahaanApiController::class, 'search'])->name('api.perusahaan.search');
 
 // Register Mahasiswa
 Route::middleware('guest')->group(function () {

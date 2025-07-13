@@ -63,7 +63,6 @@
                     <select name="role" id="role" required
                         class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('role') border-red-500 @enderror">
                         <option value="">Pilih Role</option>
-                        <option value="mahasiswa">Mahasiswa</option>
                         <option value="perusahaan">Perusahaan</option>
                         <option value="kaprodi">Kaprodi</option>
                         <option value="pimpinan">Pimpinan</option>
@@ -75,13 +74,10 @@
                 </div>
 
                 <div id="perusahaan-select-wrapper" style="display:none;">
-                    <label for="id_perusahaan" class="block text-sm font-medium text-gray-700 mb-2">Pilih Perusahaan</label>
-                    <select name="id_perusahaan" id="id_perusahaan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('id_perusahaan') border-red-500 @enderror">
-                        <option value="">Pilih Perusahaan</option>
-                        @foreach($perusahaans as $perusahaan)
-                            <option value="{{ $perusahaan->id }}" {{ old('id_perusahaan') == $perusahaan->id ? 'selected' : '' }}>{{ $perusahaan->nama_perusahaan }}</option>
-                        @endforeach
-                    </select>
+                    <label for="perusahaan_search" class="block text-sm font-medium text-gray-700 mb-2">Pilih Perusahaan</label>
+                    <input type="text" id="perusahaan_search" name="perusahaan_search" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ketik nama perusahaan" autocomplete="off" value="" />
+                    <input type="hidden" name="id_perusahaan" id="id_perusahaan" value="{{ old('id_perusahaan') }}" />
+                    <div id="perusahaan-suggestions" class="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg mt-1 w-full hidden"></div>
                     @error('id_perusahaan')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -149,5 +145,57 @@
             roleSelect.addEventListener('change', toggleSelects);
             toggleSelects();
         });
+
+        // Autocomplete perusahaan pada tambah akun operator
+        (function() {
+            const perusahaanInput = document.getElementById('perusahaan_search');
+            const perusahaanIdInput = document.getElementById('id_perusahaan');
+            const suggestionsBox = document.getElementById('perusahaan-suggestions');
+            if (!perusahaanInput) return;
+            let timeout = null;
+
+            perusahaanInput.addEventListener('input', function() {
+                clearTimeout(timeout);
+                const query = this.value.trim();
+                perusahaanIdInput.value = '';
+                if (query.length < 2) {
+                    suggestionsBox.innerHTML = '';
+                    suggestionsBox.classList.add('hidden');
+                    return;
+                }
+                timeout = setTimeout(() => {
+                    fetch(`/api/perusahaan/search?q=${encodeURIComponent(query)}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.length === 0) {
+                                suggestionsBox.innerHTML = '<div class="px-3 py-2 text-gray-500">Tidak ditemukan</div>';
+                                suggestionsBox.classList.remove('hidden');
+                                return;
+                            }
+                            suggestionsBox.innerHTML = data.map(item => `<div class='px-3 py-2 hover:bg-green-100 cursor-pointer' data-id='${item.id}' data-nama='${item.nama_perusahaan.replace(/'/g, "&#39;")}' >${item.nama_perusahaan}</div>`).join('');
+                            suggestionsBox.classList.remove('hidden');
+                        });
+                }, 250);
+            });
+
+            suggestionsBox.addEventListener('mousedown', function(e) {
+                if (e.target && e.target.dataset.id) {
+                    perusahaanInput.value = e.target.dataset.nama;
+                    perusahaanIdInput.value = e.target.dataset.id;
+                    suggestionsBox.innerHTML = '';
+                    suggestionsBox.classList.add('hidden');
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!perusahaanInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                    suggestionsBox.classList.add('hidden');
+                }
+            });
+
+            perusahaanInput.addEventListener('blur', function() {
+                setTimeout(() => suggestionsBox.classList.add('hidden'), 200);
+            });
+        })();
     </script>
 @endsection

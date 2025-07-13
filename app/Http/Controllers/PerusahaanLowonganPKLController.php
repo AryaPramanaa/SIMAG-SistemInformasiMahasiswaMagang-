@@ -14,7 +14,7 @@ class PerusahaanLowonganPKLController extends Controller
         $perusahaan = \App\Models\Perusahaan::where('user_id', $user->id)->first();
         
         if (!$perusahaan) {
-            $lowonganPKLs = collect(); // kosong
+            $lowonganPKLs = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 10);
         } else {
             $query = LowonganPKL::with('perusahaan')->where('perusahaan_id', $perusahaan->id);
 

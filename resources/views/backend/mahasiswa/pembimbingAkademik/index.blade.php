@@ -56,8 +56,6 @@
                             <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">NIP</th>
                             <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">PRODI</th>
                             <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">JURUSAN</th>
-                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">KONTAK</th>
-                            <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">EMAIL</th>
                             <th class="px-2 py-4 text-center text-xs font-bold text-gray-900 uppercase tracking-wider whitespace-nowrap">AKSI</th>
                         </tr>
                     </thead>
@@ -69,10 +67,8 @@
                                 <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $item->nip }}</td>
                                 <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $item->prodi->nama_prodi ?? '-' }}">{{ $item->prodi->nama_prodi ?? '-' }}</td>
                                 <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $item->prodi->jurusan ?? '-' }}">{{ $item->prodi->jurusan ?? '-' }}</td>
-                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $item->kontak }}</td>
-                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $item->email }}">{{ $item->email }}</td>
                                 <td class="px-2 py-5 text-sm font-medium text-center whitespace-nowrap">
-                                    <a href="{{ route('mahasiswa.pembimbingAkademik.show', $item->id) }}" class="text-blue-600 hover:text-blue-900">
+                                    <a href="{{ route('mahasiswa.pembimbingAkademik.show', $item->id) }}" class="text-blue-600 hover:text-blue-900 flex justify-center">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -82,7 +78,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-2 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="6" class="px-2 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                     Tidak ada data pembimbing akademik
                                 </td>
                             </tr>

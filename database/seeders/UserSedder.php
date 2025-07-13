@@ -15,48 +15,24 @@ class UserSedder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
+            
+           
+           
             [
-                'username' => 'John mahasiswa',
-                'email' => 'johnmahasiswa@gmail.com',
-                'password' => Hash::make('123456789'),
-                'role' => 'mahasiswa',
-                'status' => 'Aktif',
-            ],
-            [
-                'username' => 'John perusahaan',
-                'email' => 'johnperusahaan@gmail.com',
-                'password' => Hash::make('123456789'),
-                'role' => 'perusahaan',
-                'status' => 'Aktif',
-            ],
-            [
-                'username' => 'John kaprodi',
-                'email' => 'johnkaprodi@gmail.com',
-                'password' => Hash::make('123456789'),
-                'role' => 'kaprodi',
-                'status' => 'Aktif',
-            ],
-            [
-                'username' => 'John pimpinan',
-                'email' => 'johnpimpinan@gmail.com',
+                'username' => 'Pimpinan PNP',
+                'email' => 'pimpinanpnp@gmail.com',
                 'password' => Hash::make('123456789'),
                 'role' => 'pimpinan',
                 'status' => 'Aktif',
             ],
             [
-                'username' => 'John operator',
-                'email' => 'johnoperator@gmail.com',
+                'username' => 'Operator PNP',
+                'email' => 'operatopnpr@gmail.com',
                 'password' => Hash::make('123456789'),
                 'role' => 'operator',
                 'status' => 'Aktif',
-                ],
-            [
-                'username' => 'Jane mahasiswa',
-                'email' => 'janemahasiswa@gmail.com',
-                'password' => Hash::make('123456789'),
-                'role' => 'mahasiswa',
-                'status' => 'Aktif',
-            ]
+            ],
+           
         ]);
     }
 }

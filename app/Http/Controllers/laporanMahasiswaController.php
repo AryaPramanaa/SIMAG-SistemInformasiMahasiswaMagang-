@@ -18,7 +18,7 @@ class laporanMahasiswaController extends Controller
         $perusahaan = Perusahaan::where('user_id', Auth::id())->firstOrFail();
         $laporans = LaporanMahasiswa::whereHas('pengajuanPKL', function($q) use ($perusahaan) {
             $q->where('perusahaan_id', $perusahaan->id)->where('status', 'Diterima');
-        })->with(['pengajuanPKL.mahasiswa'])->latest()->get();
+        })->with(['pengajuanPKL.mahasiswa'])->latest()->paginate(10);
         return view('backend.perusahaan.laporanMahasiswa.index', compact('laporans'));
     }
 

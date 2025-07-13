@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProdiSeeder::class);
         // $this->call(Perusahaan::class);
         // $this->call(PembimbingIndustri::class);
-        $this->call(Mahasiswa::class);
+        // $this->call(Mahasiswa::class);
         // $this->call(pengajuanPKLSeeder::class);
         // Tambah akun perusahaan dari JSON
         $jsonPath = public_path('perusahaans.json');

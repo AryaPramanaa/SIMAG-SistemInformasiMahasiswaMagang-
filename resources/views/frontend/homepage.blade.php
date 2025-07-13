@@ -105,8 +105,8 @@
         <!-- Nav Menu -->
         <ul class="hidden md:flex flex-row gap-x-7 mobile-menu">
           <li><a href="#hero" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a></li>
+          <li><a href="#pengumuman" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Announcement</a></li>
           <li><a href="#partners" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
-          <li><a href="#internships" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Announcement</a></li>
           <li><a href="#footer" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a></li>
         </ul>
         <!-- Sign In Button -->

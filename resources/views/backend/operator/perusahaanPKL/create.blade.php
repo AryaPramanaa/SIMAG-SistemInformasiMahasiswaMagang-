@@ -84,7 +84,7 @@
                         required>
                         <option value="">Pilih Status</option>
                         <option value="Aktif" {{ old('status_kerjasama') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                        <option value="Non Aktif" {{ old('status_kerjasama') == 'Non Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                        <option value="Tidak Aktif" {{ old('status_kerjasama') == 'Tidak Aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
                     @error('status_kerjasama')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
