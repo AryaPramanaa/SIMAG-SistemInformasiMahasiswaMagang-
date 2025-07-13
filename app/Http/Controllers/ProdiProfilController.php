@@ -45,14 +45,21 @@ class ProdiProfilController extends Controller
             return redirect()->back()->with('error', 'Data prodi tidak ditemukan.');
         }
         $validated = $request->validate([
+            'username' => 'required|string|max:255|unique:users,username,' . Auth::id(),
             'nama_prodi' => 'required|string|max:255|unique:prodis,nama_prodi,' . $prodi->id,
             'nama_kaprodi' => 'required|string|max:255',
             'jurusan' => 'required|string|max:255',
         ]);
         $validated['user_id'] = Auth::id();
         try {
+            // Update username di tabel users
+            $user = Auth::user();
+            if ($user->username !== $validated['username']) {
+                $user->username = $validated['username'];
+                $user->save();
+            }
             $prodi->update($validated);
-            return redirect()->route('kaprodi.profil.edit')->with('success', 'Profil prodi berhasil diperbarui.');
+            return redirect()->route('kaprodi.profil.edit')->with('success', 'Profil prodi & username berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

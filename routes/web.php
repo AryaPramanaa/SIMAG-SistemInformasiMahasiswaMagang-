@@ -33,11 +33,14 @@ use App\Http\Controllers\RegisterMahasiswaController;
 use App\Http\Controllers\MahasiswaPembimbingAkademikController;
 use App\Http\Controllers\RekapMahasiswaPKLKaprodiController;
 use App\Http\Controllers\RekapMahasiswaPKLPimpinanController;
+use App\Http\Controllers\PengumumanController;
 
 
 //Frontend
 Route::get('/', function () {
-    return view('frontend.homepage');
+    $pengumumans = \App\Models\Pengumuman::orderBy('created_at', 'desc')->get();
+    $lowongans = \App\Models\LowonganPKL::with('perusahaan')->orderBy('created_at', 'desc')->take(4)->get();
+    return view('frontend.homepage', compact('pengumumans', 'lowongans'));
 });
 Route::get('/entry', function () {
     return view('auth.entry');
@@ -108,10 +111,10 @@ Route::middleware(['auth'])->prefix('perusahaan')->name('perusahaan.')->group(fu
 
 //OPERATOR ROUTE
 Route::middleware(['auth'])->prefix('operator')->name('operator.')->group(function () {
+    Route::resource('pengumuman', PengumumanController::class);
     Route::resource('perusahaanPKL', PerusahaanPKLController::class);
     Route::resource('jurusanProdi', JurusanProdiController::class);
     Route::resource('akun', AkunController::class);
-    Route::resource('jadwalPendaftaran', JadwalPendaftaranController::class);
     Route::resource('lowonganPKL', OperatorLowonganPKlController::class);
     Route::resource('suratPKL', OperatorSuratPKLController::class);
     Route::resource('pengajuanPKL', OperatorPengajuanPKLController::class);
@@ -151,6 +154,12 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth'])->prefix('pimpinan')->name('pimpinan.')->group(function () {
     Route::resource('laporanMahasiswa', App\Http\Controllers\PimpinanLaporanMahasiswaController::class)->only(['index', 'show']);
     Route::resource('rekapMahasiswaPKL', App\Http\Controllers\RekapMahasiswaPKLPimpinanController::class)->only(['index', 'show']);
+});
+
+// API untuk ambil divisi berdasarkan perusahaan_id (untuk pengajuan PKL mahasiswa)
+Route::get('/api/perusahaan/{perusahaan}/divisi', function($perusahaanId) {
+    $divisis = \App\Models\LowonganPKL::where('perusahaan_id', $perusahaanId)->pluck('divisi');
+    return response()->json($divisis);
 });
 
 

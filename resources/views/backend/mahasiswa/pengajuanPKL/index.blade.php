@@ -74,15 +74,15 @@
                     <tbody class="divide-y divide-gray-200">
                         @forelse($pengajuans as $pengajuan)
                             <tr class="bg-white hover:bg-gray-50">
-                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
-                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->mahasiswa->nama }}">{{ $pengajuan->mahasiswa->nama }}</td>
-                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->perusahaan->nama_perusahaan }}">{{ $pengajuan->perusahaan->nama_perusahaan }}</td>
-                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center whitespace-nowrap">{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}</td>
-                                <td class="px-2 py-5 text-base font-medium text-center whitespace-nowrap">
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->mahasiswa->nama }}">{{ $pengajuan->mahasiswa->nama }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->perusahaan->nama_perusahaan }}">{{ $pengajuan->perusahaan->nama_perusahaan }}</td>
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->format('d/m/Y') }}</td>
+                                <td class="px-2 py-5 text-sm font-medium text-center whitespace-nowrap">
                                     <span class="px-3 py-1 rounded-full text-xs @if($pengajuan->status == 'Pending') bg-yellow-100 text-yellow-800 @elseif($pengajuan->status == 'Diterima') bg-green-100 text-green-800 @else bg-red-100 text-red-800 @endif">{{ $pengajuan->status }}</span>
                                 </td>
-                                <td class="px-2 py-5 text-base font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->divisi_pilihan }}">{{ $pengajuan->divisi_pilihan }}</td>
-                                <td class="px-2 py-5 text-base text-center whitespace-nowrap">
+                                <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $pengajuan->divisi_pilihan }}">{{ $pengajuan->divisi_pilihan }}</td>
+                                <td class="px-2 py-5 text-sm text-center whitespace-nowrap">
                                     <div class="flex items-center justify-center space-x-2">
                                         <a href="{{ route('mahasiswa.pengajuanPKL.show', $pengajuan->id) }}" class="text-blue-600 hover:text-blue-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

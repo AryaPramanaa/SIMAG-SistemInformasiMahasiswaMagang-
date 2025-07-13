@@ -1,6 +1,13 @@
 @extends('backend.dashboard.mahasiswa')
 
 @section('content')
+    @if(session('refresh'))
+        <script>
+            // Force refresh halaman untuk memastikan data terbaru
+            window.location.reload(true);
+        </script>
+    @endif
+    
     <div class="min-h-screen py-8 px-4 md:px-8">
         <div class="text-center mb-10">
             <h1 class="text-4xl font-bold text-gray-800 mb-3">Edit Profil Mahasiswa</h1>
@@ -8,8 +15,8 @@
         </div>
 
         @if(session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
-                <p>{{ session('success') }}</p>
+            <div class="bg-green-100 border-l-8 border-green-400 text-green-700 p-6 mb-6 font-sans font-semibold text-xl" role="alert">
+                <p>Profil berhasil diubah.</p>
             </div>
         @endif
 
@@ -25,6 +32,18 @@
                 @method('PUT')
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Username -->
+                    <div class="md:col-span-2">
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                            Username <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="username" id="username"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('username') border-red-500 @enderror"
+                               value="{{ old('username', Auth::user()->username) }}" required>
+                        @error('username')
+                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <!-- NIM -->
                     <div>
                         <label for="nim" class="block text-sm font-medium text-gray-700 mb-2">
@@ -119,7 +138,7 @@
                         @if($mahasiswa->ktm)
                             <div class="mb-3 p-3 bg-gray-50 rounded-lg">
                                 <p class="text-sm text-gray-600 mb-2">KTM saat ini:</p>
-                                <a href="{{ Storage::url($mahasiswa->ktm) }}" target="_blank" 
+                                <a href="{{ Storage::url($mahasiswa->ktm) }}?v={{ time() }}" target="_blank" 
                                    class="inline-flex items-center text-blue-600 hover:text-blue-800">
                                     <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>

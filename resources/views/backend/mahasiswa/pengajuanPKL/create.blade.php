@@ -82,11 +82,17 @@
                     </div>
                     <div class="space-y-2">
                         <label for="divisi_pilihan" class="text-base font-semibold text-gray-700">Divisi Pilihan</label>
-                        <input type="text" id="divisi_pilihan" name="divisi_pilihan" required
+                        <select id="divisi_pilihan" name="divisi_pilihan" required
                             class="w-full h-[42px] rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500 shadow-sm"
-                            placeholder="Masukkan divisi yang diinginkan"
-                            value="{{ old('divisi_pilihan', isset($selectedLowongan) ? $selectedLowongan->divisi : '') }}">
-                        <p class="text-sm text-gray-500">Masukkan divisi yang diinginkan untuk PKL</p>
+                            @if(!isset($divisis) || $divisis->isEmpty()) disabled @endif>
+                            <option value="">Pilih Divisi</option>
+                            @if(isset($divisis))
+                                @foreach($divisis as $divisi)
+                                    <option value="{{ $divisi }}" {{ old('divisi_pilihan', isset($selectedLowongan) ? $selectedLowongan->divisi : '') == $divisi ? 'selected' : '' }}>{{ $divisi }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        <p class="text-sm text-gray-500">Pilih divisi yang tersedia di perusahaan PKL</p>
                     </div>
                 </div>
 
@@ -170,6 +176,31 @@
         $('#perusahaan_id').select2({
             placeholder: "Cari Perusahaan",
             allowClear: true
+        });
+
+        $('#perusahaan_id').on('change', function() {
+            var perusahaanId = $(this).val();
+            if (perusahaanId) {
+                $.ajax({
+                    url: '/api/perusahaan/' + perusahaanId + '/divisi',
+                    type: 'GET',
+                    success: function(data) {
+                        var divisiSelect = $('#divisi_pilihan');
+                        divisiSelect.empty();
+                        divisiSelect.append('<option value="">Pilih Divisi</option>');
+                        if (data.length > 0) {
+                            $.each(data, function(i, divisi) {
+                                divisiSelect.append('<option value="' + divisi + '">' + divisi + '</option>');
+                            });
+                            divisiSelect.prop('disabled', false);
+                        } else {
+                            divisiSelect.prop('disabled', true);
+                        }
+                    }
+                });
+            } else {
+                $('#divisi_pilihan').empty().append('<option value="">Pilih Divisi</option>').prop('disabled', true);
+            }
         });
     });
 </script>

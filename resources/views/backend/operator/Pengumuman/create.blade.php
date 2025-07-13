@@ -3,12 +3,12 @@
     <div class="min-h-screen py-8 px-4 md:px-8">
         <!-- Header -->
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-gray-800 mb-3">Tambah Jadwal Pendaftaran</h1>
+            <h1 class="text-4xl font-bold text-gray-800 mb-3">Tambah Pengumuman</h1>
             <div class="w-40 h-1 bg-green-500 mx-auto"></div>
         </div>
 
         <div class="mb-6">
-            <a href="{{ route('operator.jadwalPendaftaran.index') }}"
+            <a href="{{ route('operator.pengumuman.index') }}"
                 class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 font-medium">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
@@ -28,26 +28,9 @@
         @endif
 
         <div class="bg-white rounded-xl shadow-lg p-6">
-            <form action="{{ route('operator.jadwalPendaftaran.store') }}" method="POST" class="space-y-6">
+            <form action="{{ route('operator.pengumuman.store') }}" method="POST" class="space-y-6">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="prodi_id" class="block text-sm font-medium text-gray-700 mb-2">Jurusan</label>
-                        <select name="prodi_id" id="prodi_id" required
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <option value="">Pilih Jurusan</option>
-                            <option value="all">Semua Jurusan</option>
-                            @foreach ($prodis as $prodi)
-                                <option value="{{ $prodi->id }}" {{ old('prodi_id') == $prodi->id ? 'selected' : '' }}>
-                                    {{ $prodi->jurusan }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('prodi_id')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
                     <div>
                         <label for="tahun_akademik" class="block text-sm font-medium text-gray-700 mb-2">Tahun Akademik</label>
                         <input type="text" name="tahun_akademik" id="tahun_akademik" required

@@ -84,120 +84,173 @@
 </head>
 
 <body class="bg-[#f1f4f5] font-['Poppins']">
-    <!-- Mobile menu button -->
-    <nav class="flex flex-row max-w-6xl mx-auto justify-between items-center mt-10 pb-12 px-4 relative">
+    <!-- Navbar Wrapper Centered & Full Height -->
+    <div class="flex items-center justify-center min-h-[100px] bg-transparent w-full">
+      <nav class="flex flex-row max-w-7xl w-full justify-between items-center px-4 py-3 mt-6 bg-white rounded-2xl shadow-lg">
+        <!-- Logo & Judul -->
         <div class="flex gap-x-1 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a" class="size-8 flex-initial">
-                <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
-                <path d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
-                <path d="M4.462 19.462c.42-.419.753-.89 1-1.395.453.214.902.435 1.347.662a6.742 6.742 0 0 1-1.286 1.794.75.75 0 0 1-1.06-1.06Z" />
-            </svg>
-            <span class="flex-initial font-bold text-2xl">SIMAG</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a" class="size-8">
+            <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z"/>
+            <path d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z"/>
+            <path d="M4.462 19.462c.42-.419.753-.89 1-1.395.453.214.902.435 1.347.662a6.742 6.742 0 0 1-1.286 1.794.75.75 0 0 1-1.06-1.06Z"/>
+          </svg>
+          <span class="font-bold text-2xl">SIMAG</span>
         </div>
-
+        <!-- Hamburger (Mobile) -->
         <button class="md:hidden" onclick="toggleMenu()">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" />
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" />
+          </svg>
         </button>
-
+        <!-- Nav Menu -->
         <ul class="hidden md:flex flex-row gap-x-7 mobile-menu">
-            <li><a href="#hero" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a></li>
-            <li><a href="#partners" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
-            <li><a href="#internships" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Internships</a></li>
-            <li><a href="#footer" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a></li>
+          <li><a href="#hero" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a></li>
+          <li><a href="#partners" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Companies</a></li>
+          <li><a href="#internships" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Announcement</a></li>
+          <li><a href="#footer" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">About</a></li>
         </ul>
-
+        <!-- Sign In Button -->
         <div class="hidden md:flex">
-            <a href="/entry" class="bg-green-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-600 transition-colors duration-300">Sign in</a>
+          <a href="/entry" class="bg-green-700 text-white py-3 px-8 rounded-full font-semibold hover:bg-green-600 transition-colors duration-300">Sign in</a>
         </div>
-    </nav>
+      </nav>
+    </div>
+    <!-- END NAVBAR -->
 
-    <section id="hero" class="hero max-w-6xl mx-auto py-12 px-5">
+    <section id="hero" class="hero max-w-7xl mx-auto mt-10 py-21 px-5 bg-gradient-to-br from-green-50 to-white rounded-3xl shadow mb-12">
         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-8">
             <div class="flex flex-col gap-y-10 w-full md:w-1/2">
                 <div class="flex gap-y-2 flex-col text-center md:text-left">
-                    <h1 class="text-slate-950 font-['Manrope] font-bold text-4xl lg:text-[60px] leading-tight">
-                        Find Your Perfect <br class="hidden md:block">
-                        Internship <br class="hidden md:block">
-                        Opportunity
+                    <h1 class="text-slate-950 font-['Manrope'] font-extrabold text-4xl lg:text-[60px] leading-tight drop-shadow-sm">
+                        Temukan <span class="text-green-700">Magang Impianmu</span> <br class="hidden md:block">di SIMAG
                     </h1>
-                    <p class="text-base leading-loose text-gray-500">
-                        Connect with top companies offering internships tailored to <br class="hidden md:block">
-                        your major and career goals. Start your professional journey today.
+                    <p class="text-lg leading-loose text-gray-500">
+                        Koneksi langsung ke perusahaan terbaik sesuai jurusan dan minat karirmu. Mulai perjalanan profesionalmu hari ini!
                     </p>
                 </div>
                 <div class="flex justify-center md:justify-start">
-                    <a href="#"
-                        class="w-full md:w-fit text-lg hover:bg-green-600 bg-green-700 text-white py-4 px-10 rounded-full font-semibold transition-colors duration-300">Browse
-                        Internship
+                    <a href="#internships"
+                        class="w-full md:w-fit text-lg hover:bg-green-600 bg-green-700 text-white py-4 px-10 rounded-full font-bold shadow-lg transition-colors duration-300">Jelajahi Lowongan
                     </a>
                 </div>
             </div>
-            <div class="w-full md:w-1/2">
-                <img src="imgFE/interns-wanted.jpg" alt="Internship"
-                    class="w-full h-auto max-h-[550px] rounded-3xl object-cover">
+            <div class="w-full md:w-1/2 flex justify-center">
+                <img src="imgFE/magang.jpg" alt="Internship"
+                    class="w-full h-auto max-h-[450px] rounded-3xl object-cover shadow-xl border-4 border-white">
             </div>
         </div>
     </section>
 
     <!-- Pengumuman Section Start -->
-    <section id="pengumuman" class="max-w-6xl mx-auto py-8 px-5">
+    <section id="pengumuman" class="max-w-7xl mx-auto py-8 px-5">
         <div class="flex flex-col items-center mb-8">
             <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-2 font-['Manrope']">Pengumuman</h2>
             <p class="text-gray-500 text-base">Informasi terbaru dari operator SIMAG</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Dummy Announcement 1 -->
-            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z"/></svg>
-                    <span class="text-green-700 font-semibold">12 Juli 2025</span>
-                </div>
-                <h3 class="font-bold text-xl mb-1">Pendaftaran PKL Gelombang 2 Dibuka!</h3>
-                <p class="text-gray-600">Pendaftaran PKL gelombang 2 telah dibuka mulai hari ini. Silakan cek jadwal dan persyaratan di menu pendaftaran.</p>
+        @php
+            $count = isset($pengumumans) ? count($pengumumans) : 0;
+        @endphp
+        @if($count === 1)
+            <div class="flex justify-center">
+                @foreach($pengumumans as $item)
+                    <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600 w-full max-w-xl">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex flex-row justify-between items-center w-full">
+                                <span class="text-green-700 font-semibold">Tanggal Buka: {{ $item->tanggal_buka ? date('d M Y', strtotime($item->tanggal_buka)) : '-' }}</span>
+                                <span class="text-green-700 font-semibold">Tanggal Tutup: {{ $item->tanggal_tutup ? date('d M Y', strtotime($item->tanggal_tutup)) : '-' }}</span>
+                            </div>
+                            <div class="w-full flex justify-center">
+                                <span class="text-gray-500 font-semibold ">Tahun Akademik: {{ $item->tahun_akademik }}</span>
+                            </div>
+                            <span class="text-gray-800 block text-center font-semibold">{{ $item->deskripsi }}</span>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <!-- Dummy Announcement 2 -->
-            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.418-4.03 8-9 8s-9-3.582-9-8 4.03-8 9-8 9 3.582 9 8z"/></svg>
-                    <span class="text-green-700 font-semibold">5 Juli 2025</span>
-                </div>
-                <h3 class="font-bold text-xl mb-1">Update Sistem SIMAG</h3>
-                <p class="text-gray-600">SIMAG telah melakukan update fitur untuk kemudahan akses dan keamanan data. Silakan refresh halaman jika mengalami kendala.</p>
+        @elseif($count === 2)
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @foreach($pengumumans as $item)
+                    <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex flex-row justify-between items-center w-full">
+                                <span class="text-green-700 font-semibold">Tanggal Buka: {{ $item->tanggal_buka ? date('d M Y', strtotime($item->tanggal_buka)) : '-' }}</span>
+                                <span class="text-green-700 font-semibold">Tanggal Tutup: {{ $item->tanggal_tutup ? date('d M Y', strtotime($item->tanggal_tutup)) : '-' }}</span>
+                            </div>
+                            <div class="w-full flex justify-center">
+                                <span class="text-gray-800 font-semibold text-lg">Tahun Akademik: {{ $item->tahun_akademik }}</span>
+                            </div>
+                            <span class="text-gray-600 block text-center">Deskripsi: {{ $item->deskripsi }}</span>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        </div>
+        @elseif($count > 2)
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                @foreach($pengumumans->take(2) as $item)
+                    <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex flex-row justify-between items-center w-full">
+                                <span class="text-green-700 font-semibold">Tanggal Buka: {{ $item->tanggal_buka ? date('d M Y', strtotime($item->tanggal_buka)) : '-' }}</span>
+                                <span class="text-green-700 font-semibold">Tanggal Tutup: {{ $item->tanggal_tutup ? date('d M Y', strtotime($item->tanggal_tutup)) : '-' }}</span>
+                            </div>
+                            <div class="w-full flex justify-center">
+                                <span class="text-gray-800 font-semibold text-lg">Tahun Akademik: {{ $item->tahun_akademik }}</span>
+                            </div>
+                            <span class="text-gray-600 block text-center">Deskripsi: {{ $item->deskripsi }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="flex justify-center mt-6">
+                @foreach($pengumumans->slice(2) as $item)
+                    <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow border-l-4 border-green-600 w-full max-w-xl mx-2">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex flex-row justify-between items-center w-full">
+                                <span class="text-green-700 font-semibold">Tanggal Buka: {{ $item->tanggal_buka ? date('d M Y', strtotime($item->tanggal_buka)) : '-' }}</span>
+                                <span class="text-green-700 font-semibold">Tanggal Tutup: {{ $item->tanggal_tutup ? date('d M Y', strtotime($item->tanggal_tutup)) : '-' }}</span>
+                            </div>
+                            <div class="w-full flex justify-center">
+                                <span class="text-gray-800 font-semibold text-lg">Tahun Akademik: {{ $item->tahun_akademik }}</span>
+                            </div>
+                            <span class="text-gray-600 block text-center">Deskripsi: {{ $item->deskripsi }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="bg-white rounded-2xl shadow-lg p-6 border-l-4 border-green-600 text-center">
+                <h3 class="font-bold text-xl mb-1">Belum ada pengumuman terbaru.</h3>
+            </div>
+        @endif
     </section>
     <!-- Pengumuman Section End -->
 
-    <section id="partners" class="partners max-w-6xl mx-auto py-12 overflow-hidden">
-        <div class="partners-container">
-            <div class="flex gap-x-16 animate-slide">
-                <!-- Original set of logos -->
-                <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40">
-                <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40">
-                <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40">
-                <img src="imgFE/toyota.png" alt="toyota logo" class="w-20">
-                <!-- Duplicated set for seamless scrolling -->
-                <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40">
-                <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40">
-                <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40">
-                <img src="imgFE/toyota.png" alt="toyota logo" class="w-20">
+    <section id="partners" class="partners max-w-7xl mx-auto py-12 overflow-hidden">
+        <div class="partners-container bg-white rounded-2xl shadow-lg border border-gray-100 py-6">
+            <div class="flex gap-x-16 animate-slide items-center">
+                <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/toyota.png" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/toyota.png" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
             </div>
         </div>
     </section>
 
-    <section id="features" class="features max-w-6xl mx-auto py-12 text-center ">
+    <section id="features" class="features max-w-7xl mx-auto py-16 text-center ">
         <div class="flex flex-col mb-8">
-            <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
-                Why Choose <span class="text-green-700">SIMAG?</span>
+            <h3 class="text-slate-950 font-['Manrope'] font-extrabold text-[44px] mb-2">
+                Kenapa <span class="text-green-700">SIMAG?</span>
             </h3>
-            <p class="text-base leading-loose text-gray-500">
-                We connect students with the <span class="text-green-700 font-semibold">best internship opportunities</span>
+            <p class="text-lg leading-loose text-gray-500">
+                Kami menghubungkan mahasiswa dengan <span class="text-green-700 font-semibold">kesempatan magang terbaik</span>
             </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="my-card bg-white rounded-2xl p-8 flex flex-col gap-y-5 items-center shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 border-t-4 border-green-600">
                 <svg class="w-11 h-11 fill-none stroke-green-600 bg-green-100 rounded-2xl p-2" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -211,11 +264,10 @@
                     Major-Specific Opportunities
                 </h3>
                 <p class="text-base leading-loose text-gray-500">
-                    Find internships tailored to your field of <br>
-                    study and career goals.
+                    Temukan magang yang disesuaikan dengan bidang studi dan tujuan karir Anda.
                 </p>
             </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center">
+            <div class="my-card bg-white rounded-2xl p-8 flex flex-col gap-y-5 items-center shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 border-t-4 border-green-600">
                 <svg class="w-11 h-11 fill-none stroke-green-600 bg-green-100 rounded-2xl p-2"viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -227,10 +279,10 @@
                     Top Companies
                 </h3>
                 <p class="text-base leading-loose text-gray-500">
-                    Connect with leading companies looking for talented students like you.
+                    Terhubung dengan perusahaan-perusahaan terkemuka yang mencari mahasiswa berbakat seperti Anda.
                 </p>
             </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col gap-y-5 items-center">
+            <div class="my-card bg-white rounded-2xl p-8 flex flex-col gap-y-5 items-center shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 border-t-4 border-green-600">
                 <svg class="w-11 h-11 fill-green-600 stroke-green-600 bg-green-100 rounded-2xl p-2" viewBox="0 0 28 28"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -241,202 +293,61 @@
                     Career Support
                 </h3>
                 <p class="text-base leading-loose text-gray-500">
-                    Get guidance and resources to help you succeed in your internship.
+                    Dapatkan panduan dan dukungan untuk membantu Anda berhasil dalam magang Anda.
                 </p>
             </div>
         </div>
     </section>
 
-    <section id="internships" class="internships max-w-6xl mx-auto py-12 ">
+    <section id="internships" class="internships max-w-7xl mx-auto py-16 ">
         <div class="flex flex-col justify-center items-center text-center mb-8">
-            <h3 class="text-slate-950 font-['Manrope] font-bold text-[50px]">
-                Browse Internships by <span class="text-green-700">Major</span>
+            <h3 class="text-slate-950 font-['Manrope'] font-extrabold text-[44px] mb-2">
+                Lowongan Magang <span class="text-green-700">Terbaru</span>
             </h3>
-            <p class="text-base leading-loose text-gray-500">
-                Find opportunities specifically tailored to your field of study
+            <p class="text-lg leading-loose text-gray-500">
+                Temukan peluang sesuai jurusan dan minatmu
             </p>
         </div>
-        <div class="mt-6">
-            <ul class="flex flex-wrap justify-center gap-2 bg-white p-4 rounded-2xl shadow">
-                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknologi Informasi</a></li>
-                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknik Elektro</a></li>
-                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknik Mesin</a></li>
-                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Teknik Sipil</a></li>
-                <li><a href="#" class="hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-2 px-4 py-2 font-semibold transition">Administrasi Niaga</a></li>
-            </ul>
-        </div>
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
-                <div class="flex flex-col items-center pb-4">
-                    <h3 class="font-bold text-2xl ">
-                        Frontend Developer
-                    </h3>
-                    <p class="text-base leading-loose text-gray-500">
-                        PT.Nusantara
-                    </p>
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            @forelse($lowongans as $lowongan)
+                <div class="my-card bg-white rounded-2xl p-8 flex flex-col shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+                    <div class="flex flex-col items-center pb-4">
+                        <h3 class="font-bold text-2xl ">
+                            {{ $lowongan->divisi }}
+                        </h3>
+                        <p class="text-base leading-loose text-gray-500">
+                            {{ $lowongan->perusahaan->nama_perusahaan ?? '-' }}
+                        </p>
+                    </div>
+                    <div class="flex flex-row gap-x-2 items-center pb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>  
+                        <p class="text-base leading-loose text-gray-950">
+                            {{ $lowongan->perusahaan->alamat ?? '-' }}
+                        </p>
+                    </div>
+                    <div class="flex flex-row gap-x-2 items-center pb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                        </svg>                          
+                        <p class="text-base leading-loose text-gray-950">
+                            Kuota: {{ $lowongan->kuota ?? '-' }}
+                        </p>
+                    </div>
+                    <div class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
+                        <a href="/entry">View Detail</a>
+                    </div>
                 </div>
-                <div class="flex flex-row gap-x-2 items-center pb-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        Jakarta
-                    </p>
-                </div>
-                <div class="flex flex-row gap-x-2 items-center pb-6">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
-                            fill="black" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        6-Juni-2025 | 12-December-2025
-                    </p>
-                </div>
-                <div
-                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
-                    <a href="#">View Detail</a>
-                </div>
-            </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
-                <div class="flex flex-col items-center pb-4">
-                    <h3 class="font-bold text-2xl ">
-                        Backend Developer
-                    </h3>
-                    <p class="text-base leading-loose text-gray-500">
-                        PT.TECH Indonesia
-                    </p>
-                </div>
-                <div class="flex flex-row gap-x-2 items-center pb-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        Batam
-                    </p>
-                </div>
-                <div class="flex flex-row gap-x-2 items-center pb-6">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
-                            fill="black" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        10-Januari-2026 | 12-Juni-2026
-                    </p>
-                </div>
-                <div
-                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
-                    <a href="#">View Detail</a>
-                </div>
-            </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
-                <div class="flex flex-col items-center pb-4">
-                    <h3 class="font-bold text-2xl ">
-                        Fullstack Developer
-                    </h3>
-                    <p class="text-base leading-loose text-gray-500">
-                        PT.Info Log Solutions Indonesia
-                    </p>
-                </div>
-                <div class="flex flex-row gap-x-2 items-center pb-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        Jakarta
-                    </p>
-                </div>
-                <div class="flex flex-row gap-x-2 items-center pb-6">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
-                            fill="black" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        6-Juli-2025 | 29-November-2025
-                    </p>
-                </div>
-                <div
-                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
-                    <a href="#">View Detail</a>
-                </div>
-            </div>
-            <div class="my-card bg-white rounded-2xl p-5 flex flex-col shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2">
-                <div class="flex flex-col items-center pb-4">
-                    <h3 class="font-bold text-2xl ">
-                        IT Software Tester
-                    </h3>
-                    <p class="text-base leading-loose text-gray-500">
-                        PT.Knitto Tekstill Indonesia
-                    </p>
-                </div>
-                <div class="flex flex-row gap-x-2 items-center pb-2">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V4C20 2.89543 19.1046 2 18 2Z"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path
-                            d="M9 22V18H15V22M8 6H8.01M16 6H16.01M12 6H12.01M12 10H12.01M12 14H12.01M16 10H16.01M16 14H16.01M8 10H8.01M8 14H8.01"
-                            stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        Bandung, Jawa Barat
-                    </p>
-                </div>
-                <div class="flex flex-row gap-x-2 items-center pb-6">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.99 2C6.47 2 2 6.48 2 12C2 17.52 6.47 22 11.99 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 11.99 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11.78 7H11.72C11.32 7 11 7.32 11 7.72V12.44C11 12.79 11.18 13.12 11.49 13.3L15.64 15.79C15.98 15.99 16.42 15.89 16.62 15.55C16.6702 15.469 16.7036 15.3788 16.7182 15.2846C16.7328 15.1905 16.7283 15.0943 16.705 15.002C16.6817 14.9096 16.64 14.8229 16.5824 14.7469C16.5249 14.671 16.4526 14.6074 16.37 14.56L12.5 12.26V7.72C12.5 7.32 12.18 7 11.78 7Z"
-                            fill="black" />
-                    </svg>
-                    <p class="text-base leading-loose text-gray-950">
-                        29-Juni-2025 | 19-December-2025
-                    </p>
-                </div>
-                <div
-                    class="flex justify-center p-2 bg-gray-200 rounded-2xl  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
-                    <a href="#">View Detail</a>
-                </div>
-            </div>
-        </div>
-        <div class="items-center justify-center flex">
-            <div
-                class="flex flex-row gap-x-1 bg-white mt-4 p-2 justify-center rounded-2xl w-35 items-center  hover:text-green-600 hover:bg-green-100 hover:rounded-xl m-4  active:text-green-600 active:bg-green-100 active:rounded-xl">
-                <a href="" class="">View All</a>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-6 ">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                </svg>
-            </div>
+            @empty
+                <div class="col-span-2 text-center text-gray-500">Belum ada lowongan magang tersedia.</div>
+            @endforelse
         </div>
     </section>
 
-    <section id="footer" class="footer w-screen bg-green-950">
-        <div class="max-w-6xl mx-auto pt-10 grid grid-cols-3 justify-items-strech">
+    <section id="footer" class="footer w-full bg-green-950 rounded-t-3xl mt-16">
+        <div class="max-w-6xl mx-auto pt-12 grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-strech">
             <div class="identity flex flex-col gap-y-7 justify-self-start">
                 <div class="flex flex-row  gap-x-2">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#16a34a"
@@ -451,7 +362,7 @@
                     <span class="flex-initial font-bold text-white text-2xl">SIMAG</span>
                 </div>
                 <p class="text-base leading-loose text-gray-500">
-                    Polystate Negeri Padang <br>
+                    Politeknik Negeri Padang <br>
                     Teknologi Informasi <br>
                     D4 Teknologi Rekayasa Perangkat Lunak <br>
                 </p>
@@ -516,9 +427,9 @@
                 </p>
             </div>
         </div>
-        <div class="copyright">
-            <p class="text-base leading-loose text-gray-500 py-10 flex justify-center">
-                All Right Reserved.Copyright SIMAG by Kelompok 3 PBL 2B TRPL 2025 in Padang
+        <div class="copyright border-t border-green-800 mt-8">
+            <p class="text-base leading-loose text-gray-400 py-8 flex justify-center">
+                &copy; 2025 SIMAG by Kelompok 3 PBL 2B TRPL Padang. All Rights Reserved.
             </p>
         </div>
     </section>

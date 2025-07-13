@@ -5,33 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registrasi Mahasiswa - SIMAG</title>
+
     @vite('resources/css/app.css')
+
+    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap' rel='stylesheet'>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="{{ asset('js/lucide.js') }}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
     <style>
         .animate-fade-in {
             animation: fadeIn 0.5s ease-in;
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         .input-transition {
             transition: all 0.3s ease;
         }
+
         .input-transition:focus {
             transform: translateY(-2px);
         }
+
         .login-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
         }
+
         .gradient-background {
             background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
         }
     </style>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: "#4f46e5",
+                            foreground: "#ffffff",
+                        },
+                        muted: {
+                            DEFAULT: "#f3f4f6",
+                            foreground: "#6b7280",
+                        },
+                        accent: {
+                            DEFAULT: "#eff6ff",
+                            foreground: "#1e40af",
+                        },
+                    },
+                }
+            }
+        }
+    </script>
 </head>
-<body class="gradient-background font-['Poppins'] min-h-screen">
+
+<body style="min-height:100vh;background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%) !important;" class="font-['Poppins']">
     <div class="flex min-h-screen relative items-center justify-center p-4">
         <div class="w-full max-w-md rounded-2xl border border-gray-100 login-card p-8 shadow-xl animate-fade-in">
             <div class="flex flex-col items-center text-2xl pb-7">

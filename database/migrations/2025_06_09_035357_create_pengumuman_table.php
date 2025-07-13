@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwalPendaftarans', function (Blueprint $table) {
+        Schema::create('pengumumans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('prodi_id')->constrained('prodis')->onDelete('cascade');
-            $table->date('tanggal_buka');
-            $table->date('tanggal_tutup');
+            $table->date('tanggal_buka')->nullable();
+            $table->date('tanggal_tutup')->nullable();
             $table->string('tahun_akademik');
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }

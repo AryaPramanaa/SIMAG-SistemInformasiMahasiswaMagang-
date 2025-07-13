@@ -23,14 +23,20 @@ class pengajuanPKLController extends Controller
     public function create(Request $request)
     {
         $mahasiswas = Mahasiswa::where('email', Auth::user()->email)->get();
-        $perusahaans = Perusahaan::where('status_kerjasama', 'Aktif')->get();
+        // Ambil perusahaan yang punya lowongan PKL aktif
+        $perusahaanIds = \App\Models\LowonganPKL::pluck('perusahaan_id')->unique();
+        $perusahaans = Perusahaan::whereIn('id', $perusahaanIds)->where('status_kerjasama', 'Aktif')->get();
 
         $selectedLowongan = null;
+        $divisis = collect();
+        if ($request->has('perusahaan_id')) {
+            $divisis = \App\Models\LowonganPKL::where('perusahaan_id', $request->perusahaan_id)->pluck('divisi');
+        }
         if ($request->has('lowongan_id')) {
             $selectedLowongan = \App\Models\LowonganPKL::with('perusahaan')->find($request->lowongan_id);
         }
 
-        return view('backend.mahasiswa.pengajuanPKL.create', compact('mahasiswas', 'perusahaans', 'selectedLowongan'));
+        return view('backend.mahasiswa.pengajuanPKL.create', compact('mahasiswas', 'perusahaans', 'selectedLowongan', 'divisis'));
     }
 
     public function store(Request $request)
@@ -97,16 +103,17 @@ class pengajuanPKLController extends Controller
     public function edit($id)
     {
         $pengajuan = pengajuanPKL::findOrFail($id);
-        
         // Check if pengajuan can be edited
         if ($pengajuan->status !== 'Pending') {
             return redirect()->route('mahasiswa.pengajuanPKL.index')
                 ->with('error', 'Pengajuan tidak dapat diedit karena status sudah ' . $pengajuan->status);
         }
-
         $mahasiswas = Mahasiswa::all();
-        $perusahaans = Perusahaan::where('status_kerjasama', 'Aktif')->get();
-        return view('backend.mahasiswa.pengajuanPKL.edit', compact('pengajuan', 'mahasiswas', 'perusahaans'));
+        // Ambil perusahaan yang punya lowongan PKL aktif
+        $perusahaanIds = \App\Models\LowonganPKL::pluck('perusahaan_id')->unique();
+        $perusahaans = Perusahaan::whereIn('id', $perusahaanIds)->where('status_kerjasama', 'Aktif')->get();
+        $divisis = \App\Models\LowonganPKL::where('perusahaan_id', $pengajuan->perusahaan_id)->pluck('divisi');
+        return view('backend.mahasiswa.pengajuanPKL.edit', compact('pengajuan', 'mahasiswas', 'perusahaans', 'divisis'));
     }
 
     public function update(Request $request, $id)
