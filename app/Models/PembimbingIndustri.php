@@ -16,6 +16,7 @@ class PembimbingIndustri extends Model
         'jabatan',
         'email',
         'kontak',
+        'kapasitas_bimbingan',
     ];
     public function perusahaan()
     {

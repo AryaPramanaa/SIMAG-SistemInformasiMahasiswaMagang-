@@ -46,6 +46,7 @@ class perusahaanPembimbingIndustriController extends Controller
             'jabatan' => 'required|string|max:255',
             'kontak' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'kapasitas_bimbingan' => 'required|integer|min:1',
         ]);
         $validated['perusahaan_id'] = $perusahaan->id;
         try {
@@ -85,6 +86,7 @@ class perusahaanPembimbingIndustriController extends Controller
             'jabatan' => 'required|string|max:255',
             'kontak' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'kapasitas_bimbingan' => 'required|integer|min:1',
         ]);
         try {
             $pembimbing->update($validated);

@@ -24,6 +24,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('id_perusahaan')->nullable()->after('status');
             $table->foreign('id_perusahaan')->references('id')->on('perusahaans')->onDelete('set null');
+            $table->unique('id_perusahaan');
         });
     }
 

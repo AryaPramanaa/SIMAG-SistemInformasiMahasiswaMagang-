@@ -52,29 +52,33 @@ class akunController extends Controller
             'password' => 'required|string|min:8',
             'role' => 'required|string|in:mahasiswa,perusahaan,kaprodi,pimpinan,operator',
             'status' => 'required|string|in:Aktif,Non-Aktif',
-            'id_perusahaan' => 'required_if:role,perusahaan|nullable|exists:perusahaans,id',
-            'prodi_id' => 'required_if:role,kaprodi|nullable|exists:prodis,id',
+            'id_perusahaan' => 'required_if:role,perusahaan|exists:perusahaans,id',
+            'prodi_id' => 'required_if:role,kaprodi|exists:prodis,id',
+            'nim' => 'required_if:role,mahasiswa|exists:mahasiswas,nim',
         ]);
 
         // Validasi hanya satu akun per perusahaan
         if ($request->role === 'perusahaan' && $request->id_perusahaan) {
             $exists = \App\Models\User::where('role', 'perusahaan')->where('id_perusahaan', $request->id_perusahaan)->exists();
-            if ($exists) {
+            $perusahaan = \App\Models\Perusahaan::find($request->id_perusahaan);
+            if ($exists || ($perusahaan && $perusahaan->user_id)) {
                 return back()->withErrors(['id_perusahaan' => 'Akun untuk perusahaan ini sudah ada!'])->withInput();
             }
         }
         // Validasi hanya satu akun kaprodi per prodi
         if ($request->role === 'kaprodi' && $request->prodi_id) {
             $exists = \App\Models\User::where('role', 'kaprodi')->where('prodi_id', $request->prodi_id)->exists();
-            if ($exists) {
+            $prodi = \App\Models\Prodi::find($request->prodi_id);
+            if ($exists || ($prodi && $prodi->user_id)) {
                 return back()->withErrors(['prodi_id' => 'Akun kaprodi untuk prodi ini sudah ada!'])->withInput();
             }
         }
         // Validasi hanya satu akun mahasiswa per NIM
-        if ($request->role === 'mahasiswa' && $request->username) {
-            $exists = \App\Models\Mahasiswa::where('nim', $request->username)->exists();
-            if ($exists) {
-                return back()->withErrors(['username' => 'Akun mahasiswa dengan NIM ini sudah ada!'])->withInput();
+        if ($request->role === 'mahasiswa' && $request->nim) {
+            $exists = \App\Models\User::where('role', 'mahasiswa')->where('nim', $request->nim)->exists();
+            $mahasiswa = \App\Models\Mahasiswa::where('nim', $request->nim)->first();
+            if ($exists || ($mahasiswa && $mahasiswa->user_id)) {
+                return back()->withErrors(['nim' => 'Akun untuk NIM ini sudah ada!'])->withInput();
             }
         }
 
@@ -90,6 +94,15 @@ class akunController extends Controller
         }
 
         $user = User::create($data);
+
+        // Jika role perusahaan, hubungkan user_id ke perusahaan
+        if ($request->role === 'perusahaan' && $request->id_perusahaan) {
+            $perusahaan = Perusahaan::find($request->id_perusahaan);
+            if ($perusahaan) {
+                $perusahaan->user_id = $user->id;
+                $perusahaan->save();
+            }
+        }
 
         // Jika role kaprodi, hubungkan ke prodi
         if ($request->role === 'kaprodi' && $request->prodi_id) {

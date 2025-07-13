@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Hash;
 
 class PerusahaanProfilController extends Controller
 {
+    // Hapus method create dan store
+    // Pada method edit, jika data perusahaan tidak ditemukan, tampilkan pesan error saja
     public function edit()
     {
         $perusahaan = Perusahaan::where('user_id', Auth::id())->first();
-        
         if (!$perusahaan) {
-            return redirect()->back()->with('error', 'Data perusahaan tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data perusahaan tidak ditemukan. Silakan hubungi operator.');
         }
-        
         return view('backend.perusahaan.profil.edit', compact('perusahaan'));
     }
 

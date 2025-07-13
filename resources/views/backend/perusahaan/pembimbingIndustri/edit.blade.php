@@ -49,6 +49,11 @@
                         <input type="email" name="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('email') border-red-500 @enderror" value="{{ old('email', $pembimbingIndustri->email) }}" required>
                         @error('email')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
                     </div>
+                    <div>
+                        <label for="kapasitas_bimbingan" class="block text-sm font-medium text-gray-700 mb-2">Kapasitas Bimbingan <span class="text-red-500">*</span></label>
+                        <input type="number" name="kapasitas_bimbingan" id="kapasitas_bimbingan" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 @error('kapasitas_bimbingan') border-red-500 @enderror" value="{{ old('kapasitas_bimbingan', $pembimbingIndustri->kapasitas_bimbingan) }}" min="1" required>
+                        @error('kapasitas_bimbingan')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+                    </div>
                 </div>
                 <div class="flex justify-end mt-6">
                     <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 font-medium">

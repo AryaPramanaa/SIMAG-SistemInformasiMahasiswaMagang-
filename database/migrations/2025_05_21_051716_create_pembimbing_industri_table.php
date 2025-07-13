@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kontak');
             $table->string('email');
             $table->foreignId('perusahaan_id')->constrained('perusahaans');
+            $table->integer('kapasitas_bimbingan')->nullable();
             $table->timestamps();
         });
     }
