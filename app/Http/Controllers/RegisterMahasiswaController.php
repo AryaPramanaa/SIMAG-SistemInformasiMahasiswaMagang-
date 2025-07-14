@@ -30,6 +30,7 @@ class RegisterMahasiswaController extends Controller
             'semester' => 'required|integer',
             'ktm' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'prodi_id' => 'required|exists:prodis,id',
+            'status' => 'required|in:Aktif,Non Aktif,BSS',
         ]);
 
         // Handle KTM file upload
@@ -45,7 +46,7 @@ class RegisterMahasiswaController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'mahasiswa',
-            'status' => 'Aktif', // default aktif
+            'status' => $request->status,
         ]);
 
         Mahasiswa::create([
@@ -53,7 +54,7 @@ class RegisterMahasiswaController extends Controller
             'nama' => $request->nama,
             'email' => $request->email,
             'no_hp' => $request->no_hp,
-            'status_aktif' => 'Aktif', // default aktif
+            'status_aktif' => $request->status,
             'alamat' => $request->alamat,
             'semester' => $request->semester,
             'ktm' => $ktmPath,
