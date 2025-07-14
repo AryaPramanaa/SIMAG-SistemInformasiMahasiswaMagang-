@@ -11,7 +11,8 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->only('username', 'password');
-        if (\Illuminate\Support\Facades\Auth::attempt($credentials)) {
+        $remember = $request->has('remember');
+        if (\Illuminate\Support\Facades\Auth::attempt($credentials, $remember)) {
             $user = \Illuminate\Support\Facades\Auth::user();
             if ($user->role === 'mahasiswa' && $user->status !== 'Aktif') {
                 \Illuminate\Support\Facades\Auth::logout();
@@ -39,17 +40,15 @@ class LoginController extends Controller
 
         switch ($user->role) {
             case 'perusahaan':
-                return redirect()->route('perusahaan.dashboard');
+                return redirect()->route('perusahaan.lowonganPKL.index');
             case 'mahasiswa':
-                return redirect()->route('mahasiswa.dashboard');
+                return redirect()->route('mahasiswa.lowonganPKL.index');
             case 'operator':
-                return redirect()->route('operator.dashboard');
+                return redirect()->route('operator.lowonganPKL.index');
             case 'kaprodi':
-                return redirect()->route('kaprodi.dashboard');
-            case 'administrasi':
-                return redirect()->route('administrasi.dashboard');
+                return redirect()->route('kaprodi.pengajuanPKL.index');
             case 'pimpinan':
-                return redirect()->route('pimpinan.dashboard');
+                return redirect()->route('pimpinan.rekapMahasiswaPKL.index');
             default:
                 return redirect('/');
         }

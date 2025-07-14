@@ -34,6 +34,12 @@ class pengajuanPKLController extends Controller
         }
         if ($request->has('lowongan_id')) {
             $selectedLowongan = \App\Models\LowonganPKL::with('perusahaan')->find($request->lowongan_id);
+            if ($selectedLowongan) {
+                // Pastikan divisi dari lowongan terpilih masuk ke $divisis
+                if (!$divisis->contains($selectedLowongan->divisi)) {
+                    $divisis = $divisis->push($selectedLowongan->divisi);
+                }
+            }
         }
 
         return view('backend.mahasiswa.pengajuanPKL.create', compact('mahasiswas', 'perusahaans', 'selectedLowongan', 'divisis'));

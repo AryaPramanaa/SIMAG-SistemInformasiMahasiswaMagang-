@@ -26,7 +26,6 @@ class RegisterMahasiswaController extends Controller
             'nim' => 'required|string|unique:mahasiswas,nim',
             'nama' => 'required|string',
             'no_hp' => 'required|string',
-            'status_aktif' => 'required|string',
             'alamat' => 'required|string',
             'semester' => 'required|integer',
             'ktm' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -46,7 +45,7 @@ class RegisterMahasiswaController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'mahasiswa',
-            'status' => 'Non Aktif', // default
+            'status' => 'Aktif', // default aktif
         ]);
 
         Mahasiswa::create([
@@ -54,7 +53,7 @@ class RegisterMahasiswaController extends Controller
             'nama' => $request->nama,
             'email' => $request->email,
             'no_hp' => $request->no_hp,
-            'status_aktif' => $request->status_aktif,
+            'status_aktif' => 'Aktif', // default aktif
             'alamat' => $request->alamat,
             'semester' => $request->semester,
             'ktm' => $ktmPath,

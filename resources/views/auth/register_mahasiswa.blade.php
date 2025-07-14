@@ -118,13 +118,6 @@
                     <input id="no_hp" name="no_hp" type="text" required class="input-transition flex h-11 w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-slate-900" placeholder="Masukkan No HP">
                 </div>
                 <div class="space-y-2">
-                    <label for="status_aktif" class="text-sm font-medium text-gray-700 block">Status Aktif</label>
-                    <select id="status_aktif" name="status_aktif" required class="input-transition flex h-11 w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm focus:border-green-500 focus:ring-2 focus:ring-green-200 text-slate-900">
-                        <option value="Aktif">Aktif</option>
-                        <option value="Non Aktif">Non Aktif</option>
-                    </select>
-                </div>
-                <div class="space-y-2">
                     <label for="alamat" class="text-sm font-medium text-gray-700 block">Alamat</label>
                     <input id="alamat" name="alamat" type="text" required class="input-transition flex h-11 w-full rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm placeholder:text-gray-400 focus:border-green-500 focus:ring-2 focus:ring-green-200 text-slate-900" placeholder="Masukkan Alamat">
                 </div>

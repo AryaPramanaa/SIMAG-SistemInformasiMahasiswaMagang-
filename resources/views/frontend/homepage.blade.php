@@ -80,6 +80,9 @@
                 box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             }
         }
+        #hero-img-slider {
+            transition: opacity 0.7s ease;
+        }
     </style>
 </head>
 
@@ -97,11 +100,11 @@
           <span class="font-bold text-2xl">SIMAG</span>
         </div>
         <!-- Hamburger (Mobile) -->
-        <button class="md:hidden" onclick="toggleMenu()">
+        {{-- <button class="md:hidden" onclick="toggleMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" />
           </svg>
-        </button>
+        </button> --}}
         <!-- Nav Menu -->
         <ul class="hidden md:flex flex-row gap-x-7 mobile-menu">
           <li><a href="#hero" class="text-base text-green-950 hover:text-green-600 hover:font-semibold">Home</a></li>
@@ -117,7 +120,7 @@
     </div>
     <!-- END NAVBAR -->
 
-    <section id="hero" class="hero max-w-7xl mx-auto mt-10 py-21 px-5 bg-gradient-to-br from-green-50 to-white rounded-3xl shadow mb-12">
+    <section id="hero" class="hero max-w-7xl mx-auto mt-10  py-28 px-5 bg-gradient-to-br from-green-50 to-white rounded-3xl shadow mb-12">
         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-8">
             <div class="flex flex-col gap-y-10 w-full md:w-1/2">
                 <div class="flex gap-y-2 flex-col text-center md:text-left">
@@ -135,7 +138,7 @@
                 </div>
             </div>
             <div class="w-full md:w-1/2 flex justify-center">
-                <img src="imgFE/magang.jpg" alt="Internship"
+                <img id="hero-img-slider" src="imgFE/GedungPNP1.jpg" alt="Internship"
                     class="w-full h-auto max-h-[450px] rounded-3xl object-cover shadow-xl border-4 border-white">
             </div>
         </div>
@@ -449,6 +452,27 @@
             }
         });
     </script>
+    <script>
+const heroImages = [
+    'imgFE/GedungPNP1.jpg',
+    'imgFE/GedungPNP2.jpg',
+    'imgFE/magang.jpg'
+];
+let heroCurrent = 0;
+const heroImg = document.getElementById('hero-img-slider');
+function showHeroImg(idx) {
+    heroImg.style.opacity = 0;
+    setTimeout(() => {
+        heroImg.src = heroImages[idx];
+        heroImg.style.opacity = 1;
+    }, 400);
+}
+function nextHeroImg() {
+    heroCurrent = (heroCurrent + 1) % heroImages.length;
+    showHeroImg(heroCurrent);
+}
+setInterval(nextHeroImg, 4000);
+</script>
 </body>
 
 </html>

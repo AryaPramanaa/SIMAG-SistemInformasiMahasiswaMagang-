@@ -46,6 +46,13 @@ class akunController extends Controller
 
     public function store(Request $request)
     {
+        // Hilangkan prodi_id dari $request jika bukan kaprodi
+        if ($request->role !== 'kaprodi') {
+            $request->request->remove('prodi_id');
+        }
+        if ($request->role !== 'perusahaan') {
+            $request->request->remove('id_perusahaan');
+        }
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
@@ -56,7 +63,7 @@ class akunController extends Controller
             'prodi_id' => 'required_if:role,kaprodi|exists:prodis,id',
             'nim' => 'required_if:role,mahasiswa|exists:mahasiswas,nim',
         ]);
-
+        
         // Validasi hanya satu akun per perusahaan
         if ($request->role === 'perusahaan' && $request->id_perusahaan) {
             $exists = \App\Models\User::where('role', 'perusahaan')->where('id_perusahaan', $request->id_perusahaan)->exists();
