@@ -235,10 +235,18 @@
                 <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40 grayscale hover:grayscale-0 transition">
                 <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40 grayscale hover:grayscale-0 transition">
                 <img src="imgFE/toyota.png" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
-                <img src="imgFE/pertamina.png" alt="pertamina logo" class="w-40 grayscale hover:grayscale-0 transition">
-                <img src="imgFE/trakindo.png" alt="trakindo logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/MSU-Management-Science-University-1.png" alt="pertamina logo" class="w-40 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/Red_Hat-Logo.wine_-768x512.png" alt="trakindo logo" class="w-40 grayscale hover:grayscale-0 transition">
                 <img src="imgFE/united_tractor.png" alt="united tractor logo" class="w-40 grayscale hover:grayscale-0 transition">
-                <img src="imgFE/toyota.png" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/mikrotik-academy-logo.jpg" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">  
+                <img src="imgFE/cisco.jpg" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/LiuGong-Indonesia-01.jpg" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/Logo_PLN.png" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/Logo_Semen_Padang.png" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/logo-PT-kurnia-abadi.jpeg" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/logo-pt-peruri.png" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+                <img src="imgFE/logo-pt-witbox-creative-media.jpeg" alt="toyota logo" class="w-20 grayscale hover:grayscale-0 transition">
+
             </div>
         </div>
     </section>

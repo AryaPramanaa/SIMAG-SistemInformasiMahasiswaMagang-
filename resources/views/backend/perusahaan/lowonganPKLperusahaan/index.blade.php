@@ -37,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($lowonganPKLs as $lowongan)
+                        @forelse ($lowonganPKLs as $lowongan)
                             <tr class="bg-white hover:bg-gray-50">
                                 <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center whitespace-nowrap">{{ $loop->index + 1 }}</td>
                                 <td class="px-2 py-5 text-sm font-semibold text-gray-500 text-center max-w-[120px] truncate whitespace-normal" title="{{ $lowongan->divisi }}">{{ $lowongan->divisi }}</td>
@@ -72,7 +72,13 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-2 py-4 text-center text-gray-500">
+                                    Tidak ada data lowongan PKL
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
